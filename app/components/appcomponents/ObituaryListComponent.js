@@ -303,11 +303,6 @@ const ObituaryListComponent = ({ city }) => {
           </div>
         </div>
 
-        {/* Zasavska regija container*/}
-        <div className="max-w-[1062px] w-full block tablet:hidden mobile:hidden text-[24px] mt-[55px] font-[400px] leading-[28.13px] text-[#1E2125]" >
-          <div>Zasavska regija</div>
-        </div>
-
         {/* Grid Contaner */}
         <div className="mx-auto mobile:hidden tablet:hidden desktop:grid desktop:grid-cols-2 grid-cols-1 mobile:gap-[22px] tablet:gap-6 desktop:gap-6 mt-[24.58px] tablet:mt-[69px] mobile:mt-[43px] justify-between">
           {obituaries
