@@ -332,7 +332,7 @@ export default function Funeral() {
                     className="w-6 h-6 object-contain"
                   />
                   <Link
-                    href={"/obituaryform"}
+                    href={"/osmrtnice-vpis"}
                     className="text-[16px] text-[#6D778E]"
                   >
                     DODAJ OSMRTNICO
@@ -369,7 +369,7 @@ export default function Funeral() {
                     className="w-6 h-6 object-contain"
                   />
                   <Link
-                    href={"/floristsgifts"}
+                    href={"/darila"}
                     className="text-[16px] text-[#6D778E]"
                   >
                     PODARI SKRBNIKA
@@ -406,7 +406,7 @@ export default function Funeral() {
                     className="w-6 h-6 object-contain"
                   />
                   <Link
-                    href={"/floristsgifts"}
+                    href={"/darila"}
                     className="text-[16px] text-[#6D778E]"
                   >
                     MOBI PREDLOGE
