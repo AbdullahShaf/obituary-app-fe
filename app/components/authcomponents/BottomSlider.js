@@ -71,11 +71,19 @@ const BottomSlider = ({ data }) => {
                         : "Podarjajo vam jih cvetličarne. Enako tudi Posvetilo, Zadnji klic."}
                   </p>
                 </div>
-                <Link href="/podjetja" className="flex w-[140.17px] h-[34px] items-center justify-center rounded-lg bg-[#CAF0F8] transition-colors hover:bg-blue-200">
+                {index === 0 ? (
+                  <Link href="/podjetja" className="flex w-[140.17px] h-[34px] items-center justify-center rounded-lg bg-[#CAF0F8] transition-colors hover:bg-blue-200">
                   <div className="text-[14px] self-center  text-[#1E2125] line-clamp-1">
-                    Več informacij
+                      Več informacij
+                    </div>
+                  </Link>
+                ):(
+                  <div className="flex w-[140.17px] h-[34px] items-center justify-center rounded-lg bg-[#CAF0F8] transition-colors hover:bg-blue-200">
+                    <div className="text-[14px] self-center  text-[#1E2125] line-clamp-1">
+                      Več informacij
+                    </div>
                   </div>
-                </Link>
+                )}
               </div>
             </SwiperSlide>
           ))}
