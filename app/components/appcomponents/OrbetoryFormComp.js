@@ -206,10 +206,17 @@ const OrbetoryFormComp = ({
 
   return (
     <div
-      className="relative max-w-[1920px] min-h-[852px] max-h-[100vh] mobile:h-[731px] desktop:bg-[url('/login_ozadje.avif')] bg-[url('/ozadje_klop_tablica.avif')] 
+      className="relative max-w-[1920px] min-h-[852px] max-h-[100vh] mobile:h-[731px] bg-[url('/ozadje_klop_tablica.avif')] 
     tablet: bg-cover bg-center w-full mx-auto desktop:mt-[80.02px] mobile:mt-[60px] tablet:mt-[79px] flex justify-center items-center
     "
     >
+      {/* Fixed background image for desktop */}
+      <img
+        src="/login_ozadje.avif"
+        alt="login background"
+        className="fixed inset-0 w-screen h-screen object-cover z-0"
+        style={{ width: '100vw', height: '100vh' }}
+      />
       <div
         className="mb-[30px] pt-[50px] mobile:pt-[20px] tablet:pt-[40px] pr-[91px] pl-[91px] w-[650px] h-[620px] max-h-[100%] mobile:mx-2 absolute flex flex-col
          bg-gray-300/30 backdrop-blur rounded-2xl border-[2px] border-[#FFFFFF] shadow-lg
@@ -341,7 +348,7 @@ const OrbetoryFormComp = ({
             </p>
           </div>
         ) : (
-          ""
+          ''
         )}
 
         {selectedBtn === 1 ? (
@@ -354,54 +361,50 @@ const OrbetoryFormComp = ({
                   onInputChange={handleInputChange}
                   value={
                     selectedObituary
-                      ? obituaries.find(
-                          (option) => option.id === selectedObituary
-                        )
+                      ? obituaries.find((option) => option.id === selectedObituary)
                       : null
                   }
                   inputValue={inputValue}
-                  placeholder={"Pokojni/ca"}
+                  placeholder={'Pokojni/ca'}
                   isSearchable
                   filterOption={(option, inputValue) =>
-                    option.label
-                      .toLowerCase()
-                      .startsWith(inputValue.toLowerCase())
+                    option.label.toLowerCase().startsWith(inputValue.toLowerCase())
                   }
                   styles={{
                     control: (base) => ({
                       ...base,
                       backgroundColor: `none`,
-                      border: "1px solid #d4d4d4", // Light gray border
-                      boxShadow: "none", // Remove default shadow
-                      borderRadius: "4px",
-                      "&:hover": { borderColor: "#105ccf" }, // Change border on hover
-                      minHeight: "36px", // Match the dropdown height in the image
+                      border: '1px solid #d4d4d4', // Light gray border
+                      boxShadow: 'none', // Remove default shadow
+                      borderRadius: '4px',
+                      '&:hover': { borderColor: '#105ccf' }, // Change border on hover
+                      minHeight: '36px' // Match the dropdown height in the image
                     }),
                     dropdownIndicator: (base) => ({
                       ...base,
-                      color: "#7d7d7d", // Arrow color
-                      "&:hover": { color: "#808080" }, // Arrow hover color
+                      color: '#7d7d7d', // Arrow color
+                      '&:hover': { color: '#808080' } // Arrow hover color
                     }),
                     indicatorSeparator: () => ({
-                      display: "none", // Remove the separator line
+                      display: 'none' // Remove the separator line
                     }),
                     menu: (base) => ({
                       ...base,
-                      borderRadius: "4px", // Rounded menu
-                      marginTop: "2px", // Minimal gap
-                      zIndex: 10,
+                      borderRadius: '4px', // Rounded menu
+                      marginTop: '2px', // Minimal gap
+                      zIndex: 10
                     }),
                     option: (base, { isFocused }) => ({
                       ...base,
-                      backgroundColor: isFocused ? "#e8f5f4" : "#fff", // Highlight on hover
-                      color: "#333", // Text color
-                      cursor: "pointer",
+                      backgroundColor: isFocused ? '#e8f5f4' : '#fff', // Highlight on hover
+                      color: '#333', // Text color
+                      cursor: 'pointer'
                     }),
                     singleValue: (base) => ({
                       ...base,
-                      color: "#105CCF",
-                      fontSize: "18px",
-                    }),
+                      color: '#105CCF',
+                      fontSize: '18px'
+                    })
                   }}
                 />
               </div>
@@ -418,43 +421,43 @@ const OrbetoryFormComp = ({
                   control: (base) => ({
                     ...base,
                     backgroundColor: `none`,
-                    border: "1px solid #d4d4d4", // Light gray border
-                    boxShadow: "none", // Remove default shadow
-                    borderRadius: "4px",
-                    "&:hover": { borderColor: "#105ccf" }, // Change border on hover
-                    minHeight: "36px", // Match the dropdown height in the image
+                    border: '1px solid #d4d4d4', // Light gray border
+                    boxShadow: 'none', // Remove default shadow
+                    borderRadius: '4px',
+                    '&:hover': { borderColor: '#105ccf' }, // Change border on hover
+                    minHeight: '36px' // Match the dropdown height in the image
                   }),
                   dropdownIndicator: (base) => ({
                     ...base,
-                    color: "#7d7d7d", // Arrow color
-                    "&:hover": { color: "#808080" }, // Arrow hover color
+                    color: '#7d7d7d', // Arrow color
+                    '&:hover': { color: '#808080' } // Arrow hover color
                   }),
                   indicatorSeparator: () => ({
-                    display: "none", // Remove the separator line
+                    display: 'none' // Remove the separator line
                   }),
                   menu: (base) => ({
                     ...base,
-                    borderRadius: "4px", // Rounded menu
-                    marginTop: "2px", // Minimal gap
-                    zIndex: 10,
+                    borderRadius: '4px', // Rounded menu
+                    marginTop: '2px', // Minimal gap
+                    zIndex: 10
                   }),
                   option: (base, { isFocused, isDisabled }) => ({
                     ...base,
                     backgroundColor: isDisabled
-                      ? "#f5f5f5" // Light gray bg for disabled options
+                      ? '#f5f5f5' // Light gray bg for disabled options
                       : isFocused
-                      ? "#e8f5f4" // Hover highlight for enabled options
-                      : "#fff",
-                    color: isDisabled ? "#999" : "#333", // Dimmed text for disabled
-                    cursor: isDisabled ? "not-allowed" : "pointer",
-                    fontStyle: "normal",
-                    opacity: isDisabled ? 0.7 : 1,
+                      ? '#e8f5f4' // Hover highlight for enabled options
+                      : '#fff',
+                    color: isDisabled ? '#999' : '#333', // Dimmed text for disabled
+                    cursor: isDisabled ? 'not-allowed' : 'pointer',
+                    fontStyle: 'normal',
+                    opacity: isDisabled ? 0.7 : 1
                   }),
                   singleValue: (base) => ({
                     ...base,
-                    color: "#105CCF",
-                    fontSize: "18px",
-                  }),
+                    color: '#105CCF',
+                    fontSize: '18px'
+                  })
                 }}
               />
             </div>
@@ -479,9 +482,8 @@ const OrbetoryFormComp = ({
               tablet:text-[14px]
               mobile:text-[12px]"
               >
-                Op. če še ni registriran, naj se doma registrira s tem emailom,
-                ki ga bo podal tukaj in v uporabniškem računu ga bo že čakal
-                Skrbnik.{" "}
+                Op. če še ni registriran, naj se doma registrira s tem emailom, ki ga bo podal tukaj
+                in v uporabniškem računu ga bo že čakal Skrbnik.{' '}
               </p>
             </div>
 
@@ -510,7 +512,7 @@ const OrbetoryFormComp = ({
             </div>
           </div>
         ) : (
-          ""
+          ''
         )}
 
         {selectedBtn === 2 ? (
@@ -523,54 +525,50 @@ const OrbetoryFormComp = ({
                   onInputChange={handleInputChange}
                   value={
                     selectedObituary
-                      ? obituaries.find(
-                          (option) => option.id === selectedObituary
-                        )
+                      ? obituaries.find((option) => option.id === selectedObituary)
                       : null
                   }
                   inputValue={inputValue}
-                  placeholder={"Pokojni/ca"}
+                  placeholder={'Pokojni/ca'}
                   isSearchable
                   filterOption={(option, inputValue) =>
-                    option.label
-                      .toLowerCase()
-                      .startsWith(inputValue.toLowerCase())
+                    option.label.toLowerCase().startsWith(inputValue.toLowerCase())
                   }
                   styles={{
                     control: (base) => ({
                       ...base,
                       backgroundColor: `none`,
-                      border: "1px solid #d4d4d4", // Light gray border
-                      boxShadow: "none", // Remove default shadow
-                      borderRadius: "4px",
-                      "&:hover": { borderColor: "#105ccf" }, // Change border on hover
-                      minHeight: "36px", // Match the dropdown height in the image
+                      border: '1px solid #d4d4d4', // Light gray border
+                      boxShadow: 'none', // Remove default shadow
+                      borderRadius: '4px',
+                      '&:hover': { borderColor: '#105ccf' }, // Change border on hover
+                      minHeight: '36px' // Match the dropdown height in the image
                     }),
                     dropdownIndicator: (base) => ({
                       ...base,
-                      color: "#7d7d7d", // Arrow color
-                      "&:hover": { color: "#808080" }, // Arrow hover color
+                      color: '#7d7d7d', // Arrow color
+                      '&:hover': { color: '#808080' } // Arrow hover color
                     }),
                     indicatorSeparator: () => ({
-                      display: "none", // Remove the separator line
+                      display: 'none' // Remove the separator line
                     }),
                     menu: (base) => ({
                       ...base,
-                      borderRadius: "4px",
-                      marginTop: "2px",
-                      zIndex: 10,
+                      borderRadius: '4px',
+                      marginTop: '2px',
+                      zIndex: 10
                     }),
                     option: (base, { isFocused }) => ({
                       ...base,
-                      backgroundColor: isFocused ? "#e8f5f4" : "#fff",
-                      color: "#333",
-                      cursor: "pointer",
+                      backgroundColor: isFocused ? '#e8f5f4' : '#fff',
+                      color: '#333',
+                      cursor: 'pointer'
                     }),
                     singleValue: (base) => ({
                       ...base,
-                      color: "#105CCF",
-                      fontSize: "18px",
-                    }),
+                      color: '#105CCF',
+                      fontSize: '18px'
+                    })
                   }}
                 />
               </div>
@@ -586,43 +584,43 @@ const OrbetoryFormComp = ({
                   control: (base) => ({
                     ...base,
                     backgroundColor: `none`,
-                    border: "1px solid #d4d4d4", // Light gray border
-                    boxShadow: "none", // Remove default shadow
-                    borderRadius: "4px",
-                    "&:hover": { borderColor: "#105ccf" }, // Change border on hover
-                    minHeight: "36px", // Match the dropdown height in the image
+                    border: '1px solid #d4d4d4', // Light gray border
+                    boxShadow: 'none', // Remove default shadow
+                    borderRadius: '4px',
+                    '&:hover': { borderColor: '#105ccf' }, // Change border on hover
+                    minHeight: '36px' // Match the dropdown height in the image
                   }),
                   dropdownIndicator: (base) => ({
                     ...base,
-                    color: "#7d7d7d", // Arrow color
-                    "&:hover": { color: "#808080" }, // Arrow hover color
+                    color: '#7d7d7d', // Arrow color
+                    '&:hover': { color: '#808080' } // Arrow hover color
                   }),
                   indicatorSeparator: () => ({
-                    display: "none", // Remove the separator line
+                    display: 'none' // Remove the separator line
                   }),
                   menu: (base) => ({
                     ...base,
-                    borderRadius: "4px", // Rounded menu
-                    marginTop: "2px", // Minimal gap
-                    zIndex: 10,
+                    borderRadius: '4px', // Rounded menu
+                    marginTop: '2px', // Minimal gap
+                    zIndex: 10
                   }),
                   option: (base, { isFocused, isDisabled }) => ({
                     ...base,
                     backgroundColor: isDisabled
-                      ? "#f5f5f5" // Light gray bg for disabled options
+                      ? '#f5f5f5' // Light gray bg for disabled options
                       : isFocused
-                      ? "#e8f5f4" // Hover highlight for enabled options
-                      : "#fff",
-                    color: isDisabled ? "#999" : "#333", // Dimmed text for disabled
-                    cursor: isDisabled ? "not-allowed" : "pointer",
-                    fontStyle: "normal",
-                    opacity: isDisabled ? 0.7 : 1,
+                      ? '#e8f5f4' // Hover highlight for enabled options
+                      : '#fff',
+                    color: isDisabled ? '#999' : '#333', // Dimmed text for disabled
+                    cursor: isDisabled ? 'not-allowed' : 'pointer',
+                    fontStyle: 'normal',
+                    opacity: isDisabled ? 0.7 : 1
                   }),
                   singleValue: (base) => ({
                     ...base,
-                    color: "#105CCF",
-                    fontSize: "18px",
-                  }),
+                    color: '#105CCF',
+                    fontSize: '18px'
+                  })
                 }}
               />
             </div>
@@ -645,9 +643,8 @@ const OrbetoryFormComp = ({
               mobile:text-[12px]
               "
               >
-                Op. če še ni registriran, naj se doma registrira s tem emailom,
-                ki ga bo podal tukaj in v uporabniškem računu ga bo že čakala
-                Mobi kartica.
+                Op. če še ni registriran, naj se doma registrira s tem emailom, ki ga bo podal tukaj
+                in v uporabniškem računu ga bo že čakala Mobi kartica.
               </p>
             </div>
             <button
@@ -689,7 +686,7 @@ const OrbetoryFormComp = ({
             </div>
           </div>
         ) : (
-          ""
+          ''
         )}
 
         {selectedBtn === 3 ? (
@@ -719,10 +716,9 @@ const OrbetoryFormComp = ({
               mobile:text-[12px]
               "
               >
-                Op. če še ni registriran, naj se doma registrira s tem emailom,
-                ki ga bo podal tukaj in v uporabniškem računu ga bo že čakalo
-                Posvetilo (ali Zadnji klic, Zahvala, lahko deli daljše zgodbe
-                ali poezijo ali...)
+                Op. če še ni registriran, naj se doma registrira s tem emailom, ki ga bo podal tukaj
+                in v uporabniškem računu ga bo že čakalo Posvetilo (ali Zadnji klic, Zahvala, lahko
+                deli daljše zgodbe ali poezijo ali...)
               </p>
             </div>
 
@@ -748,7 +744,7 @@ const OrbetoryFormComp = ({
             </div>
           </div>
         ) : (
-          ""
+          ''
         )}
       </div>
     </div>
