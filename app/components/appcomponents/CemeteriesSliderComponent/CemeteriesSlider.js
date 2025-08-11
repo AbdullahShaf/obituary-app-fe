@@ -106,7 +106,7 @@ export default function ImageCarousel({ images }) {
               className="object-cover w-full h-full"
             />
             <div className="absolute bottom-0 left-0 w-full p-4 bg-black/40 backdrop-blur-md text-white text-sm">
-              {cemetery.name} v {cemetery.address}
+              {cemetery.name} {cemetery.address && "v"} {cemetery.address}
             </div>
           </div>
         ))}

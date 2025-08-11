@@ -5,8 +5,8 @@ import ImageCarousel from "./CemeteriesSliderComponent/CemeteriesSlider";
 const defaultCemeteries = [
   {
     image: "/bg4.jpg",
-    name: "Zadnja slika",
-    address: "Pokopališče na Sveti Gorici na Kozjanskem",
+    name: "Pokopališče",
+    address: "",
     city: "Trbovlje",
   },
   // {
@@ -106,7 +106,7 @@ const Cemeteries = ({ data }) => {
                     key={`${cemetery.id}-cemetery-${index}-${cemetery.companyId}`}
                     className="text-[16px] text-[#414141] font-variation-customOpt16 pl-[6px]"
                   >
-                    {cemetery.name} v {cemetery.address}
+                    {cemetery.name} {cemetery.address && "v"} {cemetery.address}
                   </li>
                 ))}
             </ol>
