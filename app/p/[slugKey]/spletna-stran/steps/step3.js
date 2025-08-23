@@ -278,7 +278,7 @@ function SliderBlock({ index, title, cemetery, onChange }) {
             placeholder="Pokopališče v Gabrskem"
           />
         </div>
-        <div className="space-y-[8px]">
+        <div className="space-y-[8px] hidden">
           <label className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
             Naslov pokopališča {index}
           </label>
