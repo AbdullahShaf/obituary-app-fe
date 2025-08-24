@@ -7,6 +7,7 @@ import ModalNew2 from "../components/appcomponents/ModalNew2";
 import ModalNew3 from "../components/appcomponents/ModalNew3";
 import ModalNew4 from "../components/appcomponents/ModalNew4";
 import ModalNew5 from "../components/appcomponents/ModalNew5";
+import ModalNew6 from "../components/appcomponents/ModalNew6";
 
 const MemoryPage = ({ params }) => {
   const handleMemoryChange = () => {
