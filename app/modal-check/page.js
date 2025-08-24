@@ -22,6 +22,7 @@ const MemoryPage = ({ params }) => {
   const [isShowModal3, setIsShowModal3] = useState(false);
   const [isShowModal4, setIsShowModal4] = useState(false);
   const [isShowModal5, setIsShowModal5] = useState(false);
+  const [isShowModal6, setIsShowModal6] = useState(false);
 
   return (
     <Layout
@@ -109,6 +110,12 @@ const MemoryPage = ({ params }) => {
               className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200"
             >
               Modal 5
+            </button>
+            <button
+              onClick={() => setIsShowModal6(true)}
+              className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200"
+            >
+              Modal 6
             </button>
           </div>
         </div>
