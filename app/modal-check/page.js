@@ -7,8 +7,7 @@ import ModalNew2 from "../components/appcomponents/ModalNew2";
 import ModalNew3 from "../components/appcomponents/ModalNew3";
 import ModalNew4 from "../components/appcomponents/ModalNew4";
 import ModalNew5 from "../components/appcomponents/ModalNew5";
-import ModelNew6 from "../components/appcomponents/ModelNew6";
-import ModalNew6 from "../components/appcomponents/ModelNew6";
+import ModalNew6 from "../components/appcomponents/ModalNew6";
 
 const MemoryPage = ({ params }) => {
   const handleMemoryChange = () => {
@@ -69,7 +68,7 @@ const MemoryPage = ({ params }) => {
         />
         <ModalNew6
           isShowModal={isShowModal6}
-          setIsShowModal={setIsShowModal5}
+          setIsShowModal={setIsShowModal6}
           select_id={select_id}
           set_Id={setSelect_Id}
         />
