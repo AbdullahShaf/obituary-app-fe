@@ -11,6 +11,7 @@ import userService from "@/services/user-service";
 import toast from "react-hot-toast";
 import ModalNew from "../../../components/appcomponents/ModalNew";
 import shopService from "@/services/shop-service";
+import ModalNew6 from "../../../components/appcomponents/ModalNew6";
 
 export default function AccountSettings() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -23,7 +24,14 @@ export default function AccountSettings() {
   const [data, setData] = useState({});
   const [selectedCity, setSelectedCity] = useState(null);
   const [isShowModal1, setIsShowModal1] = useState(false);
+  const [isShowModal6, setIsShowModal6] = useState(false);
   const [select_id, setSelect_Id] = useState("");
+  const [firstPayload, setFirstPayload] = useState(null);
+
+  const toggleModal6 = () => {
+    setIsShowModal1(false);
+    setIsShowModal6(!isShowModal6);
+  }
 
   const getCompleteCompanyData = async () => {
     try {
@@ -435,8 +443,18 @@ export default function AccountSettings() {
         select_id={select_id}
         set_Id={setSelect_Id}
         data={data?.CompanyPage}
-        onChange={(updatedShops) => {
-          console.log(updatedShops, "====");
+        onChange={(updatedPayload) => {
+          setFirstPayload(updatedPayload);
+        }}
+        toggleModal6={toggleModal6}
+      />
+
+      <ModalNew6
+        isShowModal={isShowModal6}
+        setIsShowModal={setIsShowModal6}
+        data={firstPayload}
+        onChange={(updatedPayload) => {
+          setFirstPayload(updatedPayload);
           getCompleteCompanyData();
         }}
       />
