@@ -17,8 +17,8 @@ const getBackgroundImage = (data) => {
 
 const getLogoImage = (data) => {
   if (!data) return "/logo_funeral_company.png";
-  if (data.logo && data.logo.includes("companyUploads")) {
-    return `${API_BASE_URL}/${data.logo}`;
+  if (data?.company_logo && data?.company_logo.includes("companyUploads")) {
+    return `${API_BASE_URL}/${data.company_logo}`;
   }
   return data.logo || "/logo_funeral_company.png";
 };
