@@ -74,7 +74,7 @@ const Card1 = ({ data, cardRefs, index, cemetery }) => {
               </h1>
               <p className="">{formatDate(data?.funeralTimestamp)}</p>
               <p className="text-[#fff] pb-10">
-                {cemetery}
+                {data?.Cemetry?.funeralCemetery ?? cemetery}
                 {/* {data?.Cemetry?.funeralCemetery} v {data?.funeralLocation} */}
               </p>
             </div>

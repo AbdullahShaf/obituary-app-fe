@@ -86,6 +86,29 @@ const changeSlug = async (slug: string) => {
   return response.data;
 };
 
+const getMyCards = async () => {
+  try {
+    const endpoint = "/user/me/cards";
+
+    const response = await axios.get(endpoint);
+    return response.data;
+  } catch (error: unknown) {
+    return new Error("Network error or no response");
+  }
+};
+
+const downloadCard = async (cardId: string) => {
+  const endpoint = "/user/me/download";
+
+  const response = await axios.patch(
+    endpoint,
+    { cardId: cardId },
+    { withCredentials: true }
+  );
+
+  return response.data;
+};
+
 const userService = {
   registerUser,
   getMyUser,
@@ -93,6 +116,8 @@ const userService = {
   deleteMyUser,
   changeSlug,
   updateUserAndCompany,
+  getMyCards,
+  downloadCard
 };
 
 export default userService;

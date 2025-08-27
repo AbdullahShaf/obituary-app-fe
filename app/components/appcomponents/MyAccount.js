@@ -86,6 +86,7 @@ const MyAccount = () => {
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
+    getAllCards();
   }, []);
   const formatDate = (timestamp) => {
     return new Date(timestamp).toLocaleString("sl-SI", {
@@ -104,6 +105,11 @@ const MyAccount = () => {
       }))
       .sort((a, b) => a.place.localeCompare(b.place, "sl")),
   ];
+
+  const getAllCards = async () => {
+    const response = await userService.getMyCards();
+    console.log('|>>>>>>>>>>>>>>>> response', response);
+  }
 
   const handleCitySelect = async (item) => {
     try {
@@ -260,8 +266,8 @@ const MyAccount = () => {
                   {user?.city
                     ? user.city
                     : selectedCity
-                    ? selectedCity
-                    : "Izberi občino"}
+                      ? selectedCity
+                      : "Izberi občino"}
                 </span>
               </div>
               <div className="hidden  h-5 w-24   justify-between pl-0 pr-0 items-center mobileUserAcc:flex">
