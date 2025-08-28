@@ -20,9 +20,18 @@ const getCemeteries = async (queryParams?: {}) => {
   }
 };
 
+const deleteCemetery = async (id: number) => {
+  const endpoint = `/cemetry/${id}`;
+  const response = await axios.delete(endpoint, {
+    headers: { "Content-Type": "application/json" },
+  });
+  return response.data;
+};
+
 const cemetryService = {
   createCemetry,
   getCemeteries,
+  deleteCemetery,
 };
 
 export default cemetryService;
