@@ -96,7 +96,7 @@ export default function Step2({ data, onChange, handleStepChange }) {
           <div className="space-y-[21px]">
             <OpenableBlock
               isDefaultOpen={true}
-              title="Teskti"
+              title="Teksti"
               index={1}
               openBlock={openedBlock === 1}
               handleOpenBlock={() => setOpenedBlock(1)}

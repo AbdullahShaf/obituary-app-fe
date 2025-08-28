@@ -43,11 +43,12 @@ const SadProgram = ({ data }) => {
                 >
                   <Image
                     src={
+                      typeof item.image === "string" &&
                       item.image.includes("packageUploads")
                         ? `${API_BASE_URL}/${item.image}`
-                        : item.image
+                        : item.image || ""
                     }
-                    alt="flower 1 image"
+                    alt={item.title || "package image"}
                     className="w-[119.65px] h-[135.08px] mt-[58.27px]"
                     width={120}
                     height={135}
@@ -69,11 +70,12 @@ const SadProgram = ({ data }) => {
               >
                 <Image
                   src={
+                    typeof item.image === "string" &&
                     item.image.includes("packageUploads")
                       ? `${API_BASE_URL}/${item.image}`
-                      : item.image
+                      : item.image || ""
                   }
-                  alt="flower 1 image"
+                  alt={item.title || "package image"}
                   className="w-[119.65px] h-[135.08px] mt-[58.27px]"
                   width={120}
                   height={135}

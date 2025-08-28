@@ -57,6 +57,10 @@ export default function Step5({
       //   toast.error("Each Slide must have an image,title and description");
       //   return;
       // }
+      if (!companyId) {
+        toast.error("Company is not ready. Please try again in a moment.");
+        return false;
+      }
       const formData = new FormData();
       formData.append("companyId", companyId);
 

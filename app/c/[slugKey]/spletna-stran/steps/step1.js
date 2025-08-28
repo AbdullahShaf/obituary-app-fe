@@ -56,7 +56,7 @@ export default function Step1({
       let response;
       if (companyId !== null) {
         const hasChanges =
-          (data && data.address !== heading) ||
+          (data && data.heading !== heading) ||
           data.title !== title ||
           data.description !== description ||
           data.phone !== phone ||

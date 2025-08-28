@@ -75,7 +75,7 @@ export const FrequentlyAskedQuestionView = ({ from, data }) => {
             ? faqs.map(
                 (faq, index) =>
                   faq.answer && (
-                    <>
+                    <React.Fragment key={index}>
                       <button
                         onClick={() => {
                           setVisibleIndexes((prev) => ({
@@ -107,7 +107,7 @@ export const FrequentlyAskedQuestionView = ({ from, data }) => {
                           style={{ paddingTop: "0px !important" }}
                         />
                       )}
-                    </>
+                    </React.Fragment>
                   )
               )
             : null}
@@ -164,7 +164,7 @@ export const FrequentlyAskedQuestionView2 = ({ from, data }) => {
 
           {faqs && faqs.length > 0
             ? faqs.map((faq, index) => (
-                <>
+                <React.Fragment key={index}>
                   <button
                     onClick={() =>
                       setVisibleIndexes((prev) => ({
@@ -201,7 +201,7 @@ export const FrequentlyAskedQuestionView2 = ({ from, data }) => {
                       className="text-[#1E2125] w-full prose mt-3 mb-6 px-6 whitespace-pre-line"
                     ></div>
                   )}
-                </>
+                </React.Fragment>
               ))
             : null}
         </div>
@@ -224,7 +224,7 @@ export const FrequentlyAskedQuestionView3 = ({ from, data }) => {
     <>
       {faqs && faqs.length > 0
         ? faqs.map((faq, index) => (
-            <>
+            <React.Fragment key={index}>
               <button
                 onClick={() =>
                   setVisibleIndexes((prev) => ({
@@ -269,7 +269,7 @@ export const FrequentlyAskedQuestionView3 = ({ from, data }) => {
                   dangerouslySetInnerHTML={{ __html: faq.answer }}
                 />
               )}
-            </>
+            </React.Fragment>
           ))
         : null}
     </>

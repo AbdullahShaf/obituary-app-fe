@@ -89,7 +89,7 @@ export default function Step3({ data, onChange, handleStepChange }) {
         // Append default fields
         formData.append(`cemeteries[${index}][name]`, cemetery.name);
         formData.append(`cemeteries[${index}][address]`, cemetery.address);
-        formData.append(`cemeteries[${index}][city]`, user.city);
+        formData.append(`cemeteries[${index}][city]`, user?.city ?? "");
 
         // If image is selected, append it
         if (cemetery.image) {

@@ -214,9 +214,6 @@ export default function Step3({
                   alt="Dodaj sliko"
                   className="w-[16px] h-[16px]"
                 />
-                {/*<span className="text-[14px] text-[#3C3E41] font-normal leading-[100%]">
-                  DODAJ ŠE DODATNE (največ 8)
-                </span>*/}
               </div>
             </div>
           </div>
