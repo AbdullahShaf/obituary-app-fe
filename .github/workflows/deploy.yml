@@ -3,7 +3,7 @@ name: Deploy Frontend
 on:
   push:
     branches:
-      - staging
+      - main
   workflow_dispatch:
 
 jobs:
@@ -21,10 +21,8 @@ jobs:
         username: ${{ secrets.VPS_USER }}
         key: ${{ secrets.DEPLOY_KEY }}
         script: |
-          cd /home/jenkins/deployment/obituary-app/staging-fe/obituary-app-fe
-          sleep 1
-          git checkout staging
-          git pull origin staging
+          cd /home/jenkins/deployment/obituary-app/obituary-fe
+          sleep 3
           npm install
           sleep 3
-          npm run build && /root/.nvm/versions/node/v21.7.3/bin/pm2 restart staging-fe
+          npm run build && /root/.nvm/versions/node/v21.7.3/bin/pm2 restart obituary-fe
