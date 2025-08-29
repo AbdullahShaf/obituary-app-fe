@@ -9,15 +9,15 @@ import ModalLibrary from "../appcomponents/ModalLibrary";
 import Dropdown from "@/app/components/appcomponents/Dropdown";
 import userService from "@/services/user-service";
 import toast from "react-hot-toast";
+import { useAuth } from "@/hooks/useAuth";
 
 const MyAccount = () => {
-  {
-    /* 17 October 2024 */
-  }
+  const { user } = useAuth();
+  
   const [isShowModal, setIsShowModal] = useState(false);
   const [select_id, setSelect_Id] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
-  const [user, setUser] = useState("");
+  // const [user, setUser] = useState("");
   const [selectedCity, setSelectedCity] = useState(null);
 
   // const [showImageView, setShowImageView] = useState(false)
@@ -81,12 +81,6 @@ const MyAccount = () => {
     );
   };
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
   const formatDate = (timestamp) => {
     return new Date(timestamp).toLocaleString("sl-SI", {
       day: "2-digit",
@@ -107,13 +101,9 @@ const MyAccount = () => {
 
   const handleCitySelect = async (item) => {
     try {
-      console.log("here", item);
       const response = await userService.updateMyUser({ city: item });
-      toast.success("City Updated Successfully");
+      if (response.ok) toast.success("City Updated Successfully");
       setSelectedCity(item);
-      const newUser = { ...user, city: item };
-      localStorage.setItem("user", JSON.stringify(newUser));
-      setUser(newUser);
     } catch (error) {
       console.log(error);
       toast.error("Error Updating City");

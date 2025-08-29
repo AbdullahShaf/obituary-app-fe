@@ -12,8 +12,10 @@ import toast from "react-hot-toast";
 import ModalNew from "../../../components/appcomponents/ModalNew";
 import shopService from "@/services/shop-service";
 import ModalNew6 from "../../../components/appcomponents/ModalNew6";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function AccountSettings() {
+  const { user } = useAuth();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isPrivilegijiExpanded, setIsPrivilegijiExpanded] = useState(false);
 
@@ -39,8 +41,6 @@ export default function AccountSettings() {
       queryParams.type = "FLORIST";
       const response = await companyService.getCompleteCompany(queryParams);
 
-      // Get user ID from local storage
-      const user = JSON.parse(localStorage.getItem("user"));
       const userId = user?.id;
 
       const shopData = await shopService.getFloristShops({

@@ -19,14 +19,16 @@ import AnnouncementBlock from "../../../components/appcomponents/AnnouncementBlo
 import { FlowerShops2 } from "../../../components/appcomponents/FlowerShops";
 import { useRouter } from "next/navigation";
 import Card1 from "@/app/components/mobile-cards/card1";
+import { useAuth } from "@/hooks/useAuth";
 
 const MemoryPage = ({ params }) => {
-  const { id, user } = params;
+  const { id } = params;
   const router = useRouter();
+  const { user } = useAuth();
+
   const [isShowModal, setIsShowModal] = useState(false);
   const [select_id, setSelect_Id] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
-  const [currentUser, setCurrentUser] = useState(null);
 
   const [showImageView, setShowImageView] = useState(false);
   const [imageId, setImageId] = useState("0");
@@ -58,7 +60,7 @@ const MemoryPage = ({ params }) => {
       if (id) {
         const visitRespone = await obituaryService.updateObituaryVisits({
           obituaryId: id,
-          userId: currentUser?.id || null,
+          userId: user?.id || null,
         });
 
         if (visitRespone.error) {
@@ -93,13 +95,6 @@ const MemoryPage = ({ params }) => {
       ...updatedData,
     }));
   };
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setCurrentUser(JSON.parse(storedUser));
-    }
-  }, []);
 
   const handleMemoryChange = async (type) => {
     try {
