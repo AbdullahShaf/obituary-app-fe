@@ -85,7 +85,7 @@ function ObituaryHeader({ from, data, handleCloseModal }) {
                   type="button"
                   aria-label="Zapri"
                   onClick={handleCloseModal}
-                  className="absolute top-4 desktop:right-4 right-12 z-10"
+                  className="absolute top-4 desktop:right-4 right-[1.5rem] z-10"
                   style={{ background: "none", border: "none", padding: 0 }}
                 >
                   <img
