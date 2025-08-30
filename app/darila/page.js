@@ -56,14 +56,13 @@ const FloristsGifts = () => {
     // Check permission before allowing submission
     const currentUser = JSON.parse(localStorage.getItem("user") || "{}");
     // Temporarily commented
-    if (!currentUser.assignKeeperPermission) {
-      toast.error("You don't have permission to assign keepers.");
-      return;
-    }
+    // if (!currentUser.assignKeeperPermission) {
+    //   toast.error("You don't have permission to assign keepers.");
+    //   return;
+    // }
 
     try {
       const formData = new FormData();
-
       formData.append("obituaryId", String(selectedObituary));
       formData.append("time", String(KeeperExpiry));
       formData.append("email", email);

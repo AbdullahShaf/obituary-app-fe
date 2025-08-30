@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import MobileCardGift from "./MobileCardGift";
 import { getCardsImageAndPdfsFiles } from "@/utils/downloadCards";
+import { KeeperData } from "@/utils/commonUtils";
 
 const OrbetoryFormComp = ({
   setModalVisible,
@@ -113,10 +114,10 @@ const OrbetoryFormComp = ({
     // Check permission before allowing submission
     const currentUser = JSON.parse(localStorage.getItem("user") || "{}");
     // Temporarily commented
-    if (!currentUser.sendMobilePermission) {
-      toast.error("You don't have permission to send mobile cards.");
-      return;
-    }
+    // if (!currentUser.sendMobilePermission) {
+    //   toast.error("You don't have permission to send mobile cards.");
+    //   return;
+    // }
 
     try {
       if (!validateData()) return;
@@ -151,7 +152,7 @@ const OrbetoryFormComp = ({
       }
     }
   };
-  
+
   const cards = [
     {
       value: 1,
@@ -182,30 +183,7 @@ const OrbetoryFormComp = ({
       disabled: false
     },
   ];
-  const KeeperData = [
-    {
-      value: 1,
-      label: `1. Skrbnik – tedenski`,
-      isDisabled: true,
-    },
-    {
-      value: 2,
-      label: `2. Skrbnik – mesečni`,
-    },
-    ,
-    {
-      value: 3,
-      label: `3. Skrbnik – letni`,
-      isDisabled: true,
-    },
-    ,
-    {
-      value: 4,
-      label: `4. Skrbnik – 6-letni`,
-      isDisabled: true,
-    },
-    ,
-  ];
+  
   const getUpdatedCards = () => {
     const selected = selectedObituary && selectedObituary?.value && obituaries.find(
       (option) => option.id === selectedObituary.value
@@ -304,10 +282,7 @@ const OrbetoryFormComp = ({
           ) : (
             <button
               type="button"
-               onClick={() => {
-                setSelectedBtn(1);
-                showForms(true);
-              }}
+              disabled
               className="w-[144px] h-[47px] rounded-[8px] bg-[linear-gradient(180deg,_#999999_0%,_#666666_100%)] border-[2px] border-[solid] border-[#CCCCCC] font-sourcesans text-[16px] font-normal leading-[24px] text-[#ffffff] opacity-60 cursor-not-allowed
                tablet:w-[133px] tablet:font-normal
                mobile:w-[95px] mobile:font-normal
