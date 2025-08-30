@@ -44,7 +44,6 @@ const FloristsGifts = () => {
 
     try {
       const formData = new FormData();
-
       formData.append("obituaryId", String(selectedObituary));
       formData.append("time", String(KeeperExpiry));
       formData.append("email", email);
@@ -65,7 +64,8 @@ const FloristsGifts = () => {
       toast.success("Keeper Assigned Successfully");
       console.log(response);
     } catch (error) {
-      toast.error("Some Error Occured");
+      console.log('>>>>>>>>> error', error);
+      toast.error(error?.data?.error ?? "Some Error Occured");
     }
   };
 
