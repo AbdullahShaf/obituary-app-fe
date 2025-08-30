@@ -98,12 +98,12 @@ function SidebarDekstop({
               pendingConfirmations={pendingConfirmations}
               isKeeper={true}
             />
-            <CommonViewUserAccSidebar
+            {/* <CommonViewUserAccSidebar
               imgPath={"/ico_setting.png"}
               title={"Dodaj vsebine"}
               route={`/u/${user?.slugKey}/dodaj-vsebine`}
               isKeeper={true}
-            />
+            /> */}
           </div>
         ) : (
           <div>
