@@ -11,10 +11,10 @@ import { usePathname } from "next/navigation";
 const footerLinkSets = {
   "/osmrtnice": [
     { label: "Prva stran", path: "/", showOnMobile: false },
-    { label: "Osmrtnice", path: "/osmrtnice ", showOnMobile: true },
-    { label: "Pogrebi", path: "/pogrebi ", showOnMobile: true },
-    { label: "Spominske", path: "/osmrtnice ", showOnMobile: true },
-    { label: "Cvetličarne", path: "/cvetlicarne  ", showOnMobile: true },
+    { label: "Osmrtnice", path: "/osmrtnice ", showOnMobile: false },
+    { label: "Pogrebi", path: "/pogrebi ", showOnMobile: false },
+    { label: "Spominske", path: "/osmrtnice ", showOnMobile: false },
+    { label: "Cvetličarne", path: "/cvetlicarne  ", showOnMobile: false },
   ],
   "/pogrebi": [
     { label: "Prva stran", path: "/", showOnMobile: false },

@@ -148,6 +148,17 @@ const saveObitNotification = async (payload: any) => {
   return response.data;
 };
 
+const getMyKeeperNotifications = async () => {
+  try {
+    const endpoint = "/user/me/keeper-gifts";
+
+    const response = await axios.get(endpoint);
+    return response.data;
+  } catch (error: unknown) {
+    return new Error("Network error or no response");
+  }
+};
+
 const userService = {
   registerUser,
   getMyUser,
@@ -160,7 +171,8 @@ const userService = {
   getMyKeeperStatus,
   updateKeeperStatus,
   saveContact,
-  saveObitNotification
+  saveObitNotification,
+  getMyKeeperNotifications
 };
 
 export default userService;
