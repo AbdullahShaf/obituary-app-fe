@@ -2,9 +2,14 @@
 
 import { useEffect, useState } from "react";
 
-export default function InfoModal({ heading, text, name, icon }) {
-  const [isOpen, setIsOpen] = useState(true);
-
+export default function InfoModal({
+  heading,
+  text,
+  name,
+  icon,
+  isOpen,
+  onClose,
+}) {
   // 🔒 Disable background scroll when open
   useEffect(() => {
     if (isOpen) {
@@ -23,10 +28,7 @@ export default function InfoModal({ heading, text, name, icon }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
       <div className="relative mobile:w-[70%] w-[460px] max-w-full rounded-xl bg-[#E7EEF3] shadow-xl px-6 py-12">
         {/* Close Button */}
-        <button
-          onClick={() => setIsOpen(false)}
-          className="absolute right-3 top-3 "
-        >
+        <button onClick={onClose} className="absolute right-3 top-3 ">
           <img className="w-10 h-10" src="/close-icon.svg" />
         </button>
 

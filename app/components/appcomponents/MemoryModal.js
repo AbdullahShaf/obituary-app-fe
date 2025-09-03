@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-export default function MemoryModal() {
-  const [isOpen, setIsOpen] = useState(true);
+export default function MemoryModal({ isOpen, onClose }) {
 
   useEffect(() => {
     if (isOpen) {
@@ -22,10 +21,7 @@ export default function MemoryModal() {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
       <div className="relative mobile:w-[40%] w-[500px] max-w-full rounded-2xl mobile:bg-[#E0E9F3] bg-[#E8F0F6] shadow-xl px-4 py-16">
         {/* Close Button */}
-        <button
-          onClick={() => setIsOpen(false)}
-          className="absolute right-3 top-3 "
-        >
+        <button onClick={onClose} className="absolute right-3 top-3 ">
           <img className="w-10 h-10" src="/close-icon.svg" />
         </button>
 
