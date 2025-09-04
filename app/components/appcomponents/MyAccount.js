@@ -13,6 +13,8 @@ import userService from "@/services/user-service";
 import toast from "react-hot-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { useSession } from "next-auth/react";
+import InfoModal from "./InfoModal";
+import MemoryModal from "../appcomponents/MemoryModal";
 
 const MyAccount = () => {
   const { user, isLoading, isAuthenticated, updateUserAndRefreshSession } = useAuth();
@@ -28,6 +30,9 @@ const MyAccount = () => {
   const [keeperId, setKeeperId] = useState(null);
   const [keeperNotifications, setKeeperNotifications] = useState([]);
   const [keeperNotification, setKeeperNotification] = useState([]);
+  const [memoryPopupOpen, setMemoryPopupOpen] = useState(false);
+  const [notifyCard, setNotifyCard] = useState(null);
+  const [showNotifyCard, setShowNotifyCard] = useState(false);
 
   // const [showImageView, setShowImageView] = useState(false)
 
@@ -114,6 +119,12 @@ const MyAccount = () => {
       if (response?.userCards?.length) {
         const myCards = response?.userCards?.filter((item) => item?.cardPdf && item?.cardImage);
         setDigiCards(myCards);
+        const foundCard = response?.userCards?.filter((item) => !item?.isNotified);
+        if (foundCard && foundCard?.length) {
+          setNotifyCard(foundCard[0]);
+          setShowNotifyCard(true);
+        }
+        console.log('>>>>>>>>>>>>>>>> foundCard', foundCard[0])
       } else {
         setDigiCards([]);
       }
@@ -151,6 +162,15 @@ const MyAccount = () => {
       toast.error("Error Updating City");
     }
   };
+
+  const updateStatus = async () => {
+    await userService.updateKeeperStatus(keeperNotification?.id);
+  };
+
+  const updateCardStatus = async () => {
+    await userService.updateCardStatus(notifyCard?.id);
+  };
+
   return (
     <div className="flex flex-col mx-auto w-full tabletUserAcc:max-w-[744px] mobileUserAcc:max-w-[360px]">
       <ModalLibrary
@@ -186,8 +206,8 @@ const MyAccount = () => {
                   </svg>
                   {/* Text */}
                   <span className="relative cursor-pointer" onClick={() => {
-                    setIsShowCards(true);
-                    setShownCard(digiCard.id);
+                    setMemoryPopupOpen(true);
+                    setShownCard(digiCard);
                   }}>
                     {digiCard.user.company} ti pošilja digitalno kartico {digiCard.obit.name} {digiCard.obit.sirName} ({formatDate(digiCard.createdTimestamp).replace(/\s/g, "")})
                     <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-600 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
@@ -468,7 +488,40 @@ const MyAccount = () => {
       </div>
 
       <ModalDigiCards isShowModal={isShowCards} setIsShowModal={setIsShowCards} data={digiCards} setShownCard={setShownCard} shownCard={shownCard} />
-      <ModalKeeperNotification isShowModal={showKeeperModal} setIsShowModal={setShowKeeperModal} keeperNotification={keeperNotification} />
+
+      <InfoModal
+        icon={"/giftbox.svg"}
+        heading={keeperNotification?.Sender?.company}
+        text={"ti podarja status Skrbnika za cel mesec"}
+        name={`${keeperNotification?.Obituary?.name} ${keeperNotification?.Obituary?.sirName}`}
+        isOpen={showKeeperModal}
+        onClose={() => {
+          setShowKeeperModal(false);
+          if (keeperNotification?.id) {
+            updateStatus();
+          }
+        }}
+      />
+
+      <InfoModal
+        icon={"/giftbox.svg"}
+        heading={notifyCard?.senderUser?.company}
+        text={"ti podarja digitalno kartico"}
+        name={`${notifyCard?.obit?.name} ${notifyCard?.obit?.sirName}`}
+        isOpen={showNotifyCard}
+        onClose={() => {
+          setShowNotifyCard(false);
+          if (notifyCard?.id) {
+            updateCardStatus();
+          }
+        }}
+      />
+
+      <MemoryModal
+        isOpen={memoryPopupOpen}
+        onClose={() => setMemoryPopupOpen(false)}
+        shownCard={shownCard}
+      />
     </div>
   );
 };
