@@ -31,7 +31,7 @@ function UserCompanyHeaderNew({
   const isGhost = session?.user?.me?.isGhost;
   const adminId = session?.user?.me?.adminId;
   const [isButtonHide, setIsButtonHide] = useState(false);
-console.log('adminId',adminId,isGhost,session);
+  console.log('>>>>>> adminId', adminId, isGhost, session);
 
   const absolutePath = pathname.startsWith("/c") ? "/c" : "/p";
 
@@ -63,36 +63,34 @@ console.log('adminId',adminId,isGhost,session);
                   className="w-[32px] h-[25px]"
                 />
               </div>
-              {
-                (isGhost && adminId) ? <>
-                  <button onClick={async () => {
-                    await ghostLogin(adminId, null)
-                  }}>Back to admin</button>
-                </> :
-                  <div className="flex items-center gap-[35px]">
-                    <div className="flex hidden tabletUserAcc:hidden mobileUserAcc:hidden items-center gap-2">
-                      <img
-                        src="/bell_icon.png"
-                        alt="back"
-                        className="w-[20px] h-[20px] mb-[15px]"
-                      />
-                      <span className="text-[34px] font-bold text-[#EB1D1D] mt-[15px]">
-                        2
-                      </span>
-                    </div>
-                    <button
-                      onClick={() => router.back()}
-                      className="p-1 rounded-lg hover:bg-gray-100 transition-colors duration-200"
-                      title="Nazaj"
-                    >
-                      <Image
-                        src={backIcon}
-                        alt="Back"
-                        className="h-8 w-8 mobile:h-7 mobile:w-7"
-                      />
-                    </button>
-                  </div>
-              }
+              {isGhost && adminId ? (
+                <button className="text-[#333]" onClick={async () => {
+                  await ghostLogin({ userId: adminId, adminId: 0 })
+                }}>Back to admin</button>
+              ) : null}
+              <div className="flex items-center gap-[35px]">
+                <div className="flex hidden tabletUserAcc:hidden mobileUserAcc:hidden items-center gap-2">
+                  <img
+                    src="/bell_icon.png"
+                    alt="back"
+                    className="w-[20px] h-[20px] mb-[15px]"
+                  />
+                  <span className="text-[34px] font-bold text-[#EB1D1D] mt-[15px]">
+                    2
+                  </span>
+                </div>
+                <button
+                  onClick={() => router.back()}
+                  className="p-1 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                  title="Nazaj"
+                >
+                  <Image
+                    src={backIcon}
+                    alt="Back"
+                    className="h-8 w-8 mobile:h-7 mobile:w-7"
+                  />
+                </button>
+              </div>
             </div>
           </div>
         </div>

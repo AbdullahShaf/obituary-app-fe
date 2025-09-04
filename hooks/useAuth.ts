@@ -74,7 +74,7 @@ export function useAuth() {
         // Wait for session to update, then redirect
         setTimeout(() => {
           if (user1?.role === "SUPERADMIN") {
-            router.push("/admin/obituaries");
+            router.push("/admin/approval-requests");
           } else if (user1?.role === "Florist") {
             router.push(`/c/${user1.slugKey}/spletna-stran`);
           } else if (user1?.role === "Funeral") {
