@@ -104,8 +104,8 @@ export default function Step6({ data, onChange, handleStepChange }) {
 
       const response = await companyService.updateCompany(formData, companyId);
       onChange(response.company);
-      toast.success("Company Sent For Approval Successfully");
-      router.push(`/funeralcompany/${companyId}`);
+      toast.success("Poslano v potrditev. Hvala.");
+      // router.push(`/funeralcompany/${companyId}`);
 
       return true;
       console.log(response);
@@ -243,6 +243,9 @@ export default function Step6({ data, onChange, handleStepChange }) {
           alt="Spletna stran"
           className="w-full h-full object-contain"
         />
+      </div>
+      <div className="w-full text-[16px] text-[#6D778E] leading-[24px] mt-[29px] italic col-span-2">
+        Op. Shranjevanje lahko včasih traja tudi pol minute. Počakajte prosim.
       </div>
     </>
   );

@@ -37,6 +37,7 @@ const FloristsGifts = () => {
   const handleAssignKeeper = async () => {
     // Check permission before allowing submission
     const currentUser = isAuthenticated ? user : {};
+    // Temporarily commented
     if (!currentUser.assignKeeperPermission) {
       toast.error("You don't have permission to assign keepers.");
       return;
