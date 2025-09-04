@@ -8,7 +8,13 @@ import { useAuth } from "@/hooks/useAuth";
 import obituaryService from "@/services/obituary-service";
 import { useRouter } from "next/navigation";
 
-const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary, fetchMemory }) => {
+const MemorialPageTopComp = ({
+  set_Id,
+  setModal,
+  data,
+  updateObituary,
+  fetchMemory,
+}) => {
   const { user } = useAuth();
   const router = useRouter();
   const [currentURL, setCurrentURL] = useState("");
@@ -17,17 +23,17 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary, fetchMemo
   const [currentCount, setCurrentCount] = useState(0);
 
   const defaultMessage = {
-    message: 'Iskreno sožalje',
-    name: 'osmrtnica.com',
-    relation: '',
-    createdTimestamp: data?.createdTimestamp ?? ''
+    message: "Počivaj v miru",
+    name: "osmrtnica.com",
+    relation: "",
+    createdTimestamp: data?.createdTimestamp ?? "",
   };
 
   useEffect(() => {
     if (data && data?.id) {
       setCurrentCount(data?.totalCandles);
     }
-  }, [data])
+  }, [data]);
 
   const toggleText = () => {
     setShowFullObituaryText((prev) => !prev);
@@ -35,11 +41,11 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary, fetchMemo
 
   const openCandleModal = () => {
     setModal(true);
-  }
+  };
 
   const closeCandleModal = () => {
     setModal(false);
-  }
+  };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -218,8 +224,8 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary, fetchMemo
                           data?.image
                             ? `${API_BASE_URL}/${data?.image}`
                             : data?.gender === "Male"
-                              ? "/img_profile.png"
-                              : "/woman.png"
+                            ? "/img_profile.png"
+                            : "/woman.png"
                         }
                         alt="Slika"
                         width={1000}
@@ -252,12 +258,15 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary, fetchMemo
                       {data?.name && data?.sirName && (
                         <h1 className="text-[#1E2125] text-[28px] tablet:text-[40px] desktop:text-[40px] font-variation-customOpt28 tablet:font-variation-customOpt40 desktop:font-variation-customOpt40 font-normal">
                           {(() => {
-                            const fullName = `${formatTitleCase(data?.name)} ${formatTitleCase(data?.sirName)}`;
-                            return fullName.length > 25 ? `${fullName.slice(0, 25)}...` : fullName;
+                            const fullName = `${formatTitleCase(
+                              data?.name
+                            )} ${formatTitleCase(data?.sirName)}`;
+                            return fullName.length > 25
+                              ? `${fullName.slice(0, 25)}...`
+                              : fullName;
                           })()}
                         </h1>
                       )}
-
                     </div>
                     <div className="flex items-center justify-center mt-[14px] h-[21px] tablet:h-[23px] desktop:h-[20px] ">
                       <div className="text-[#1E2125] text-[18px] tablet:text-[20px] desktop:text-[20px] font-variation-customOpt18 tablet:font-variation-customOpt20 desktop:font-variation-customOpt20 font-normal">
@@ -475,14 +484,14 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary, fetchMemo
                   [
                     ...(data?.funeralTimestamp
                       ? [
-                        {
-                          type: "funeral",
-                          timestamp: new Date(
-                            data?.funeralTimestamp
-                          ).getTime(),
-                          details: data,
-                        },
-                      ]
+                          {
+                            type: "funeral",
+                            timestamp: new Date(
+                              data?.funeralTimestamp
+                            ).getTime(),
+                            details: data,
+                          },
+                        ]
                       : []),
                     ...(Array.isArray(parsedEvents) ? parsedEvents : [])
                       .filter((event) => {
@@ -526,14 +535,14 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary, fetchMemo
                       {[
                         ...(data?.funeralTimestamp
                           ? [
-                            {
-                              type: "funeral",
-                              timestamp: new Date(
-                                data?.funeralTimestamp
-                              ).getTime(),
-                              details: data,
-                            },
-                          ]
+                              {
+                                type: "funeral",
+                                timestamp: new Date(
+                                  data?.funeralTimestamp
+                                ).getTime(),
+                                details: data,
+                              },
+                            ]
                           : []),
                         ...(Array.isArray(parsedEvents) ? parsedEvents : [])
                           .filter((event) => {
@@ -573,9 +582,9 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary, fetchMemo
                             .getHours()
                             .toString()
                             .padStart(2, "0")}:${date
-                              .getMinutes()
-                              .toString()
-                              .padStart(2, "0")}`;
+                            .getMinutes()
+                            .toString()
+                            .padStart(2, "0")}`;
 
                           if (item.type === "funeral") {
                             return (
@@ -641,8 +650,8 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary, fetchMemo
                                     <div className="text-[#1E2125] text-[20px] font-medium">
                                       {item.details.eventName
                                         ? formatTitleCase(
-                                          item.details.eventName
-                                        )
+                                            item.details.eventName
+                                          )
                                         : ""}
                                     </div>
                                   </div>
@@ -654,14 +663,14 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary, fetchMemo
                                       {item.details.eventLocation
                                         ? item.details.eventLocation.length > 50
                                           ? `${formatTitleCase(
-                                            item.details.eventLocation.slice(
-                                              0,
-                                              50
-                                            )
-                                          )}...`
+                                              item.details.eventLocation.slice(
+                                                0,
+                                                50
+                                              )
+                                            )}...`
                                           : formatTitleCase(
-                                            item.details.eventLocation
-                                          )
+                                              item.details.eventLocation
+                                            )
                                         : ""}
                                     </p>
                                   </div>
@@ -696,10 +705,11 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary, fetchMemo
                   flex-col pt-4 pl-[22px] pr-[18px] w-[100%]                       
                   desktop:w-[517px] sm:w-[517px]  desktop:pl-[22px] desktop:pr-[14px]
                   bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]
-                  ${parsedEvents.length === 90
+                  ${
+                    parsedEvents.length === 90
                       ? "desktop:mt-2"
                       : "desktop:mt-[24px]"
-                    }
+                  }
                   `}
                   style={{
                     background:
@@ -760,10 +770,11 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary, fetchMemo
                 </div>
 
                 <div
-                  className={`flex self-end ${parsedEvents.length === 90
-                    ? "tablet:mt-2 desktop:mt-[10px] mobile:mt-[10px]"
-                    : "tablet:mt-4 desktop:mt-[28px] mobile:mt-[28px]"
-                    } desktop:h-[0px] items-center desktop:pr-[20px]`}
+                  className={`flex self-end ${
+                    parsedEvents.length === 90
+                      ? "tablet:mt-2 desktop:mt-[10px] mobile:mt-[10px]"
+                      : "tablet:mt-4 desktop:mt-[28px] mobile:mt-[28px]"
+                  } desktop:h-[0px] items-center desktop:pr-[20px]`}
                 >
                   {false && (
                     <>
@@ -893,7 +904,7 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary, fetchMemo
                 <div
                   onClick={() => {
                     // set_Id("error_report"), openCandleModal();
-                    router.push('/kontakt')
+                    router.push("/kontakt");
                   }}
                   className="flex cursor-pointer self-end mt-4 tablet:mt-6 desktop:mt-6 h-[15px] desktop:h-[16px] items-center desktop:pr-[20px]"
                 >
@@ -1252,7 +1263,6 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary, fetchMemo
                 </div>
               </div>
             )}
-
           </div>
           <div className="flex flex-col gap-[27px]">
             {limitedCondolances &&
@@ -1297,7 +1307,7 @@ const MemorialPageTopComp = ({ set_Id, setModal, data, updateObituary, fetchMemo
             alt="Slika"
             width={74}
             height={74}
-          // className="mt-[24px] mb-[71px] mx-auto"
+            // className="mt-[24px] mb-[71px] mx-auto"
           />
         </div>
       </div>
@@ -1329,11 +1339,7 @@ const UserCircles = ({ onTextClick, onCircle, users }) => {
           .slice(0, 7)
           .map((item, index) => (
             <div key={index}>
-              <Container
-                item={item}
-                index={index}
-                onCircleClick={onCircle}
-              />
+              <Container item={item} index={index} onCircleClick={onCircle} />
             </div>
           ))}
         {users?.length > 7 && (
@@ -1350,11 +1356,7 @@ const UserCircles = ({ onTextClick, onCircle, users }) => {
           .slice(0, 4)
           .map((item, index) => (
             <div key={index}>
-              <Container
-                item={item}
-                index={index}
-                onCircleClick={onCircle}
-              />
+              <Container item={item} index={index} onCircleClick={onCircle} />
             </div>
           ))}
 

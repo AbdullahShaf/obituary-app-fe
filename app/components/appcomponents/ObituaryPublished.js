@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import Image from "next/image";
 import imgFlag from "@/public/img_Flag.png";
@@ -33,9 +33,9 @@ const ObituaryPublished = ({ set_Id, setModal, data }) => {
               {/* <div className="block text-[14px] text-[#36556C] leading-[100%] mb-[12px] mobile:hidden">
                 {data?.Company?.address}
               </div> */}
-              <div className="block text-[14px] text-[#36556C] leading-[100%] mb-[12px] mobile:hidden">
+              {/* <div className="block text-[14px] text-[#36556C] leading-[100%] mb-[12px] mobile:hidden">
                 Tel. {data?.Company?.phone}
-              </div>
+              </div> */}
               {/* {data?.Company?.type === "FLORIST" ? (
                 <div className="block text-[14px] text-[#36556C] leading-[100%] mobile:hidden">
                   {`${
@@ -49,12 +49,12 @@ const ObituaryPublished = ({ set_Id, setModal, data }) => {
                   }/p/funeralcompany/${data?.User?.slugKey}`}
                 </div>
               )} */}
-              <div className="text-[16px] text-[#1E2125] leading-[100%] mb-[12px] hidden mobile:block">
-                Name of funeral company:{data?.User?.name}
+              <div className="text-[16px] text-[#36556C] leading-[100%] mb-[12px] hidden mobile:block">
+                {data?.User?.name}
               </div>
-              <div className="text-[14px] text-[#1E2125] leading-[100%] mb-[16px] hidden mobile:block">
+              {/* <div className="text-[14px] text-[#1E2125] leading-[100%] mb-[16px] hidden mobile:block">
                 Tel. {data?.Company?.phone}
-              </div>
+              </div> */}
               {/* <div className="block tablet:hidden mobile:hidden text-[16px] text-[#1E2125] leading-[18.75px] font-variation-customOpt16 ml-[2px]">
               This obituary was published on{" "}
               {data && data.createdTimestamp
@@ -107,7 +107,7 @@ const ObituaryPublished = ({ set_Id, setModal, data }) => {
                 <div
                   onClick={() => {
                     // set_Id("error_report"), setModal(true);
-                    router.push('/kontakt')
+                    router.push("/kontakt");
                   }}
                   className="mt-[1px] cursor-pointer"
                 >
@@ -118,19 +118,19 @@ const ObituaryPublished = ({ set_Id, setModal, data }) => {
                 <span className="text-[14px]">Zadnje spremembe:</span> <br />
                 {data && data?.MemoryLogs?.length > 0
                   ? data?.MemoryLogs?.map((item, index) => (
-                    <div
-                      key={index}
-                      className="leading-[14.06px] text-[12px] desktop:mr-[3px] tablet:mr-[3px] mt-[4px] font-variation-customOpt12 text-[#414141]"
-                    >
-                      <div>
-                        {item.typeInSL}:&nbsp; {item.userName},&nbsp;
-                        {format(
-                          new Date(item.createdTimestamp),
-                          "dd.MM.yyyy"
-                        )}
+                      <div
+                        key={index}
+                        className="leading-[14.06px] text-[12px] desktop:mr-[3px] tablet:mr-[3px] mt-[4px] font-variation-customOpt12 text-[#414141]"
+                      >
+                        <div>
+                          {item.typeInSL}:&nbsp; {item.userName},&nbsp;
+                          {format(
+                            new Date(item.createdTimestamp),
+                            "dd.MM.yyyy"
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  ))
+                    ))
                   : null}
               </div>
               {/* {data && data?.MemoryLogs?.length > 0

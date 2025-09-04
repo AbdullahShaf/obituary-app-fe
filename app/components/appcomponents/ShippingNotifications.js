@@ -128,13 +128,23 @@ const ShippingNotifications = ({
           <div className="text-[20px] font-normal text-[#0977AE] mt-2">
             Vabilo
           </div>
-          <div className=" mobile:hidden flex flex-row items-end mt-20 mobile:justify-center whitespace-nowrap">
-            <div className="text-[28px] tablet:text-[28px] mobile:[24px] mobile:leading-[28px] leading-[38px] font-normal text-[#1E2125]">
-              BREZPLAČNO
+          <div className="mobile:hidden flex flex-col items-start mt-20 mobile:justify-center whitespace-nowrap">
+            {/* Row for BREZPLAČNO + v vaši cvetličarni */}
+            <div className="flex flex-row items-end">
+              <div className="text-[28px] tablet:text-[28px] mobile:text-[24px] mobile:leading-[28px] leading-[38px] font-normal text-[#1E2125]">
+                BREZPLAČNO
+              </div>
+              <div className="text-[20px] font-normal text-[#1E2125] ml-[5px]">
+                v vaši cvetličarni
+              </div>
             </div>
-            <div className="text-[20px] font-normal text-[#1E2125] ml-[5px]">
-              v vaši cvetličarni
-            </div>
+
+            {/* Paragraph underneath */}
+            <p className="text-[#6D778E] text-[14px] jdmobile:text-[12px] pt-5">
+              Op. Datum in kraj pogreba ob času objave osmrtnice običajno
+              <br />
+              niso znani in so vnešeni kasneje (velja za prve tri kartice).
+            </p>
           </div>
         </div>
         <div className="relative flex w-full desktop:ml-10 flex-col">
@@ -210,19 +220,29 @@ const ShippingNotifications = ({
               </button>
             </div>
 
-            <div className="mobile:flex hidden flex-row items-end mt-5 mobile:justify-center whitespace-nowrap">
-              <div
-                onClick={() => {
-                  set_Id("drugega");
-                  setModal(true);
-                }}
-                className="text-[24px] cursor-pointer leading-[28px] font-normal text-[#1E2125]"
-              >
-                BREZPLAČNO
+            <div className="mobile:flex hidden flex-col items-center mt-5 whitespace-nowrap">
+              {/* Row for BREZPLAČNO + v vaši cvetličarni */}
+              <div className="flex flex-row items-end mobile:justify-center">
+                <div
+                  onClick={() => {
+                    set_Id("drugega");
+                    setModal(true);
+                  }}
+                  className="text-[24px] cursor-pointer leading-[28px] font-normal text-[#1E2125]"
+                >
+                  BREZPLAČNO
+                </div>
+                <div className="text-[20px] font-normal text-[#1E2125] ml-[5px]">
+                  v vaši cvetličarni
+                </div>
               </div>
-              <div className="text-[20px] font-normal text-[#1E2125] ml-[5px]">
-                v vaši cvetličarni
-              </div>
+
+              {/* Paragraph underneath */}
+              <p className="text-[#6D778E] text-[14px] jdmobile:text-[12px] pt-3 text-center">
+                Op. Datum in kraj pogreba ob času objave osmrtnice običajno
+                <br />
+                niso znani in so vnešeni kasneje (velja za prve tri kartice).
+              </p>
             </div>
           </div>
         </div>
