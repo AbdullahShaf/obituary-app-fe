@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { IUserComplete } from "@/types/auth";
 import userService from "@/services/user-service";
+import axiosInstance, { axiosNoAuth } from "@/services/axios";
 
 export function useAuth() {
   const { data: session, status, update } = useSession();
@@ -33,6 +34,50 @@ export function useAuth() {
         setTimeout(() => {
           if (user?.role === "SUPERADMIN") {
             router.push("/admin/obituaries");
+          } else if (user?.role === "Florist") {
+            router.push(`/c/${user.slugKey}/menu`);
+          } else if (user?.role === "Funeral") {
+            router.push(`/p/${user.slugKey}/menu`);
+          } else if (user?.role === "User") {
+            router.push(`/u/${user.slugKey}/moj-racun`);
+          }
+        }, 100);
+
+        return { success: true, user: result };
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.error("Login failed");
+      return { success: false, error: "Login failed" };
+    }
+  };
+
+  const ghostLogin = async (userId: string) => {
+    try {
+      const result = await axiosNoAuth.post(`/auth/ghost-login/${userId}`, {
+        userId: userId
+      });
+      console.log("RESULT", result);
+
+      if (result?.data?.error) {
+        toast.error(result?.data.error);
+        return { success: false, error: result?.data.error };
+      }
+
+      if (result?.status == 200) {
+        toast.success("Ghost Login successful!");
+        await update({
+          ...session,
+          user: {
+            ...session?.user,
+            me: result,
+          },
+        });
+
+        // Wait for session to update, then redirect
+        setTimeout(() => {
+          if (user?.role === "SUPERADMIN") {
+            router.push("/admin/approval-requests");
           } else if (user?.role === "Florist") {
             router.push(`/c/${user.slugKey}/menu`);
           } else if (user?.role === "Funeral") {
@@ -151,6 +196,7 @@ export function useAuth() {
     status,
     login,
     logout,
+    ghostLogin,
     hasPermission,
     isRole,
     isAdmin: user?.role === "SUPERADMIN",

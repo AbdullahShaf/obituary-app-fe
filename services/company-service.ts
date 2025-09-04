@@ -1,4 +1,4 @@
-import axios from "./axios";
+import axios, { axiosNoAuth } from "./axios";
 
 // Helper to get cookie value
 function getCookie(name: string) {
@@ -58,6 +58,16 @@ const getFloristCompany = async (queryParams?: {
   return response.data;
 };
 
+const getFloristCompanyBySlug = async (queryParams?: {
+  slug: string;
+}) => {
+  const endpoint = `/company/florist/by-slug`;
+  const response = await axiosNoAuth.get(endpoint, {
+    params: queryParams,
+  });
+  return response.data;
+};
+
 const getCompanies = async (queryParams?: {
   type?: string;
   region?: string;
@@ -87,7 +97,7 @@ const companyService = {
   getFuneralCompany,
   updateCompany,
   getFloristCompany,
-  getCompleteCompany,
+  getCompleteCompany, getFloristCompanyBySlug,
   getCompanies,
 };
 
