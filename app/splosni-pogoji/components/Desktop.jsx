@@ -137,13 +137,15 @@ export default function Desktop() {
             {/* Section 17 */}
             <div>
                 <p className="font-medium text-[16px] leading-[27px] tracking-[0] mb-[5px]">17. Identifikacijski podatki podjetja</p>
-                <ul>
+                <ul className="list-disc marker:text-gray-400 pl-5 font-light">
                     <li>Podjetje: Aleja8, Saša Dolinšek s.p.</li>
                     <li>Sedež: Trg svobode 32, Trbovlje</li>
                     <li>Matična številka: 9971254000</li>
                     <li>Davčna številka: SI 38439174 (davčni zavezanec NE)</li>
                     <li>TRR: SI56 0284 3026 6608 366 (NLB)</li>
-                    <li className=" mb-6">Kontakt: info@osmrtnica.com</li>
+                    <li className=" mb-6">Kontakt: <a href="mailto:info@osmrtnica.com" className="underline decoration-gray-400">
+  info@osmrtnica.com
+</a></li>
                 </ul>
             </div>
 
@@ -151,7 +153,9 @@ export default function Desktop() {
             <div>
                 <p className="font-medium text-[16px] leading-[27px] tracking-[0] mb-[5px]">18. Končne določbe</p>
                 <p className="font-light text-[16px] leading-[27px] tracking-[0] mb-6">Ponudnik si pridržuje pravico, da lahko v vsakem trenutku brez predhodnega obvestila spremeni splošne pogoje poslovanja. O vsaki spremembi splošnih pogojev poslovanja bo ponudnik na primeren način obvestil uporabnike. Za primeren način se šteje objava splošnih  pogojev poslovanja na spletni strani www.osmrtnica.com. Šteje se, da se  uporabnik strinja s spremembo splošnih pogojev poslovanja, če še naprej  uporablja predmetni portal. </p>
-                <p className="font-light text-[16px] leading-[27px] tracking-[0] mb-6">Ponudnik se po svojih najboljših močeh trudi zagotoviti ažurnost in  pravilnost podatkov, ki so objavljeni na strani osmrtnica.com. Ugovore, pripombe, zahtevke, izjave in reklamacije lahko uporabnik pošlje po elektronski pošti na e-naslov info@osmrtnica.com ali pisno na naslov: Aleja8, Trg svobode 32, 1420 Trbovlje. </p>
+                <p className="font-light text-[16px] leading-[27px] tracking-[0] mb-6">Ponudnik se po svojih najboljših močeh trudi zagotoviti ažurnost in  pravilnost podatkov, ki so objavljeni na strani osmrtnica.com. Ugovore, pripombe, zahtevke, izjave in reklamacije lahko uporabnik pošlje po elektronski pošti na e-naslov <a href="mailto:info@osmrtnica.com" className="underline decoration-gray-400">
+  info@osmrtnica.com
+</a> ali pisno na naslov: Aleja8, Trg svobode 32, 1420 Trbovlje. </p>
             </div>
 
             {/* Section 19 */}
