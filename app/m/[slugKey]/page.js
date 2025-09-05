@@ -16,7 +16,6 @@ import AnnouncementBlock from "../../components/appcomponents/AnnouncementBlock"
 import { FlowerShops2 } from "../../components/appcomponents/FlowerShops";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getTemplateCardImages } from "@/utils/commonUtils";
-import { useAuth } from "@/hooks/useAuth";
 
 const MemoryPageContent = ({ params }) => {
   const { slugKey } = params;
@@ -28,6 +27,7 @@ const MemoryPageContent = ({ params }) => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [select_id, setSelect_Id] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
+  const [currentUser, setCurrentUser] = useState(null);
   const [showShops, setShowShops] = useState(false);
   const [showImageView, setShowImageView] = useState(false);
   const [imageId, setImageId] = useState("0");
@@ -52,12 +52,12 @@ const MemoryPageContent = ({ params }) => {
         return;
       }
 
-      let finalResponse = response.obituary;
+      setObituary(response.obituary);
 
       if (response?.obituary) {
         const visitRespone = await obituaryService.updateObituaryVisits({
           obituaryId: response?.obituary?.id,
-          userId: user?.id || null,
+          userId: currentUser?.id || null,
         });
 
         if (visitRespone.error) {
@@ -66,7 +66,8 @@ const MemoryPageContent = ({ params }) => {
           );
           return;
         }
-        finalResponse = visitRespone;
+
+        setObituary(visitRespone);
         if (visitRespone.Condolences.length === 0) {
           const persons = [
             {
@@ -79,7 +80,6 @@ const MemoryPageContent = ({ params }) => {
           updateObituary({ ["Condolences"]: persons });
         }
       }
-      setObituary(finalResponse);
     } catch (err) {
       console.error("Error fetching obituary:", err);
       toast.error(err.message || "Failed to fetch obituary.");
@@ -92,6 +92,13 @@ const MemoryPageContent = ({ params }) => {
       ...updatedData,
     }));
   };
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setCurrentUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   const handleMemoryChange = async (type) => {
     try {
@@ -152,9 +159,8 @@ const MemoryPageContent = ({ params }) => {
           <MemorialPageTopComp
             set_Id={setSelect_Id}
             setModal={setIsShowModal}
-            data={obituary || {}}
+            data={obituary}
             updateObituary={updateObituary}
-            fetchMemory={fetchMemory}
           />
 
           {obituary?.Keepers?.length === 0 && <AnnouncementBlock />}

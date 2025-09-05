@@ -159,6 +159,16 @@ const getMyKeeperNotifications = async () => {
   }
 };
 
+const updateCardStatus = async (id: string) => {
+  const endpoint = `/user/me/notify/${id}`;
+
+  const response = await axios.post(
+    endpoint
+  );
+
+  return response.data;
+};
+
 const userService = {
   registerUser,
   getMyUser,
@@ -172,7 +182,8 @@ const userService = {
   updateKeeperStatus,
   saveContact,
   saveObitNotification,
-  getMyKeeperNotifications
+  getMyKeeperNotifications,
+  updateCardStatus
 };
 
 export default userService;

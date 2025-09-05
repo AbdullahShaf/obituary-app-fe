@@ -90,7 +90,7 @@ const Qualityflowers = ({ data }) => {
                                      backdrop-blur border-[2px] border-[#FFFFFF] rounded-[16px] flex flex-col items-center"
               >
                 <Image
-                  src={data.box_one_icon}
+                  src={data?.box_one_icon}
                   width={70}
                   height={70}
                   alt="vehicle"
@@ -113,7 +113,7 @@ const Qualityflowers = ({ data }) => {
                      backdrop-blur border-[2px] border-[#FFFFFF] rounded-[16px]"
               >
                 <Image
-                  src={`${data.box_two_icon}`}
+                  src={`${data?.box_two_icon}`}
                   width={70}
                   height={70}
                   alt="vehicle"

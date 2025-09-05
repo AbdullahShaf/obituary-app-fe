@@ -22,7 +22,7 @@ const MemorialPageTopComp = ({
   const [currentCount, setCurrentCount] = useState(0);
 
   const defaultMessage = {
-    message: "Iskreno sožalje",
+    message: "Počivaj v miru",
     name: "osmrtnica.com",
     relation: "",
     createdTimestamp: data?.createdTimestamp ?? "",
@@ -897,7 +897,7 @@ const MemorialPageTopComp = ({
                 <div
                   onClick={() => {
                     // set_Id("error_report"), openCandleModal();
-                    router.push('/kontakt')
+                    router.push("/kontakt");
                   }}
                   className="flex cursor-pointer self-end mt-4 tablet:mt-6 desktop:mt-6 h-[15px] desktop:h-[16px] items-center desktop:pr-[20px]"
                 >

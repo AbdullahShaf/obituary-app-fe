@@ -63,8 +63,8 @@ const SadProgram = ({ data }) => {
                 className=" bg-gradient-to-br from-white to-[#ffffff30] border-white border-2 w-[292px] h-[295px] items-center flex-col rounded-lg shadow-custom-light-dark mobile:flex hidden"
               >
                 <Image
-                  src={item.image}
-                  alt={item.title || "package image"}
+                  src={item?.image}
+                  alt={item?.title || "package image"}
                   className="w-[119.65px] h-[135.08px] mt-[58.27px]"
                   width={120}
                   height={135}
