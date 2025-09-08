@@ -1,15 +1,15 @@
-import axios, { axiosNoAuth } from "./axios";
+import axios from "./axios";
 
 const createObituary = async (formData: FormData) => {
   const endpoint = "/obituary";
-  const response = await axiosNoAuth.post(endpoint, formData, {
+  const response = await axios.post(endpoint, formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
   return response.data;
 };
 
 const getObituaryById = async (slugKey: any) => {
-  const response = await axiosNoAuth.get(`/obituary?slugKey=${slugKey}`);
+  const response = await axios.get(`/obituary?slugKey=${slugKey}`);
   return response.data || null;
 };
 
@@ -28,7 +28,7 @@ const getObituary = async (queryParams?: {
 }) => {
   try {
     const endpoint = "/obituary";
-    const response = await axiosNoAuth.get(endpoint, { params: queryParams });
+    const response = await axios.get(endpoint, { params: queryParams });
     return response.data;
   } catch (error: unknown) {
     console.error("Error fetching obituaries:", error);
@@ -40,7 +40,7 @@ const getObituary = async (queryParams?: {
 const getMemory = async (queryParams?: { slugKey?: string }) => {
   try {
     const endpoint = "/obituary/memory";
-    const response = await axiosNoAuth.get(endpoint, { params: queryParams });
+    const response = await axios.get(endpoint, { params: queryParams });
     return response.data;
   } catch (error: unknown) {
     console.error("Error fetching obituaries:", error);
@@ -57,7 +57,8 @@ const getFunerals = async (queryParams?: {
 }) => {
   try {
     const endpoint = "/obituary/funerals";
-    const response = await axiosNoAuth.get(endpoint, { params: queryParams });
+
+    const response = await axios.get(endpoint, { params: queryParams });
     return response.data;
   } catch (error: unknown) {
     console.error("Error fetching obituaries:", error);
