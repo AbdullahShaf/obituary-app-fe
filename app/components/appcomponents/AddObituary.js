@@ -236,10 +236,10 @@ const AddObituary = ({ set_Id, setModal }) => {
       return false;
     }
 
-    if (!uploadedDeathReport && user?.role !== "funeral_company") {
-      toast.error("Death report is mandatory for non-funeral company users.");
-      return false;
-    }
+    // if (!uploadedDeathReport && user?.role !== "funeral_company") {
+    //   toast.error("Death report is mandatory for non-funeral company users.");
+    //   return false;
+    // }
 
     return true;
   };
@@ -292,25 +292,39 @@ const AddObituary = ({ set_Id, setModal }) => {
 
       const formData = new FormData();
 
-      const formattedBirthDate = birthDate
-        ? birthDate.toISOString().split("T")[0]
-        : null;
-      const formattedDeathDate = deathDate
-        ? deathDate.toISOString().split("T")[0]
-        : null;
+      let formattedBirthDate = null;
+      if (birthDate) {
+        if (birthMode === "year") {
+          // Only year selected → use Feb 29
+          formattedBirthDate = new Date(birthDate.getFullYear(), 11, 32).toISOString().split("T")[0];
+        } else {
+          // Full date selected
+          formattedBirthDate = birthDate.toISOString().split("T")[0];
+        }
+      }
+
+
+      console.log(formattedBirthDate)
+      // Handle death date
+      let formattedDeathDate = null;
+      if (deathDate) {
+        if (deathMode === "year") {
+          // Only year selected → use Feb 30
+          formattedDeathDate = new Date(deathDate.getFullYear(), 11, 32).toISOString().split("T")[0];
+        } else {
+          // Full date selected
+          formattedDeathDate = deathDate.toISOString().split("T")[0];
+        }
+      }
 
       const fullName = `${inputValueName} ${inputValueSirName}`;
       const obituaryText =
         inputValueGender === "Male"
           ? `Sporočamo žalostno vest, da nas je zapustil naš predragi ${fullName}. Vsi njegovi.`
-          : `Sporočamo žalostno vest, da nas je zapustila naša predraga ${fullName}. Vsi njeni.  `;
+          : `Sporočamo žalostno vest, da nas je zapustila naša predraga ${fullName}. Vsi njeni.`;
 
       let formattedFuneralTimestamp = null;
-      if (
-        funeralDate &&
-        selectedFuneralHour !== null &&
-        selectedFuneralMinute !== null
-      ) {
+      if (funeralDate && selectedFuneralHour !== null && selectedFuneralMinute !== null) {
         formattedFuneralTimestamp = new Date(
           funeralDate.getFullYear(),
           funeralDate.getMonth(),
@@ -326,9 +340,9 @@ const AddObituary = ({ set_Id, setModal }) => {
       formData.append("region", selectedRegion);
       formData.append("city", selectedCity);
       formData.append("gender", inputValueGender);
-
       formData.append("birthDate", formattedBirthDate);
       formData.append("deathDate", formattedDeathDate);
+
       formData.append("funeralLocation", selectedCity);
       if (inputValueFuneralCemetery !== "pokopalisce") {
         formData.append("funeralCemetery", inputValueFuneralCemetery);
@@ -801,17 +815,7 @@ const AddObituary = ({ set_Id, setModal }) => {
                   </div>
                 </div>
 
-                {/* Info text */}
-                {/* <div className="mt-2">
-                  <p className="block md:hidden text-[14px] text-[#6D778E]">
-                    Vnašajte polne datume, ker samo tako bodo lahko svojci obveščeni o
-                    prihajajočih obletnicah.
-                  </p>
-                  <p className="hidden md:block text-[12px] text-[#6D778E]">
-                    Prosim, da vnašate polne datume, ne samo letnice, ker samo tako bodo svojci
-                    lahko obveščeni o prihajajočih obletnicah.
-                  </p>
-                </div> */}
+
 
                 {/* Date pickers */}
                 <div className="flex flex-row mobile:gap-x-[11px] gap-x-[32px] gap-y-[8px] flex-wrap mt-2">
