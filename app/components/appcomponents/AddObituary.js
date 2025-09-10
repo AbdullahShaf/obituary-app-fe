@@ -276,10 +276,18 @@ const AddObituary = ({ set_Id, setModal }) => {
     router.push(`/m/${obituaryResponse.slugKey}`);
   };
 
+  // helper function: format date as YYYY-MM-DD without timezone shift
+  const formatDate = (date) => {
+    if (!date) return null;
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
   const handleSubmit = async () => {
     const currentUser = isAuthenticated ? user : {};
 
-    // Temporarily commented
     if (!currentUser.createObituaryPermission) {
       toast.error("You don't have permission to create obituaries.");
       return;
@@ -292,37 +300,28 @@ const AddObituary = ({ set_Id, setModal }) => {
 
       const formData = new FormData();
 
+      // ---- Birth date ----
       let formattedBirthDate = null;
       if (birthDate) {
         if (birthMode === "year") {
-          // Only year selected → use Feb 29
-          formattedBirthDate = new Date(birthDate.getFullYear(), 11, 32).toISOString().split("T")[0];
+          // year only → fake Dec 31 of that year
+          formattedBirthDate = `${birthDate.getFullYear()}-12-31`;
         } else {
-          // Full date selected
-          formattedBirthDate = birthDate.toISOString().split("T")[0];
+          formattedBirthDate = formatDate(birthDate);
         }
       }
 
-
-      console.log(formattedBirthDate)
-      // Handle death date
+      // ---- Death date ----
       let formattedDeathDate = null;
       if (deathDate) {
         if (deathMode === "year") {
-          // Only year selected → use Feb 30
-          formattedDeathDate = new Date(deathDate.getFullYear(), 11, 32).toISOString().split("T")[0];
+          formattedDeathDate = `${deathDate.getFullYear()}-12-31`;
         } else {
-          // Full date selected
-          formattedDeathDate = deathDate.toISOString().split("T")[0];
+          formattedDeathDate = formatDate(deathDate);
         }
       }
 
-      const fullName = `${inputValueName} ${inputValueSirName}`;
-      const obituaryText =
-        inputValueGender === "Male"
-          ? `Sporočamo žalostno vest, da nas je zapustil naš predragi ${fullName}. Vsi njegovi.`
-          : `Sporočamo žalostno vest, da nas je zapustila naša predraga ${fullName}. Vsi njeni.`;
-
+      // ---- Funeral timestamp (can keep ISO here because you want exact datetime) ----
       let formattedFuneralTimestamp = null;
       if (funeralDate && selectedFuneralHour !== null && selectedFuneralMinute !== null) {
         formattedFuneralTimestamp = new Date(
@@ -334,6 +333,13 @@ const AddObituary = ({ set_Id, setModal }) => {
         ).toISOString();
       }
 
+      const fullName = `${inputValueName} ${inputValueSirName}`;
+      const obituaryText =
+        inputValueGender === "Male"
+          ? `Sporočamo žalostno vest, da nas je zapustil naš predragi ${fullName}. Vsi njegovi.`
+          : `Sporočamo žalostno vest, da nas je zapustila naša predraga ${fullName}. Vsi njeni.`;
+
+      // ---- Append data ----
       formData.append("name", inputValueName);
       formData.append("sirName", inputValueSirName);
       formData.append("location", inputValueEnd);
@@ -342,14 +348,16 @@ const AddObituary = ({ set_Id, setModal }) => {
       formData.append("gender", inputValueGender);
       formData.append("birthDate", formattedBirthDate);
       formData.append("deathDate", formattedDeathDate);
-
       formData.append("funeralLocation", selectedCity);
+
       if (inputValueFuneralCemetery !== "pokopalisce") {
         formData.append("funeralCemetery", inputValueFuneralCemetery);
       }
 
-      formattedFuneralTimestamp &&
+      if (formattedFuneralTimestamp) {
         formData.append("funeralTimestamp", formattedFuneralTimestamp);
+      }
+
       formData.append("deathReportExists", isDeathReportConfirmed);
       formData.append("events", JSON.stringify(events));
       formData.append("obituary", obituaryText);
@@ -360,25 +368,20 @@ const AddObituary = ({ set_Id, setModal }) => {
       if (uploadedDeathReport) {
         formData.append("deathReport", uploadedDeathReport);
       }
+
       let response;
       if (dataExists) {
-        // Update existing obituary
         response = await obituaryService.updateObituary(user.id, formData);
         toast.success("Obituary updated successfully!");
       } else {
-        // Create new obituary
         response = await obituaryService.createObituary(formData);
         toast.success("Obituary created successfully!");
       }
 
       if (response.error) {
-        toast.error(
-          response.error || "Something went wrong. Please try again!"
-        );
+        toast.error(response.error || "Something went wrong. Please try again!");
         return;
       }
-
-      toast.success("Obituary created successfully!");
 
       const responseDeathDate = new Date(response.deathDate);
       const deathDateFormatted = `${responseDeathDate
@@ -402,6 +405,7 @@ const AddObituary = ({ set_Id, setModal }) => {
       setLoading(false);
     }
   };
+
 
   const [startDecade, setStartDecade] = useState(1950);
 
