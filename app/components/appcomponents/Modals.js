@@ -900,7 +900,7 @@ const Modals = ({
           <div className="mobile:w-[100%] w-[254px] mt-6">
             <ButtonBlueBorder
               placeholder={"Objavi"}
-              onClick={() => updateMemory("symbol", isSelectedRelegion)}
+              onClick={() => updateMemory("symbol", isSelectedRelegion, "allow")}
             />
           </div>
         </div>
@@ -1263,7 +1263,7 @@ const Modals = ({
           <div className="w-[254px] mt-[42px]">
             <ButtonBlueBorder
               placeholder={"Objavi"}
-              onClick={() => updateMemory("events", newEvent)}
+              onClick={() => updateMemory("events", newEvent, "allow")}
             />
           </div>
         </div>
@@ -1294,7 +1294,7 @@ const Modals = ({
           <div className="mobile:w-[100%] w-[254px] mt-8">
             <ButtonBlueBorder
               placeholder={"Objavi"}
-              onClick={() => updateMemory("verse", verse)}
+              onClick={() => updateMemory("verse", verse, "allow")}
             />
           </div>
         </div>
