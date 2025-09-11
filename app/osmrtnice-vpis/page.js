@@ -12,7 +12,7 @@ import { useAuth } from "@/hooks/useAuth";
 const Obituaryform = () => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [select_id, setSelect_Id] = useState("");
-
+  
   const router = useRouter();
   const { user, isAuthenticated, isLoading } = useAuth();
 
@@ -24,11 +24,21 @@ const Obituaryform = () => {
     }
 
 
+    // Temporarily commented
+    // Check if user has permission to create obituaries
     if (!isLoading && !isAuthenticated && !user.createObituaryPermission) {
       toast.error("You don't have permission to create obituaries.");
       router.push("/");
       return;
     }
+
+   
+    if (!isLoading && !isAuthenticated &&!user.createObituaryPermission) {
+      toast.error("You don't have permission to create obituaries.");
+      router.push("/");
+      return;
+    }
+
 
   }, [isLoading, isAuthenticated, user]);
 
@@ -51,6 +61,8 @@ const Obituaryform = () => {
     );
   }
 
+
+  // Temporarily commented
   if (!user?.createObituaryPermission) {
     return (
       <Layout
@@ -78,6 +90,7 @@ const Obituaryform = () => {
       </Layout>
     );
   }
+
 
   return (
     <Layout
