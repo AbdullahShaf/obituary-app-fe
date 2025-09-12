@@ -123,7 +123,9 @@ const FlowerShops = ({ setIsOpen, data, showShop }) => {
             {/* Cards (from cardImages) */}
             {data.floristShops.map((item, index) => (
               <Link
-                href={`/floristdetails/${item.id}`}
+                // href={`/floristdetails/${item.id}`}
+                href={`#`}
+                onClick={(e) => e.preventDefault()} //NOTE: remove this which adding proper 'href'
                 key={index}
                 className=" bg-white jddesktop:w-[180px] jddesktop:h-[160px] jdtablet:w-[195px] jdtablet:h-[160px] jdmobile:w-[150px] jdmobile:h-[130px] jddesktop:rounded-[8px] jdtablet:rounded-[8px] jdmobile:border jdmobile:border-[rgba(54,85,108,0.6)] flex flex-col items-center justify-center relative overflow-hidden jdmobile:justify-end jdmobile:my-5 jdtablet:my-5 jddesktop:my-5 my-6 jddesktop:mx-2"
                 style={{
@@ -146,7 +148,7 @@ const FlowerShops = ({ setIsOpen, data, showShop }) => {
             ))}
           </div>
         )}
-        {data?.floristShops?.length === 0 && (
+        {!data?.floristShops?.length && (
           <div className="w-full">
             <div className="flex flex-col items-center justify-center w-full h-32 text-gray-500">
               <p>Še ni vnešenih&nbsp;cvetličarn.</p>
