@@ -415,7 +415,7 @@ const UpdateObituary = ({ set_Id, setModal }) => {
         .slice(2)}`;
 
       router.push(
-        `/memorypage/${response.id}/${response.name}_${response.sirName}_${deathDateFormatted}`
+        `/m/${response.slugKey}`
       );
     } catch (error) {
       if (error?.response?.status === 404) {
