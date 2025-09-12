@@ -306,7 +306,7 @@ export default function Footer() {
                     <ul className="mt-[24px] ">
                       <li className="flex h-[24px] items-center">
                         <a
-                          href="#"
+                          href="/splosni-pogoji"
                           className=" text-[#414141] font-normal   hover:text-blue-500 transition duration-200 text-[16px]"
                         >
                           Splošni pogoji poslovanja
@@ -314,7 +314,7 @@ export default function Footer() {
                       </li>
                       <li className="flex h-[24px] mt-4 items-center">
                         <a
-                          href="#"
+                          href="/politika-zasebnosti"
                           className="text-[#414141] font-normal  hover:text-blue-500 transition duration-200 text-[16px]"
                         >
                           Politika zasebnosti

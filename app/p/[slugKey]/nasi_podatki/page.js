@@ -12,6 +12,9 @@ import toast from "react-hot-toast";
 import ModalNew3 from "@/app/components/appcomponents/ModalNew3";
 import { useAuth } from "@/hooks/useAuth";
 
+const citiesArr = ['secondaryCity', 'thirdCity', 'fourthCity', 'fifthCity', 'sixthCity', 'seventhCity', 'eightCity']
+
+
 export default function AccountSettings() {
   const { refreshUserSession } = useAuth();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -51,16 +54,26 @@ export default function AccountSettings() {
       .sort((a, b) => a.place.localeCompare(b.place, "sl")),
   ];
 
-  const handleCitySelect = async (item) => {
+  const handleCitySelect = async (item, columnName) => {
+    let payload = {};
+    const getColumnKey = citiesArr.find(key => !data[key]) || null;
+    if (item) {
+      payload = { [getColumnKey]: item }
+    } else {
+      payload = { [columnName]: null };
+    }
+
     try {
-      const response = await userService.updateMyUser({ secondaryCity: item });
+      const response = await userService.updateMyUser(payload);
       if (response) {
         await refreshUserSession();
         toast.success("City Updated Successfully");
         setSelectedCity(item);
+        const updated = columnName ? { [columnName]: null } : { [getColumnKey]: item };
+
         setData((prevData) => ({
           ...prevData,
-          secondaryCity: item,
+          ...updated,
         }));
       } else {
         toast.error("Error Updating City");
@@ -170,20 +183,20 @@ export default function AccountSettings() {
                 </Link> */}
               </div>
             </div>
-            {data?.secondaryCity && (
-              <div className="flex items-center gap-[12px] px-6">
+            {citiesArr?.map((el, index) => (
+              data?.[el] && <div className="flex items-center gap-[12px] px-6" key={`${el}_${index}`}>
                 <span className="uppercase">Dodatno:</span>
                 <span className="text-[#3C3E41]">
-                  {data?.secondaryCity}
+                  {data?.[el]}
                   <span
                     className="text-[red]"
-                    onClick={() => handleCitySelect(null)}
+                    onClick={() => handleCitySelect(null, el)}
                   >
                     (Zbriši)
                   </span>
                 </span>
               </div>
-            )}
+            ))}
           </div>
         </div>
         <hr className="mt-[24px]" />
@@ -199,9 +212,8 @@ export default function AccountSettings() {
           >
             Privilegiji
             <svg
-              className={`ml-2 w-5 h-5 transition-transform ${
-                isPrivilegijiExpanded ? "rotate-180" : ""
-              }`}
+              className={`ml-2 w-5 h-5 transition-transform ${isPrivilegijiExpanded ? "rotate-180" : ""
+                }`}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -217,11 +229,10 @@ export default function AccountSettings() {
           </h4>
 
           <div
-            className={`space-y-3 overflow-hidden transition-all duration-300 ${
-              isPrivilegijiExpanded
-                ? "max-h-[1000px] opacity-100"
-                : "max-h-0 opacity-0"
-            }`}
+            className={`space-y-3 overflow-hidden transition-all duration-300 ${isPrivilegijiExpanded
+              ? "max-h-[1000px] opacity-100"
+              : "max-h-0 opacity-0"
+              }`}
           >
             {/* Funeral Company List Publication */}
             <div className="flex items-center gap-3">
