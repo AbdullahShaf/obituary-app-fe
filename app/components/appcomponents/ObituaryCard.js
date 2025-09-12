@@ -4,6 +4,23 @@ import iconArrowRight from "@/public/icon_arrowright.png";
 import Link from "next/link";
 import { format } from "date-fns";
 
+const formatObituaryDate = (dateString) => {
+  if (!dateString) return ""; // If date doesn't exist
+
+  const date = new Date(dateString);
+  const day = date.getDate();
+  const month = date.getMonth() + 1; // 0-indexed
+  const year = date.getFullYear();
+
+  // If date is 31st December → show only year
+  if (day === 31 && month === 12) {
+    return `${year}`;
+  }
+
+  // Otherwise, show full date
+  return format(date, "dd.MM.yyyy");
+};
+
 const calculateAge = (birthDate, deathDate) => {
   const birth = new Date(birthDate);
   const death = new Date(deathDate);
@@ -27,8 +44,10 @@ const ObituaryCard = ({
   selectedCity,
   selectedRegion,
 }) => {
-  const formattedBirthDate = new Date(data.birthDate).getFullYear();
-  const formattedDeathDate = format(new Date(data.deathDate), "dd.MM.yyyy");
+
+  // Conditional formatting
+  const formattedBirthDate = formatObituaryDate(data?.birthDate);
+  const formattedDeathDate = formatObituaryDate(data?.deathDate);
 
   const age = calculateAge(data.birthDate, data.deathDate);
 
