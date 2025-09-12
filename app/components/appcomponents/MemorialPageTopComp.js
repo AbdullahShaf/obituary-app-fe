@@ -20,6 +20,16 @@ const MemorialPageTopComp = ({
   const [maxCondolances, setMaxCondolances] = useState(6);
   const [limitedCondolances, setLimitedCondolances] = useState([]);
   const [currentCount, setCurrentCount] = useState(0);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setScreenWidth(window.innerWidth);
+
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup on unmount
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const defaultMessage = {
     message: "Počivaj v miru",
@@ -69,8 +79,7 @@ const MemorialPageTopComp = ({
   const truncateURL = (url, maxLength) => {
     return url.length > maxLength ? `${url.slice(0, maxLength)}...` : url;
   };
-
-  const formatObituaryDate = (dateString) => {
+const formatObituaryDate = (dateString) => {
     if (!dateString) return ""; // If date doesn't exist
 
     const date = new Date(dateString);
@@ -411,10 +420,11 @@ const MemorialPageTopComp = ({
               <div className="flex flex-col w-[100%]   desktop:items-end items-center">
                 <div className="hidden desktop:flex h-[35px] w-full" />
                 <div
-                  className="flex-col 
+                  className={`flex-col 
                   pt-4 w-[100%] mobile:px-[21px] mobile:pb-[19px]
                   tablet:px-[22px] tablet:pb-[15px]
-                  desktop:w-[517px] sm:w-[517px] desktop:pl-[22px] desktop:pr-[17px] bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]"
+                  ${screenWidth < 740 ? "w-[330px]" : (screenWidth >= 740 && screenWidth <= 1024) ? "w-[550px]" : ""}
+                  desktop:w-[517px] desktop:pl-[22px] desktop:pr-[17px] bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]`}
                   style={{
                     background:
                       "linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)",
@@ -423,7 +433,7 @@ const MemorialPageTopComp = ({
                   }}
                 >
                   <div className="flex items-center h-[39px] ">
-                    <div className="text-[20px] text-[#1E2125] font-variation-customOpt20 font-normal  ">
+                    <div className="text-[20px] text-[#1E2125] font-variation-customOpt20 font-normal">
                       Osmrtnica
                     </div>
                   </div>
@@ -488,14 +498,14 @@ const MemorialPageTopComp = ({
                   [
                     ...(data?.funeralTimestamp
                       ? [
-                        {
-                          type: "funeral",
-                          timestamp: new Date(
-                            data?.funeralTimestamp
-                          ).getTime(),
-                          details: data,
-                        },
-                      ]
+                          {
+                            type: "funeral",
+                            timestamp: new Date(
+                              data?.funeralTimestamp
+                            ).getTime(),
+                            details: data,
+                          },
+                        ]
                       : []),
                     ...(Array.isArray(parsedEvents) ? parsedEvents : [])
                       .filter((event) => {
@@ -519,10 +529,10 @@ const MemorialPageTopComp = ({
                     })
                     .sort((a, b) => a.timestamp - b.timestamp).length > 0 && (
                     <div
-                      className="flex-col w-[100%] pt-4 
+                      className={`flex-col w-[100%] pt-4 
                       mobile:px-[21px]  mobile:pb-[25px] 
                       tablet:pb-[23px]  tablet:px-[22px]                          
-                      desktop:w-[517px] sm:w-[517px]  desktop:pb-[14px] desktop:pl-[22px] desktop:pr-[17px] shadow-custom-light-dark-box bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF] mb-[28px]"
+                      desktop:w-[517px] ${screenWidth < 740 ? "w-[330px]" : (screenWidth >= 740 && screenWidth <= 1024) ? "w-[550px]" : ""}  desktop:pb-[14px] desktop:pl-[22px] desktop:pr-[17px] shadow-custom-light-dark-box bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF] mb-[28px]`}
                       style={{
                         background:
                           "linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)",
@@ -539,14 +549,14 @@ const MemorialPageTopComp = ({
                       {[
                         ...(data?.funeralTimestamp
                           ? [
-                            {
-                              type: "funeral",
-                              timestamp: new Date(
-                                data?.funeralTimestamp
-                              ).getTime(),
-                              details: data,
-                            },
-                          ]
+                              {
+                                type: "funeral",
+                                timestamp: new Date(
+                                  data?.funeralTimestamp
+                                ).getTime(),
+                                details: data,
+                              },
+                            ]
                           : []),
                         ...(Array.isArray(parsedEvents) ? parsedEvents : [])
                           .filter((event) => {
@@ -586,9 +596,9 @@ const MemorialPageTopComp = ({
                             .getHours()
                             .toString()
                             .padStart(2, "0")}:${date
-                              .getMinutes()
-                              .toString()
-                              .padStart(2, "0")}`;
+                            .getMinutes()
+                            .toString()
+                            .padStart(2, "0")}`;
 
                           if (item.type === "funeral") {
                             return (
@@ -654,8 +664,8 @@ const MemorialPageTopComp = ({
                                     <div className="text-[#1E2125] text-[20px] font-medium">
                                       {item.details.eventName
                                         ? formatTitleCase(
-                                          item.details.eventName
-                                        )
+                                            item.details.eventName
+                                          )
                                         : ""}
                                     </div>
                                   </div>
@@ -667,14 +677,14 @@ const MemorialPageTopComp = ({
                                       {item.details.eventLocation
                                         ? item.details.eventLocation.length > 50
                                           ? `${formatTitleCase(
-                                            item.details.eventLocation.slice(
-                                              0,
-                                              50
-                                            )
-                                          )}...`
+                                              item.details.eventLocation.slice(
+                                                0,
+                                                50
+                                              )
+                                            )}...`
                                           : formatTitleCase(
-                                            item.details.eventLocation
-                                          )
+                                              item.details.eventLocation
+                                            )
                                         : ""}
                                     </p>
                                   </div>
@@ -707,12 +717,13 @@ const MemorialPageTopComp = ({
                 <div
                   className={`
                   flex-col pt-4 pl-[22px] pr-[18px] w-[100%]                       
-                  desktop:w-[517px] sm:w-[517px]  desktop:pl-[22px] desktop:pr-[14px]
+                  desktop:w-[517px] ${screenWidth < 740 ? "w-[330px]" : (screenWidth >= 740 && screenWidth <= 1024) ? "w-[550px]" : ""} desktop:pl-[22px] desktop:pr-[14px]
                   bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]
-                  ${parsedEvents.length === 90
+                  ${
+                    parsedEvents.length === 90
                       ? "desktop:mt-2"
                       : "desktop:mt-[24px]"
-                    }
+                  }
                   `}
                   style={{
                     background:
@@ -773,10 +784,11 @@ const MemorialPageTopComp = ({
                 </div>
 
                 <div
-                  className={`flex self-end ${parsedEvents.length === 90
+                  className={`flex self-end ${
+                    parsedEvents.length === 90
                       ? "tablet:mt-2 desktop:mt-[10px] mobile:mt-[10px]"
                       : "tablet:mt-4 desktop:mt-[28px] mobile:mt-[28px]"
-                    } desktop:h-[0px] items-center desktop:pr-[20px]`}
+                  } desktop:h-[0px] items-center desktop:pr-[20px]`}
                 >
                   {false && (
                     <>
@@ -798,12 +810,12 @@ const MemorialPageTopComp = ({
                 </div>
 
                 <div
-                  className="flex-col  tablet:mt-0 
+                  className={`flex-col  tablet:mt-0 
                             desktop:mt-0
                             py-4      
                             pl-[21px] pr-[28px]
                             w-[100%] tablet:px-4 
-                            desktop:w-[517px] sm:w-[517px] desktop:pl-[22px] desktop:pr-[17px] shadow-custom-light-dark-box bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]"
+                            desktop:w-[517px] ${screenWidth < 740 ? "w-[330px]" : (screenWidth >= 740 && screenWidth <= 1024) ? "w-[550px]" : ""} desktop:pl-[22px] desktop:pr-[17px] shadow-custom-light-dark-box bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]`}
                   style={{
                     background:
                       "linear-gradient(113.63deg, #E3E8EC 0%, #FFFFFF 100%)",
@@ -1309,7 +1321,7 @@ const MemorialPageTopComp = ({
             alt="Slika"
             width={74}
             height={74}
-          // className="mt-[24px] mb-[71px] mx-auto"
+            // className="mt-[24px] mb-[71px] mx-auto"
           />
         </div>
       </div>
