@@ -32,7 +32,7 @@ function Header({ onMenuCLick, from, isMegaMenuVisible }) {
         desktop:pl-[23px] ${isMegaMenuVisible && from === "1"
               ? "tablet:max-w-[700px] tablet:w-full mobile:max-w-[400px] mobile:w-full"
               : ""
-            } desktop:pr-[27px] tablet:pl-[23px]  tablet:pr-[27px] mobile:px-[24px]
+            } desktop:pr-[27px] tablet:pl-[23px]  tablet:pr-[27px] mobile:px-[20px]
         `}
         >
           <div className="mobile:h-[72px] tablet:h-[79px] desktop:h-[92.02px] w-full desktop:w-[1150px] flex justify-between items-center ">

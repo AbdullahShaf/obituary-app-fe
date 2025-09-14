@@ -5,6 +5,8 @@ import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { Roboto_Flex } from "next/font/google";
 import Image from "next/image";
 import { MdCancel } from "react-icons/md";
+import { usePathname } from "next/navigation";
+import { shouldShowBack } from "@/utils/navigationUtils";
 // Import Roboto Flex
 const roboto = Roboto_Flex({
   subsets: ["latin"],
@@ -14,6 +16,14 @@ const roboto = Roboto_Flex({
 export default function SideMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const [showSubmenu, setShowSubmenu] = useState(true);
+
+  const pathName = usePathname();
+
+  const canShowBack = shouldShowBack(pathName)
+
+  if(canShowBack){
+    return null;
+  }
 
   return (
     <menu
