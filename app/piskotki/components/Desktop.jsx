@@ -18,13 +18,13 @@ export default function Desktop() {
                 <p className="font-light text-[16px] leading-[27px] tracking-[0] mb-6">
                     Tako kot večina spletnih storitev naše spletno mesto uporablja lastne  (first-party) in piškotke tretjih oseb (third-party) za različne namene. Lastni piškotki so nujno potrebni za pravilno delovanje spletnega mesta in ne zbirajo nobenih osebno identificirajočih podatkov.</p>
 
-                <p className="font-light text-[16px] leading-[27px] tracking-[0] mb-6">Moreebitni občasni piškotki tretjih oseb, ki se uporabljajo na našem spletnem mestu, nam predvsem  pomagajo razumeti, kako spletno mesto deluje, slediti vaši interakciji z njim, ohranjati naše storitve varne, prikazovati ustrezne oglase ter  izboljšati vašo splošno uporabniško izkušnjo in hkrati povečati hitrost  vaših prihodnjih interakcij z našim spletnim mestom.</p>
+                <p className="font-light text-[16px] leading-[27px] tracking-[0] mb-6">Morebitni občasni piškotki tretjih oseb, ki se uporabljajo na našem spletnem mestu, nam predvsem  pomagajo razumeti, kako spletno mesto deluje, slediti vaši interakciji z njim, ohranjati naše storitve varne, prikazovati ustrezne oglase ter  izboljšati vašo splošno uporabniško izkušnjo in hkrati povečati hitrost  vaših prihodnjih interakcij z našim spletnim mestom.</p>
             </div>
             <div>
                 <p className="font-medium text-[16px] leading-[27px] tracking-[0] mb-[5px]">Vrste piškotkov, ki jih uporabljamo</p>
                 <ul className="list-disc marker:text-gray-400 text-[16px] pl-5 font-light mb-6">
                     <li>Nujni piškotki so potrebni za omogočanje osnovnih funkcij tega spletnega  mesta, kot so zagotavljanje varnih prijav ali prilagajanje vaših  nastavitev soglasja. Ti piškotki ne shranjujejo nobenih osebno  identificirajočih podatkov.</li>
-                    <li>Funkcionalni – shranijo vaše nastavitve in preference (npr. izbira lokalnega kraja). ̰</li>
+                    <li>Funkcionalni – shranijo vaše nastavitve in preference (npr. izbira lokalnega kraja).</li>
                     <li>Analitični – zbirajo podatke o uporabi strani za izboljševanje naših vsebin in storitev.</li>
                     <li>Marketinški – omogočajo prikazovanje ustreznih vsebin in oglasov.</li>
                 </ul>
@@ -75,12 +75,12 @@ export default function Desktop() {
 
             <div>
                 <p className="font-medium text-[16px] leading-[27px] tracking-[0]">Kontakt</p>
-                <p className="font-light text-[16px] leading-[27px] tracking-[0]">Splatna stran: osmrtnica.com</p>
+                <p className="font-light text-[16px] leading-[27px] tracking-[0]">Spletna stran: osmrtnica.com</p>
                 <p className="font-light text-[16px] leading-[27px] tracking-[0] mb-6">E-naslov: info@osmrtnica.com</p>
             </div>
             <div>
                 <p className="font-medium text-[16px] leading-[27px] tracking-[0]">Spremembe politike</p>
-                <p className="font-light text-[16px] leading-[27px] tracking-[0]">o politiko lahko občasno posodobimo. Datum zadnje posodobitve je vedno naveden na vrhu strani.</p>
+                <p className="font-light text-[16px] leading-[27px] tracking-[0]">To politiko lahko občasno posodobimo. Datum zadnje posodobitve je vedno naveden na vrhu strani.</p>
             </div>
 
 
