@@ -1,12 +1,15 @@
 import React from "react";
-// import { modelData } from "../../../utils/modelData";
+type ModalIndex = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 interface ModalProps {
   open: boolean;
   onClose: () => void;
   children?: React.ReactNode;
-  index: number;
+  index: ModalIndex;
 }
-export const modelData = {
+export const modelData: Record<
+  number,
+  { body: React.ReactNode; footer: React.ReactNode }
+> = {
   1: {
     body: (
       <>
@@ -308,8 +311,13 @@ const Modal: React.FC<ModalProps> = ({ open, onClose, index, children }) => {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 bg-opacity-40">
-      <div className="bg-[#E8F0F6] text-black flex flex-col gap-5 rounded-xl shadow-lg tab:max-w-[700px] max-w-[344px] w-full relative">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 ">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Information"
+        className="bg-[#E8F0F6] text-black flex flex-col gap-5 rounded-xl shadow-lg tab:max-w-[700px] max-w-[344px] w-full relative"
+      >
         {/* Header */}
         <div className=" absolute  flex items-center flex-row-reverse tab:flex-row justify-between w-full">
           <button
@@ -408,12 +416,12 @@ const Modal: React.FC<ModalProps> = ({ open, onClose, index, children }) => {
             [3, 4].includes(index) ? "  h-[242px]" : "  h-[360px]"
           } tab:h-[271px]  text-[#3C3E41] shadow-md tab:py-[34px] py-[22px] border-2 border-[#0A85C2]`}
         >
-          {modelData[index].body}
+          {modelData[index]?.body}
         </div>
         {/* Footer / Navigation */}
 
         <div className="  tab:mx-[90px] mx-4 tab:mb-[45px] mb-5  flex items-center justify-between  text-gray-500">
-          {modelData[index].footer}
+          {modelData[index]?.footer}
         </div>
       </div>
     </div>
