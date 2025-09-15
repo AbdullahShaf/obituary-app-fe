@@ -68,6 +68,10 @@ const ObituaryListComponent = ({ city }) => {
     } else {
       params.delete("city");
     }
+    if (!city) {
+      setSelectedCity('');
+      params.delete("city");
+    }
     if (region && region !== "allRegions" && region !== "- Pokaži vse regije -") {
       params.set("region", region);
     } else {
@@ -87,10 +91,10 @@ const ObituaryListComponent = ({ city }) => {
   const handleRegionSelect = (item) => {
     if (item.id === "allRegions" || item.place === "- Pokaži vse regije -") {
       setSelectedRegion(null);
-      updateURL(selectedCity, null, searchTerm); // Keep selected city
+      updateURL('', null, searchTerm); // selectedCity
     } else {
       setSelectedRegion(item.place);
-      updateURL(selectedCity, item.place, searchTerm); // Keep selected city
+      updateURL('', item.place, searchTerm); // selectedCity
     }
   };
 
@@ -133,11 +137,11 @@ const ObituaryListComponent = ({ city }) => {
 
   // Set default city in URL if none is specified
   useEffect(() => {
-    if (!searchParams.get('city') && !city) {
+    if (!searchParams.get('city') && !city && !selectedRegion) {
       updateURL("Celje", selectedRegion, searchTerm);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [selectedRegion]);
 
   // Fetch obituaries when filters change
   useEffect(() => {
