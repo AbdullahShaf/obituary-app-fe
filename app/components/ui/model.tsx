@@ -13,7 +13,7 @@ export const modelData: Record<
   1: {
     body: (
       <>
-        <div className="w-full  flex flex-col gap-2">
+        <div className="w-full tab:w-[455px]  flex flex-col gap-2">
           <div className=" font-medium tab:text-xl text-base ">
             <span className="tab:hidden">
               Kako lahko sodeluješ na spominski?
@@ -60,7 +60,7 @@ export const modelData: Record<
   },
   2: {
     body: (
-      <div className="w-full  text-[#3C3E41] flex flex-col tab:gap-2 gap-3 ">
+      <div className="w-full tab:w-[455px]  text-[#3C3E41] flex flex-col tab:gap-2 gap-3 ">
         <div className=" font-medium tab:text-xl text-base ">
           Kako postanem Skrbnik brezplačno?{" "}
         </div>
@@ -101,7 +101,7 @@ export const modelData: Record<
 
   3: {
     body: (
-      <div className="w-full  flex flex-col gap-2">
+      <div className="w-full tab:w-[455px]  flex flex-col gap-2">
         <div className=" font-medium text-base tab:text-xl text-[#0A85C2]">
           Že čez 2 minuti...{" "}
         </div>
@@ -138,7 +138,7 @@ export const modelData: Record<
 
   4: {
     body: (
-      <div className="w-full  h-full flex flex-col gap-2">
+      <div className="w-full tab:w-[455px]  h-full flex flex-col gap-2">
         <div className=" font-medium text-base tab:text-xl text-[#0A85C2]">
           Že v naslednjih nekaj urah ti bo omogočeno...{" "}
         </div>
@@ -165,7 +165,7 @@ export const modelData: Record<
   },
   5: {
     body: (
-      <div className="w-full  h-full flex flex-col gap-2">
+      <div className="w-full tab:w-[455px] h-full flex flex-col gap-2">
         <div className=" font-medium tab:text-xl text-base text-[#0A85C2]">
           <p className="tab:hidden">Kako naročiti? </p>
           <p className="tab:flex hidden">
@@ -198,7 +198,7 @@ export const modelData: Record<
   },
   6: {
     body: (
-      <div className="w-full  h-full flex flex-col gap-2">
+      <div className="w-full tab:w-[455px] h-full flex flex-col gap-2">
         <div
           className=" font-medium tab:text-xl text-base
   text-[#0A85C2]"
@@ -250,7 +250,7 @@ export const modelData: Record<
   },
   7: {
     body: (
-      <div className="w-full h-full flex flex-col gap-2">
+      <div className="w-full tab:w-[455px] h-full flex flex-col gap-2">
         <div className=" font-medium tab:text-xl text-base text-[#0A85C2]">
           Že čez 2 minuti...{" "}
         </div>
@@ -278,7 +278,7 @@ export const modelData: Record<
   },
   8: {
     body: (
-      <div className="w-full  h-full flex flex-col gap-2">
+      <div className="w-full tab:w-[455px] h-full flex flex-col gap-2">
         <div className=" font-medium text-base tab:text-xl text-[#0A85C2]">
           Če imate lastno cvetličarno{" "}
         </div>
