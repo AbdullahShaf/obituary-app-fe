@@ -12,6 +12,8 @@ import { toast } from "react-hot-toast";
 import companyService from "@/services/company-service";
 import CompanyPreview from "../components/company-preview";
 import { useSession } from "next-auth/react";
+import { useApi } from "@/hooks/useApi";
+import { Loader } from "@/utils/Loader";
 
 export default function Step4({
   data,
@@ -32,7 +34,9 @@ export default function Step4({
   const [showBackground, setShowBackground] = useState(
     data?.showBoxBackground || false
   );
-const { data: session } = useSession();
+  const { isLoading, trigger: update } = useApi(companyService.updateCompany);
+
+  const { data: session } = useSession();
   const companyAndCity = `${session?.user?.me?.company && session?.user?.me?.city ? `${session?.user?.me?.company}, ${session?.user?.me?.city}` : ""}`;
   const addSliderBlock = () => {
     setBoxes([...boxes, { index: boxes.length + 1 }]);
@@ -77,7 +81,7 @@ const { data: session } = useSession();
         console.log(`${key}:`, value);
       }
       if (nonEmptyBoxes.length > 0) {
-        const response = await companyService.updateCompany(
+        const response = await update(
           formData,
           companyId
         );
@@ -91,7 +95,7 @@ const { data: session } = useSession();
       console.error("Error:", error);
       toast.error(
         error?.response?.data?.error ||
-          "Failed to update company. Please try again."
+        "Failed to update company. Please try again."
       );
       return false;
     }
@@ -148,6 +152,8 @@ const { data: session } = useSession();
   };
   return (
     <>
+      {isLoading && <Loader />}
+
       <div className="absolute top-[-24px] z-10 right-[30px] text-[14px] leading-[24px] text-[#6D778E]">
         {companyAndCity}
       </div>

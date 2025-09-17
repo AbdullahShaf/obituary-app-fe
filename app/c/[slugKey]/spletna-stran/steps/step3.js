@@ -8,6 +8,8 @@ import toast from "react-hot-toast";
 import CompanyPreview from "../components/company-preview";
 import { useSession } from "next-auth/react";
 import companyService from "@/services/company-service";
+import { useApi } from "@/hooks/useApi";
+import { Loader } from "@/utils/Loader";
 
 export default function Step3({
   data,
@@ -43,7 +45,10 @@ export default function Step3({
   ]);
   const [companyId, setCompanyId] = useState(null);
   const { data: session } = useSession();
+  const { isLoading, trigger } = useApi(packageService.createPackage);
+
   const companyAndCity = `${session?.user?.me?.company && session?.user?.me?.city ? `${session?.user?.me?.company}, ${session?.user?.me?.city}` : ""}`;
+
   useEffect(() => {
     if (data && data !== null) {
       setCompanyId(data.id);
@@ -125,7 +130,6 @@ export default function Step3({
     updatedPackages[index] = updatedPackage;
     setPackages(updatedPackages);
   };
-console.log("pakages",packages);
 
   const handleSubmit = async () => {
     try {
@@ -180,7 +184,7 @@ console.log("pakages",packages);
       }
 
       if (nonEmptyPackages.length > 0) {
-        const response = await packageService.createPackage(formData);
+        const response = await trigger(formData);
         const updatedCompany = {
           ...data,
           packages: response.packages,
@@ -198,6 +202,8 @@ console.log("pakages",packages);
   };
   return (
     <>
+      {isLoading && <Loader />}
+
       <div className="absolute top-[-24px] z-10 right-[30px] text-[14px] leading-[24px] text-[#6D778E]">
         {companyAndCity}
       </div>

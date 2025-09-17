@@ -10,6 +10,8 @@ import toast from "react-hot-toast";
 import CompanyPreview from "../components/company-preview";
 import { useSession } from "next-auth/react";
 import companyService from "@/services/company-service";
+import { useApi } from "@/hooks/useApi";
+import { Loader } from "@/utils/Loader";
 
 export default function Step5({
   data,
@@ -27,8 +29,9 @@ export default function Step5({
     },
   ]);
   const [companyId, setCompanyId] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
   const { data: session } = useSession();
+  const { isLoading, trigger } = useApi(slideService.createSlide);
+
   const companyAndCity = `${session?.user?.me?.company && session?.user?.me?.city ? `${session?.user?.me?.company}, ${session?.user?.me?.city}` : ""}`;
   const addSliderBlock = () => {
     setSlides([
@@ -104,7 +107,7 @@ export default function Step5({
       }
 
       if (nonEmptySlides.length > 0) {
-        const response = await slideService.createSlide(formData);
+        const response = await trigger(formData);
         const updatedCompany = { ...data, slides: response.slides };
         onChange(updatedCompany);
         toast.success("Florist Slides Updated Successfully");
@@ -154,6 +157,8 @@ export default function Step5({
   // --------------------
   return (
     <>
+      {isLoading && <Loader />}
+
       <div className="absolute top-[-24px] z-10 right-[30px] text-[14px] leading-[24px] text-[#6D778E]">
         {companyAndCity}
       </div>
@@ -223,18 +228,18 @@ export default function Step5({
             <div className="flex items-center gap-[8px]">
               <button
                 className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
-              onClick={() => handleStepChange(4)}
+                onClick={() => handleStepChange(4)}
               >
                 Nazaj
               </button>
               <button
                 className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
-              onClick={async () => {
-                const success = await handleSubmit();
-                if (success) {
-                  handleStepChange(6);
-                }
-              }}
+                onClick={async () => {
+                  const success = await handleSubmit();
+                  if (success) {
+                    handleStepChange(6);
+                  }
+                }}
               >
                 Naslednji korak
               </button>

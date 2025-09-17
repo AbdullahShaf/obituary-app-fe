@@ -10,6 +10,8 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import CompanyPreview from "../components/company-preview";
 import { useSession } from "next-auth/react";
+import { Loader } from "@/utils/Loader";
+import { useApi } from "@/hooks/useApi";
 
 export default function Step6({
   data,
@@ -38,6 +40,9 @@ export default function Step6({
   const [instagram, setInstagram] = useState("");
   const [facebook, setFacebook] = useState("");
   const { data: session } = useSession();
+  const { isLoading, trigger: updateCompany } = useApi(companyService.updateCompany);
+  const { isLoading: isShopCreating, trigger: createShop } = useApi(shopService.createShop);
+
   const companyAndCity = `${session?.user?.me?.company && session?.user?.me?.city ? `${session?.user?.me?.company}, ${session?.user?.me?.city}` : ""}`;
   const addSliderBlock = () => {
     setShops([
@@ -76,7 +81,7 @@ export default function Step6({
       if (logo) formData.append("logo", logo);
       if (instagram) formData.append("instagram", instagram);
 
-      const response = await companyService.updateCompany(formData, companyId);
+      const response = await updateCompany(formData, companyId);
       onChange(response.company);
       toast.success("Podatki so shranjeni");
       router.refresh();
@@ -127,7 +132,7 @@ export default function Step6({
         allowStatus: send ?? ''
       };
       await handlePublish();
-      const response = await shopService.createShop(payload);
+      const response = await createShop(payload);
       // onChange({
       //   ...data,
       //   shops: response.shops,
@@ -149,7 +154,7 @@ export default function Step6({
       const formData = new FormData();
       formData.append("status", "DRAFT");
 
-      const response = await companyService.updateCompany(formData, companyId);
+      const response = await updateCompany(formData, companyId);
       onChange(response.company);
       console.log(response);
     } catch (error) {
@@ -181,7 +186,6 @@ export default function Step6({
     try {
       const response = await companyService.companyAdditionalData({ companyId, table: "shops" });
       if (response && response?.length > 0) {
-        console.log("===================",response );
         const updatedShops = response.map((shop, index) => ({
           ...shop,
           index: index + 1,
@@ -192,7 +196,6 @@ export default function Step6({
       console.error('Failed to fetch shops data:', error);
     }
   }
-console.log('datatatatatatt',data);
 
   useEffect(() => {
 
@@ -201,10 +204,11 @@ console.log('datatatatatatt',data);
     }
   }, [companyId])
   // --------------------
-                console.log('????????companyIda', companyId);
 
   return (
     <>
+      {(isLoading || isShopCreating) && <Loader />}
+
       <div className="absolute top-[-24px] z-10 right-[30px] text-[14px] leading-[24px] text-[#6D778E]">
         {companyAndCity}
       </div>
@@ -375,27 +379,27 @@ console.log('datatatatatatt',data);
                 </button>
                 <button
                   className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
-                onClick={() => {
-                  if (openBlock === 1) {
-                    handleStepChange(5);
-                  } else {
-                    setOpenBlock(1);
-                  }
-                }}
+                  onClick={() => {
+                    if (openBlock === 1) {
+                      handleStepChange(5);
+                    } else {
+                      setOpenBlock(1);
+                    }
+                  }}
                 >
                   Nazaj
                 </button>
               </div>
               <button
                 className="bg-gradient-to-b from-[#F916D6] to-[#9D208A] text-[#FFFFFF] font-semibold leading-[24px] text-[20px] py-[12px] px-[66px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
-              onClick={() => {
-                if (openBlock === 1) {
-                  setOpenBlock(2);
-                } else {
-                  handleShopSubmit('send');
-                  handleStepChange(6);
-                }
-              }}
+                onClick={() => {
+                  if (openBlock === 1) {
+                    setOpenBlock(2);
+                  } else {
+                    handleShopSubmit('send');
+                    handleStepChange(6);
+                  }
+                }}
               >
                 Objavi
               </button>
@@ -413,20 +417,20 @@ console.log('datatatatatatt',data);
                 <div className="flex items-center gap-[8px]">
                   <button
                     className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
-                  onClick={() => handleStepChange(5)}
+                    onClick={() => handleStepChange(5)}
                   >
                     Nazaj
                   </button>
                   <button
                     className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
-                  onClick={async () => {
-                    if (openBlock === 1) {
-                      const success = await handleBCSubmit();
-                      if (success) {
-                        setOpenBlock(2);
+                    onClick={async () => {
+                      if (openBlock === 1) {
+                        const success = await handleBCSubmit();
+                        if (success) {
+                          setOpenBlock(2);
+                        }
                       }
-                    }
-                  }}
+                    }}
                   >
                     Naslednji korak
                   </button>

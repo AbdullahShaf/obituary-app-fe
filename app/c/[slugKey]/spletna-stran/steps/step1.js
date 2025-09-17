@@ -11,8 +11,8 @@ import toast from "react-hot-toast";
 import CompanyPreview from "../components/company-preview";
 import { useSession } from "next-auth/react";
 import InfoModal from "@/app/components/appcomponents/InfoModal";
-// import { useApi } from "@/hooks/useApi";
-// import {Loader} from "@/utils/Loader";
+import { useApi } from "@/hooks/useApi";
+import {Loader} from "@/utils/Loader";
 export default function Step1({
   data,
   onChange,
@@ -29,8 +29,8 @@ export default function Step1({
   const [glassFrameState, setGlassFrameState] = useState(false);
   const [user, setUser] = useState(null);
   const [showNotifyCard, setShowNotifyCard] = useState(true);
-  // const { isLoading: isCreating, trigger: create } = useApi(companyService.createCompany);
-  // const { isLoading: isUpdating, trigger: update } = useApi(companyService.updateCompany);
+  const { isLoading: isCreating, trigger: create } = useApi(companyService.createCompany);
+  const { isLoading: isUpdating, trigger: update } = useApi(companyService.updateCompany);
 
   const { data: session } = useSession();
   const companyAndCity = `${session?.user?.me?.company && session?.user?.me?.city ? `${session?.user?.me?.company}, ${session?.user?.me?.city}` : ""}`;
@@ -74,14 +74,14 @@ export default function Step1({
           selectedImage instanceof File;
 
         if (hasChanges) {
-          response = await companyService.updateCompany(formData, companyId);
+          response = await update(formData, companyId);
 
           toast.success("Changes Applied Successfully");
         } else {
           return true;
         }
       } else {
-        response = await companyService.createCompany(formData, "florist");
+        response = await create(formData, "florist");
 
         toast.success("Podjetje je ustvarjeno");
       }
@@ -112,7 +112,7 @@ export default function Step1({
 
   return (
     <>
-    {/* {(isCreating || isUpdating) && <Loader/>} */}
+    {(isCreating || isUpdating) && <Loader/>}
       <InfoModal
         icon={"/giftbox.svg"}
         heading={"V pripravi"}

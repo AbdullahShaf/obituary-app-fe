@@ -150,7 +150,7 @@ export default function Step2({
 
   return (
     <>
-      {/* {isLoading && <Loader />} */}
+      {isLoading && <Loader />}
 
       <div className="absolute top-[-24px] z-10 right-[30px] text-[14px] leading-[24px] text-[#6D778E]">
         {companyAndCity}
