@@ -12,6 +12,7 @@ import { useSession } from "next-auth/react";
 import companyService from "@/services/company-service";
 import { useApi } from "@/hooks/useApi";
 import { Loader } from "@/utils/Loader";
+import { RenderImage } from "@/utils/ImageViewerModal";
 
 export default function Step5({
   data,
@@ -120,7 +121,7 @@ export default function Step5({
   };
 
   useEffect(() => {
-    setCompanyId(data.id);
+    setCompanyId(data?.id);
 
     // if (data.slides && data.slides.length > 0) {
     //   const updatedSlides = data.slides.map((slide, index) => ({
@@ -130,6 +131,7 @@ export default function Step5({
     //   setSlides(updatedSlides);
     // }
   }, [data]);
+  console.log('sssssssssss');
 
   // Refactor--------
   const fetchSlides = async () => {
@@ -260,10 +262,15 @@ export default function Step5({
 
 function SliderBlock({ index, title, slide, onChange }) {
   const [isDefaultOpen, setIsDefaultOpen] = useState(index === 1);
+  const [savedImage, setSavedImage] = useState("");
   const handleChange = (e) => {
     onChange(index - 1, { ...slide, [e.target.name]: e.target.value });
   };
-
+  useEffect(() => {
+    if (typeof slide?.image === "string" && slide?.image) {
+      setSavedImage(slide?.image);
+    }
+  }, [slide])
   return (
     <OpenableBlock isDefaultOpen={isDefaultOpen} title={title} index={index}>
       <div className="space-y-[16px]">
@@ -278,6 +285,7 @@ function SliderBlock({ index, title, slide, onChange }) {
             }}
             inputId={`slide-${index}-upload`}
           />
+          <RenderImage src={savedImage} alt={"img"} label={""} />
         </div>
         <div className="space-y-[8px]">
           <label className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">

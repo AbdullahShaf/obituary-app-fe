@@ -14,7 +14,11 @@ import CompanyPreview from "../components/company-preview";
 import { useSession } from "next-auth/react";
 import { useApi } from "@/hooks/useApi";
 import { Loader } from "@/utils/Loader";
-
+import { RenderImage } from "@/utils/ImageViewerModal";
+const getNumberWord = (num) => {
+  const words = ["one", "two", "three"];
+  return words[num - 1] || "";
+};
 export default function Step2({
   data,
   onChange,
@@ -143,11 +147,6 @@ export default function Step2({
     }
   };
 
-  const getNumberWord = (num) => {
-    const words = ["one", "two", "three"];
-    return words[num - 1] || "";
-  };
-
   return (
     <>
       {isLoading && <Loader />}
@@ -190,11 +189,12 @@ export default function Step2({
                 onChange={(e) => setSubtitle(e.target.value)}
               />
             </div> */}
-            {offers.map((block) => (
+            {offers.map((block,i) => (
               <SliderBlock
                 key={block.index}
                 index={block.index}
                 offer={block}
+                savedImage={data?.[`offer_${getNumberWord(i+1)}_image`]}
                 onChange={handleOfferChange}
                 title={`Slike vaše ponudbe ${block.index}`}
               />
@@ -243,7 +243,7 @@ export default function Step2({
   );
 }
 
-function SliderBlock({ index, title, offer, onChange }) {
+function SliderBlock({ index, title, offer, onChange,savedImage }) {
   const [isDefaultOpen, setIsDefaultOpen] = useState(index === 1);
   const handleChange = (e) => {
     onChange(index - 1, { ...offer, [e.target.name]: e.target.value });
@@ -277,6 +277,7 @@ function SliderBlock({ index, title, offer, onChange }) {
             }}
             inputId={`offer-${index}-upload`}
           />
+          <RenderImage src={savedImage} alt={"img"} label={""} />
         </div>
         <div className="space-y-[8px]">
           <div className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">

@@ -14,7 +14,11 @@ import CompanyPreview from "../components/company-preview";
 import { useSession } from "next-auth/react";
 import { useApi } from "@/hooks/useApi";
 import { Loader } from "@/utils/Loader";
-
+import { RenderImage } from "@/utils/ImageViewerModal";
+const getNumberWord = (num) => {
+  const words = ["one", "two", "three"];
+  return words[num - 1] || "";
+};
 export default function Step4({
   data,
   onChange,
@@ -116,10 +120,7 @@ export default function Step4({
   //   onChange(response.company);
   // };
 
-  const getNumberWord = (num) => {
-    const words = ["one", "two", "three"];
-    return words[num - 1] || "";
-  };
+
 
   useEffect(() => {
     if (data && data !== null) {
@@ -178,13 +179,14 @@ export default function Step4({
             )}
           </div>
           <div className="space-y-[8px]">
-            {boxes.map((block) => (
+            {boxes.map((block, i) => (
               <SliderBlock
                 key={block.index}
                 index={block.index}
                 title={`Okvir ${block.index}`}
                 box={block}
                 onChange={handleBoxChange}
+                savedIcon={data?.[`box_${getNumberWord(i + 1)}_icon`]}
               />
             ))}
             {boxes.length < 2 && (
@@ -223,6 +225,8 @@ export default function Step4({
                 inputId={"boxes-bg-image"}
                 disabled={true}
               />
+              <RenderImage src={data?.boxBackgroundImage} alt={"img"} label={""} />
+
               <div className="flex items-center justify-center gap-[22px] py-[9px]">
                 <span className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
                   Prikaži obstoječ dizajn
@@ -281,7 +285,7 @@ export default function Step4({
   );
 }
 
-function SliderBlock({ index, title, box, onChange }) {
+function SliderBlock({ index, title, box, onChange, savedIcon }) {
   const [isDefaultOpen, setIsDefaultOpen] = useState(index === 1);
   const handleChange = (e) => {
     onChange(index - 1, { ...box, [e.target.name]: e.target.value });
@@ -303,6 +307,8 @@ function SliderBlock({ index, title, box, onChange }) {
             Za prvo silo smo nekaj slik že dodali. Svoje prilepi čimprej.
           </div>
           <IconSelectorStep4 setBoxIcon={handleImageChange} />
+
+          <RenderImage src={savedIcon} alt={"img"} label={""} />
         </div>
         <div className="space-y-[8px]">
           <div className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">

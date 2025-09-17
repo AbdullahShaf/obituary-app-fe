@@ -10,6 +10,7 @@ import { useSession } from "next-auth/react";
 import companyService from "@/services/company-service";
 import { useApi } from "@/hooks/useApi";
 import { Loader } from "@/utils/Loader";
+import { RenderImage } from "@/utils/ImageViewerModal";
 
 export default function Step3({
   data,
@@ -298,6 +299,12 @@ function SliderBlock({ index, title, currentPackage, onChange }) {
   const handleChange = (e) => {
     onChange(index - 1, { ...currentPackage, [e.target.name]: e.target.value });
   };
+  const [savedImage, setSavedImage] = useState("");
+  useEffect(() => {
+    if (typeof currentPackage?.image === "string" && currentPackage?.image) {
+      setSavedImage(currentPackage?.image);
+    }
+  }, [currentPackage])
   return (
     <OpenableBlock isDefaultOpen={isDefaultOpen} title={title} index={index}>
       <div className="space-y-[16px]">
@@ -312,6 +319,7 @@ function SliderBlock({ index, title, currentPackage, onChange }) {
             }}
             inputId={`package-${index}-upload`}
           />
+          <RenderImage src={savedImage} alt={"img"} label={""} />
         </div>
         <div className="space-y-[8px]">
           <label className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">

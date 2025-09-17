@@ -12,7 +12,8 @@ import CompanyPreview from "../components/company-preview";
 import { useSession } from "next-auth/react";
 import InfoModal from "@/app/components/appcomponents/InfoModal";
 import { useApi } from "@/hooks/useApi";
-import {Loader} from "@/utils/Loader";
+import { Loader } from "@/utils/Loader";
+import { RenderImage } from "@/utils/ImageViewerModal";
 export default function Step1({
   data,
   onChange,
@@ -112,7 +113,7 @@ export default function Step1({
 
   return (
     <>
-    {(isCreating || isUpdating) && <Loader/>}
+      {(isCreating || isUpdating) && <Loader />}
       <InfoModal
         icon={"/giftbox.svg"}
         heading={"V pripravi"}
@@ -195,6 +196,7 @@ export default function Step1({
                 index={2}
                 openBlock={openedBlock === 2}
                 handleOpenBlock={() => setOpenedBlock(2)}
+                className=""
               >
                 <div className="space-y-[8px]">
                   <span className="text-[14px] text-[#3C3E41] font-normal leading-[24px]">
@@ -215,6 +217,7 @@ export default function Step1({
                     setFile={(file) => setSelectedImage(file)}
                     inputId="florist-company-picture"
                   />
+                  <RenderImage src={data?.background} alt={"img"} label={""} />
                 </div>
                 <div className="text-center text-[14px] leading-[24px] text-[#3C3E41] pt-[5px] pb-[10px]">
                   --------------

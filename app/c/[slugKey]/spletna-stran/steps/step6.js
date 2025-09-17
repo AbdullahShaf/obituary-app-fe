@@ -12,6 +12,7 @@ import CompanyPreview from "../components/company-preview";
 import { useSession } from "next-auth/react";
 import { Loader } from "@/utils/Loader";
 import { useApi } from "@/hooks/useApi";
+import { RenderImage } from "@/utils/ImageViewerModal";
 
 export default function Step6({
   data,
@@ -265,6 +266,7 @@ export default function Step6({
                     setFile={(file) => setLogo(file)}
                     inputId="logo-upload"
                   />
+                  <RenderImage src={data?.logo} alt={"img"} label={""} />
                 </div>
                 <div className="space-y-[8px]">
                   <label className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
