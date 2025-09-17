@@ -12,6 +12,7 @@ import { useSession } from "next-auth/react";
 import InfoModal from "@/app/components/appcomponents/InfoModal";
 import { Loader } from "@/utils/Loader";
 import { useApi } from "@/hooks/useApi";
+import { ImageViewerModal, RenderImage } from "@/utils/ImageViewerModal";
 
 export default function Step1({ data, onChange, handleStepChange }) {
   const [openedBlock, setOpenedBlock] = useState(1);
@@ -160,6 +161,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
               index={1}
               openBlock={openedBlock === 1}
               handleOpenBlock={() => setOpenedBlock(1)}
+              className=""
             >
               <div className="space-y-[8px]">
                 <span className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
@@ -170,6 +172,7 @@ export default function Step1({ data, onChange, handleStepChange }) {
                   setFile={(file) => setLogo(file)}
                   inputId="logo-upload"
                 />
+                <RenderImage src={data?.company_logo} alt={"img"} label={""} />
               </div>
               <div className="space-y-[8px]">
                 <span className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
@@ -215,6 +218,8 @@ export default function Step1({ data, onChange, handleStepChange }) {
                   setFile={(file) => setBackground(file)}
                   inputId="background-upload"
                 />
+                <RenderImage src={data?.background} alt={"img"} label={""} />
+
               </div>
             </OpenableBlock>
             <OpenableBlock

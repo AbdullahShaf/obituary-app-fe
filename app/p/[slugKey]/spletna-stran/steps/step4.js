@@ -15,6 +15,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useSession } from "next-auth/react";
 import { useApi } from "@/hooks/useApi";
 import { Loader } from "@/utils/Loader";
+import { RenderImage } from "@/utils/ImageViewerModal";
 
 export default function Step4({ data, onChange, handleStepChange }) {
   const [companyId, setCompanyId] = useState(null);
@@ -164,6 +165,7 @@ export default function Step4({ data, onChange, handleStepChange }) {
                   setFile={(file) => setSecondaryImage(file)}
                   inputId="secondary-image"
                 />
+                <RenderImage src={data?.secondary_image} alt={"img"} label={""} />
               </div>
             </div>
           </div>

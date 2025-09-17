@@ -11,6 +11,7 @@ import FuneralCompanyPreview from "../components/funeral-company-preview";
 import { useSession } from "next-auth/react";
 import { useApi } from "@/hooks/useApi";
 import { Loader } from "@/utils/Loader";
+import { RenderImage } from "@/utils/ImageViewerModal";
 
 export default function Step2({ data, onChange, handleStepChange }) {
   const [openedBlock, setOpenedBlock] = useState(1);
@@ -153,7 +154,7 @@ export default function Step2({ data, onChange, handleStepChange }) {
               className={`bg-[#f2f5f8] rounded-b-[4px] border border-[#A1B1D4]`}
             >
               <div
-                className={`py-[16px] space-y-[8px] max-h-[600px] transition-all duration-300 px-[16px]`}
+                className={`py-[16px] space-y-[8px] transition-all duration-300 px-[16px]`}
               >
                 <div className="space-y-[8px]">
                   <span className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
@@ -163,6 +164,7 @@ export default function Step2({ data, onChange, handleStepChange }) {
                     setFile={(file) => setImage(file)}
                     inputId="image-upload"
                   />
+                  <RenderImage src={data?.funeral_section_one_image_one} alt={"img"} label={""} />
                 </div>
                 <div className="space-y-[8px]">
                   <span className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
@@ -172,6 +174,7 @@ export default function Step2({ data, onChange, handleStepChange }) {
                     setFile={(file) => setBackground(file)}
                     inputId="background-upload"
                   />
+                  <RenderImage src={data?.funeral_section_one_image_two} alt={"img"} label={""} />
                 </div>
               </div>
             </div>

@@ -15,6 +15,7 @@ import { useSession } from "next-auth/react";
 import { useApi } from "@/hooks/useApi";
 import { Loader } from "@/utils/Loader";
 import companyService from "@/services/company-service";
+import { RenderImage } from "@/utils/ImageViewerModal";
 
 export default function Step3({ data, onChange, handleStepChange }) {
   const [cemetries, setCemetries] = useState([
@@ -49,7 +50,7 @@ export default function Step3({ data, onChange, handleStepChange }) {
   const fetchCemeteries = async () => {
     try {
       const response = await companyService.companyAdditionalData({ companyId, table: "cementry" });
-       if (response && response.length > 0) {
+      if (response && response.length > 0) {
         const updatedCemetries = response.map((cemetry, index) => ({
           ...cemetry,
           index: index + 1,
@@ -254,18 +255,18 @@ export default function Step3({ data, onChange, handleStepChange }) {
             <div className="flex items-center gap-[8px]">
               <button
                 className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
-              onClick={() => handleStepChange(2)}
+                onClick={() => handleStepChange(2)}
               >
                 Nazaj
               </button>
               <button
                 className="bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] text-[#1E2125] font-normal leading-[24px] text-[16px] py-[12px] px-[25px] rounded-[8px] shadow-[5px_5px_10px_0px_rgba(194,194,194,0.5)]"
-              onClick={async () => {
-                const success = await handleSubmit();
-                if (success) {
-                  handleStepChange(4);
-                }
-              }}
+                onClick={async () => {
+                  const success = await handleSubmit();
+                  if (success) {
+                    handleStepChange(4);
+                  }
+                }}
               >
                 Naslednji korak
               </button>
@@ -299,6 +300,7 @@ function SliderBlock({ index, title, cemetery, onChange, handleDelete }) {
       index={index}
       hasDeleteButton={index !== 1 && true}
       onDelete={() => handleDelete(cemetery)}
+      className=""
     >
       <div className="space-y-[16px]">
         <div className="space-y-[8px]">
@@ -323,6 +325,8 @@ function SliderBlock({ index, title, cemetery, onChange, handleDelete }) {
               onChange(index - 1, updated);
             }}
           />
+          <RenderImage src={cemetery?.image} alt={"img"} label={""} />
+
         </div>
         <div className="space-y-[8px] pt-[22px]">
           <label className="text-[16px] text-[#3C3E41] font-normal leading-[24px]">
