@@ -74,7 +74,7 @@ const Carousel = ({ search, city, userId }) => {
             setFunerals(response?.obituaries || [])
             // splitFunerals(response.obituaries, startDate, endDate);
         } catch (err) {
-            console.error('Error fetching funerals:', error);
+            console.error('Error fetching funerals:', err);
             setObituaries([]);
         }
     };
