@@ -7,10 +7,12 @@ import imgNext from "@/public/next_img.png";
 import { toast } from "react-hot-toast";
 import obituaryService from "@/services/obituary-service";
 import { useAuth } from "@/hooks/useAuth";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 
-const LastObituariesList = ({ city = "" }) => {
+const LastObituariesList = ({ city = "", userId }) => {
   const router = useRouter();
   const { user, isAuthenticated, isLoading } = useAuth();
+  const [search, setSearch] = useState("");
 
   const [obituaries, setObituaries] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,32 +24,32 @@ const LastObituariesList = ({ city = "" }) => {
       router.push("/registracija");
     }
   }, [isLoading]);
+  const fetchObituary = async () => {
+    try {
+      let payload = { userId: userId, city: city };
+      if (search) payload.search = search;
+      const response = await obituaryService.getCompanyPageObituary(payload);
 
-  useEffect(() => {
-    const fetchObituary = async () => {
-      try {
-        let payload = { userId: user.id };
-        if (city) payload = { city: user?.city };
-        const response = await obituaryService.getObituary(payload);
-
-        if (response.error) {
-          toast.error(
-            response.error || "Something went wrong. Please try again!"
-          );
-          return;
-        }
-
-        const sortedObituaries = response.obituaries.sort(
-          (a, b) =>
-            new Date(b.deathDate).getTime() - new Date(a.deathDate).getTime()
+      if (response.error) {
+        toast.error(
+          response.error || "Something went wrong. Please try again!"
         );
-
-        setObituaries(sortedObituaries);
-      } catch (err) {
-        console.error("Error fetching obituary:", err);
-        toast.error(err.message || "Failed to fetch obituary.");
+        return;
       }
-    };
+
+      const sortedObituaries = response.obituaries.sort(
+        (a, b) =>
+          new Date(b.deathDate).getTime() - new Date(a.deathDate).getTime()
+      );
+
+      setObituaries(sortedObituaries);
+    } catch (err) {
+      console.error("Error fetching obituary:", err);
+      toast.error(err.message || "Failed to fetch obituary.");
+    }
+  };
+  useEffect(() => {
+
 
     if (user) fetchObituary();
   }, [user]);
@@ -84,7 +86,7 @@ const LastObituariesList = ({ city = "" }) => {
     <div
       className="flex flex-col w-full items-center  
          pt-[34.65px] tablet:pt-[52px] desktop:pt-[61.58px]
-        pb-[50px] tablet:pb-[62px] desktop:pb-[107.42px]
+        pb-[50px] tablet:pb-[62px] desktop:pb-[0px]
         "
     >
       <div className="flex flex-col">
@@ -97,6 +99,44 @@ const LastObituariesList = ({ city = "" }) => {
           <p className="flex text-[16px] text-[#414141] font-normal">
             Pregled zadnjih osmrtnic v našem kraju{" "}
           </p>
+        </div>
+      </div>
+      <div
+        className="flex flex-col desktop:flex-row 
+             desktop:mt-[70px] tablet:mt-[48px] mobile:mt-[29px]
+             desktop:w-[300px] tablet:w-[300px] mobile:w-[296]
+               items-center justify-center "
+      >
+        <div className="flex flex-col w-full items-center tablet:flex-row desktop:flex-row desktop:space-x-[16px] tablet:justify-between mobile:h-[112px] tablet:h-[48px] desktop:h-[48px]">
+          <div className=" desktop:flex h-[48px]">
+            <input
+              type="text"
+              value={search}
+              placeholder="Išči po imenu / priimku"
+              style={{
+                fontSize: "16px",
+                lineHeight: "24px",
+                width: "227px",
+                height: "100%",
+                fontWeight: 400,
+                borderWidth: "1px",
+                borderColor: "#7C7C7C",
+                borderRadius: "8px",
+                paddingLeft: "15.8px",
+                paddingRight: "15.8px",
+                color: "#7C7C7C",
+                backgroundColor: "white",
+                fontVariationSettings: "'opsz' 16",
+              }}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+        </div>
+        <div
+          onClick={() => fetchObituary()}
+          className=" desktop:flex justify-center  w-12 items-center h-full desktop:aspect-square rounded-lg bg-[#414141]"
+        >
+          <MagnifyingGlassIcon className="w-5 h-5 text-white hidden desktop:block" />
         </div>
       </div>
       <div className="flex flex-col mt-[29.35px] items-center tablet:mt-12 desktop:mt-12">
