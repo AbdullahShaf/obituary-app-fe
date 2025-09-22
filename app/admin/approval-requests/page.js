@@ -28,26 +28,25 @@ const CompaniesWithApprovalReq = () => {
       return "N/A";
     }
   };
-  console.log("session", session);
 
   // Fetch companies on mount
-  useEffect(() => {
-    const fetchCompanies = async () => {
-      try {
-        setLoading(true);
-        const response = await adminService.getCompaniesWithApprovalRequest();
-        if (response.success) {
-          setCompanies(response.companies);
-        } else {
-          toast.error("Failed to fetch companies");
-        }
-      } catch (error) {
-        console.error("Error fetching companies:", error);
-        toast.error("Failed to load companies");
-      } finally {
-        setLoading(false);
+  const fetchCompanies = async () => {
+    try {
+      setLoading(true);
+      const response = await adminService.getCompaniesWithApprovalRequest();
+      if (response.success) {
+        setCompanies(response.companies);
+      } else {
+        toast.error("Failed to fetch companies");
       }
-    };
+    } catch (error) {
+      console.error("Error fetching companies:", error);
+      toast.error("Failed to load companies");
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
     fetchCompanies();
   }, []);
 
@@ -57,10 +56,11 @@ const CompaniesWithApprovalReq = () => {
 
       if (response.data.success) {
         toast.success(status === "DRAFT" ? "Unpublished" : "Approved")
-        setCompanies((curr) => {
-          const updatedList = curr.filter((company) => company?.id != id);
-          return updatedList;
-        })
+        // setCompanies((curr) => {
+        //   const updatedList = curr.filter((company) => company?.id != id);
+        //   return updatedList;
+        // })
+        fetchCompanies();
       }
     } catch (error) {
       toast.error("Something went wrong, Please try later!")
