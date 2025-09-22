@@ -486,11 +486,10 @@ function SliderBlock({
     onChange(index - 1, { ...shop, [e.target.name]: e.target.value });
   };
   const handleDeleteShop = async () => {
-    try { console.log("shop?.id",shop?.id);
+    try {
     
       if (!shop?.id) return;
       const response = await deleteShop(shop?.id);
-      console.log('responseresponse', response);
 
       if (response.status === 200) {
         toast.success("Shop deleted successfully.");
@@ -502,8 +501,7 @@ function SliderBlock({
     } finally {
     }
   };
-  console.log("ccccccc", shop);
-
+  
   return (
     <OpenableBlock
       isDefaultOpen={false}
