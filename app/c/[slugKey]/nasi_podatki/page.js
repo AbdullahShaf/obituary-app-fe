@@ -13,6 +13,7 @@ import shopService from "@/services/shop-service";
 import ModalNew6 from "../../../components/appcomponents/ModalNew6";
 import { useAuth } from "@/hooks/useAuth";
 import Modal from "../../../components/ui/model";
+import {TOAST_MESSAGE} from "../../../../utils/toastMessage";
 
 export default function AccountSettings() {
   const { user, isLoading, isAuthenticated, refreshUserSession } =
@@ -102,7 +103,7 @@ export default function AccountSettings() {
 
         // const result = await updateUserAndRefreshSession({ city: newCity });
         // if (result.success) {
-          toast.success("City updated and session refreshed!");
+          toast.success(TOAST_MESSAGE.CITY_UPDATED_AND_SESSION_REFRESHED);
           setSelectedCity(item);
         } else {
           // toast.error("Failed to update city");
@@ -132,11 +133,11 @@ export default function AccountSettings() {
     try {
       const response = await shopService.deleteShop(id);
       if (response.status === 200) {
-        toast.success("Florist shop deleted successfully.");
+        toast.success(TOAST_MESSAGE.FLORIST_SHOP_DELETED_SUCCESSFULLY);
       }
       getCompleteCompanyData();
     } catch (error) {
-      toast.error("Error deleting florist shop.");
+      toast.error(TOAST_MESSAGE.ERROR_DELETING_FLORIST_SHOP);
     } finally {
       setLoading(false);
     }

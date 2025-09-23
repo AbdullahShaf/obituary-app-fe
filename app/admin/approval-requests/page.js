@@ -7,6 +7,7 @@ import { toast } from "react-hot-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { TOAST_MESSAGE } from "../../../utils/toastMessage";
 
 const CompaniesWithApprovalReq = () => {
   const { ghostLogin } = useAuth();
@@ -37,11 +38,11 @@ const CompaniesWithApprovalReq = () => {
       if (response.success) {
         setCompanies(response.companies);
       } else {
-        toast.error("Failed to fetch companies");
+        toast.error(TOAST_MESSAGE.FAILED_FETCH_COMPANIES);
       }
     } catch (error) {
       console.error("Error fetching companies:", error);
-      toast.error("Failed to load companies");
+      toast.error(TOAST_MESSAGE.FAILED_LOAD_COMPANIES);
     } finally {
       setLoading(false);
     }
@@ -55,7 +56,7 @@ const CompaniesWithApprovalReq = () => {
       const response = await adminService.approveCompanyRequest(id, status)
 
       if (response.data.success) {
-        toast.success(status === "DRAFT" ? "Unpublished" : "Approved")
+        toast.success(status === "DRAFT" ? TOAST_MESSAGE.UNPUBLISHED : TOAST_MESSAGE.APPROVED)
         // setCompanies((curr) => {
         //   const updatedList = curr.filter((company) => company?.id != id);
         //   return updatedList;
@@ -63,7 +64,7 @@ const CompaniesWithApprovalReq = () => {
         fetchCompanies();
       }
     } catch (error) {
-      toast.error("Something went wrong, Please try later!")
+      toast.error(TOAST_MESSAGE.SOMETHING_WENT_WRONG)
     }
   }
 
