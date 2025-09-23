@@ -168,7 +168,7 @@ function HomeContent(props) {
 
       if (response.error) {
         // toast.error(
-        //   response.error || "Something went wrong. Please try again!"
+        //   response.error || "Prišlo je do napake."
         // );
         return;
       }
@@ -181,7 +181,7 @@ function HomeContent(props) {
       setObituaries(sortedObituaries);
     } catch (err) {
       console.error("Error fetching obituary:", err);
-      toast.error(err.message || "Failed to fetch obituary.");
+      // toast.error(err.message || "Failed to fetch obituary.");
     }
   };
 
