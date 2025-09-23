@@ -39,7 +39,7 @@ function TestPage() {
   return (
     <Layout from={"18"} forFooter={"memorypage"} currentPage="vodic">
       <div className="flex w-full flex-col  bg-gradient-to-br from-[#ECF0F3] to-[#F2F6F9]">
-        <div className="h-[72px] tablet:h-[80px] desktop:h-[92.02px] " />
+        <div className="bg[#D4E6F9] h-[72px] tablet:h-[80px] desktop:h-[92.02px] desktop:-mt-10 tablet:-mt-3 mobile:-mt-2.5" />
 
         {/* Hero section */}
         <div className="relative bg-[#D4E6F9] desktop:min-h-[485px] tablet:min-h-[400px] mobile:min-h-[400px] py-[30px] mobile:py-[20px] tablet:py-[25px]">
@@ -166,7 +166,7 @@ function TestPage() {
         <div className="bg-[#FFFFFF]">
           <div className="relative max-w-[1029px] tablet:max-w-[740px] desktop:py-[125px] tablet:py-[95px] mobile:py-[70px] px-[10px] w-full mx-auto">
             <div className="flex desktop:flex-row flex-col gap-[100px] items-center">
-              <div className="hidden desktop:hidden w-[235px]" />
+              <div className="hidden desktop:block w-[235px]" />
               <h1 className="mobile:text-center text-left desktop:text-[32px] font-[400] text-[#3C3E41] desktop:leading-[32px] text-[28px] leading-[40px]">
                 Lastna spletna stran{" "}
                 <span className="text-left text-[20px] font-[400] leading-[32px] mobile:text-[28px] mobile:leading-[40px]">
@@ -209,7 +209,7 @@ function TestPage() {
                   </p>
                 </div>
 
-                <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] flex flex-col gap-1.5">
+                <p className="text-[14px] font-[400] text-[#6D778E] leading-[27px] flex flex-col gap-1.5">
                   Lastna stran je uporabno informacijsko okno za manjše, ki
                   svoje spletne strani strani še nimajo in velike, katerim bo
                   predstavitvena stran vodila obiskovalce na njihove strani in

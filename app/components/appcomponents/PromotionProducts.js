@@ -16,7 +16,7 @@ const DigitalMobiCard = () => {
           height={221}
         />
       </div>
-      <div className="col-span-8 mobile:col-span-12 flex flex-col items-start justify-between">
+      <div className="col-span-8 mobile:col-span-12 flex flex-col items-start justify-between gap-[33px]">
         <div>
           <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] flex flex-col gap-1.5">
             → UPORABA
@@ -76,7 +76,7 @@ const AdministratorCard = () => {
           height={221}
         />
       </div>
-      <div className="col-span-8 mobile:col-span-12 flex flex-col items-start justify-between">
+      <div className="col-span-8 mobile:col-span-12 flex flex-col items-start justify-between gap-[33px]">
         <div>
           <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] flex flex-col gap-1.5">
             → UPORABA
@@ -136,7 +136,7 @@ const QRCodeInfo = () => {
           height={221}
         />
       </div>
-      <div className="col-span-8 mobile:col-span-12 flex flex-col items-start justify-between gap-[30px]">
+      <div className="col-span-8 mobile:col-span-12 flex flex-col items-start justify-between gap-[33px]">
         <div>
           <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] flex flex-col gap-1.5">
             → UPORABA
@@ -195,7 +195,7 @@ const PublishingObituaries = () => {
           height={221}
         />
       </div>
-      <div className="col-span-8 mobile:col-span-12 flex flex-col items-start justify-between gap-[30px]">
+      <div className="col-span-8 mobile:col-span-12 flex flex-col items-start justify-between gap-[33px]">
         <div>
           <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] flex flex-col gap-1.5">
             → UPORABA
@@ -243,7 +243,7 @@ const PublishingObituaries = () => {
 
 const UniqueFeature = () => {
   return (
-    <div className="text-center space-y-[40px] px-[10px] desktop:px-[140px]">
+    <div className="text-center space-y-[80px] px-[10px] desktop:px-[100px]">
       <div className="space-y-2">
         <p className="text-[20px] font-[400] text-[#3090D5] leading-normal mb-2">
           DIGITALNI PRODUKTI
@@ -252,7 +252,7 @@ const UniqueFeature = () => {
           Edinstvena priložnost za <span className="font-[800]">močno</span>{" "}
           promocijo
         </h4>
-        <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] flex flex-col gap-1.5">
+        <p className="desktop:text-[24px] text-[18px] font-[700] text-[#3C3E41] leading-[48px] flex flex-col gap-1.5">
           cvetličarne, ki je ne omogoča nobena druga rešitev
         </p>
         <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] flex flex-col gap-1.5">
@@ -305,6 +305,26 @@ const UniqueFeature = () => {
           Je uporabno orodje, most, ki zbližuje vaše podjetje in potrošnike.
         </p>
       </div>
+
+      <div className="space-y-2">
+        <h4 className="desktop:text-[40px] tablet:text-[36px] mobile:text-[24px] font-[400] text-[#3C3E41] mobile:leading-[28px] leading-[48px]">
+          Zdaj na začetku je pravi trenutek in učinek največji
+        </h4>
+        <p className="desktop:text-[24px] text-[18px] font-[700] text-[#3C3E41] leading-[48px] flex flex-col gap-1.5">
+          in hkrati priložnost za izkoriščenje vseh dodatnih ugodnosti
+        </p>
+        <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px]">
+          ki jih omogoča otvoritvena akcija. Oglejte si jih{" "}
+          <span className="underline text-[#3090D5]">tukaj</span>.
+        </p>
+      </div>
+
+      <p className="text-[16px] mobile:text-[14px] leading-[27px] mobile:leading-[24px] font-[400] text-[#3C3E41]">
+        V primeru, da se konec oktobra ne odločite za nadaljevanje, se dostop do
+        vaše strani prekine in enako privilegiji, vaša cvetličarna pa vseeno
+        ostane brezplačno na listi lokalnih cvetličarn, vendar brez kontaktnih
+        informacij.
+      </p>
     </div>
   );
 };
@@ -335,7 +355,9 @@ const data = {
 };
 
 function PromotionProducts() {
-  const [visibleIndexes, setVisibleIndexes] = useState({});
+  const [visibleIndexes, setVisibleIndexes] = useState({
+    0: true
+  });
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -367,7 +389,11 @@ function PromotionProducts() {
                     `}
                   >
                     <h3 className="text-[20px] desktop:text-[24px] font-[700] text-[#3C3E41] leading-[48px]">
-                      <span className="text-[#EB1D1D] mr-2">{index + 4}. </span>
+                      {products.length - 1 !== index && (
+                        <span className="text-[#EB1D1D] mr-2">
+                          {index + 4}.{" "}
+                        </span>
+                      )}
                       {product.question}
                     </h3>
                   </div>

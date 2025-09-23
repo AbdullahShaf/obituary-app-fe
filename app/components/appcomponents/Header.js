@@ -68,6 +68,12 @@ export function FAQHeader() {
         </Link>
         <div className="flex gap-[24px] items-center mobile:hidden">
           <Link
+            href={"/vodic"}
+            className="flex text-[18px] leading-[24px] font-[400] text-[#1E2125]"
+          >
+            VODIČ
+          </Link>
+          <Link
             href={"/c-info"}
             className="flex text-[18px] leading-[24px] font-[400] text-[#1E2125]"
           >
