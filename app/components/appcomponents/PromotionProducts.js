@@ -37,7 +37,7 @@ const DigitalMobiCard = () => {
           </p>
         </div>
         <div>
-          <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] flex flex-col gap-1.5">
+          <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] gap-1.5">
             <span className="text-[#EB1D1D]">→ ZAKAJ</span> SPLOH PROMOVIRATI?
           </p>
           <p className="text-[16px] font-[400] text-[#3C3E41] leading-[27px] ml-[22px]">
@@ -50,7 +50,7 @@ const DigitalMobiCard = () => {
           </p>
         </div>
         <div>
-          <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] flex flex-col gap-1.5">
+          <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] gap-1.5">
             <span className="text-[#EB1D1D]">→ 1 MINUTA</span> VAŠEGA ČASA
           </p>
           <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] flex flex-col gap-1.5 ml-[22px]">
@@ -97,7 +97,7 @@ const AdministratorCard = () => {
           </p>
         </div>
         <div>
-          <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] flex flex-col gap-1.5">
+          <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] gap-1.5">
             <span className="text-[#EB1D1D]">→ ZAKAJ</span> SPLOH PROMOVIRATI?
           </p>
           <p className="text-[16px] font-[400] text-[#3C3E41] leading-[27px] ml-[22px]">
@@ -108,7 +108,7 @@ const AdministratorCard = () => {
           </p>
         </div>
         <div>
-          <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] flex flex-col gap-1.5">
+          <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] gap-1.5">
             <span className="text-[#EB1D1D]">→ 1 MINUTA</span> VAŠEGA ČASA
           </p>
           <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] flex flex-col gap-1.5 ml-[22px]">
@@ -160,7 +160,7 @@ const QRCodeInfo = () => {
           </p>
         </div>
         <div>
-          <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] flex flex-col gap-1.5">
+          <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] gap-1.5">
             <span className="text-[#EB1D1D]">→ ZAKAJ</span> SPLOH PROMOVIRATI?
           </p>
           <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] flex flex-col gap-1.5">
@@ -215,7 +215,7 @@ const PublishingObituaries = () => {
           </p>
         </div>
         <div>
-          <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] flex flex-col gap-1.5">
+          <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] gap-1.5">
             <span className="text-[#EB1D1D]">→ ZAKAJ</span> SPLOH PROMOVIRATI?
           </p>
           <p className="desktop:text-[18px] tablet:text-[16px] font-[400] text-[#3C3E41] leading-[27px] flex flex-col gap-1.5 ml-[22px]">
@@ -232,7 +232,7 @@ const PublishingObituaries = () => {
           </p>
         </div>
         <div>
-          <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] flex flex-col gap-1.5">
+          <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] gap-1.5">
             <span className="text-[#EB1D1D]">→ 2 MINUTI</span> VAŠEGA ČASA
           </p>
         </div>
@@ -379,6 +379,7 @@ function PromotionProducts() {
                 <button
                   onClick={() =>
                     setVisibleIndexes((prev) => ({
+                      ...prev,
                       [index]: !prev[index]
                     }))
                   }

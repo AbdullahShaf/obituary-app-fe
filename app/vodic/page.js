@@ -1,45 +1,53 @@
 import Image from "next/image";
 
-import Layout from "../components/appcomponents/Layout";
+import { FAQHeader } from "@/app/components/appcomponents/Header";
 import { FrequentlyAskedQuestionView2 } from "../components/appcomponents/FrequentlyAskedQuestionView";
 import PromotionProducts from "../components/appcomponents/PromotionProducts";
-import CommonFooter from "../components/appcomponents/CommonFooter";
+import { FooterForFaq2 } from "../components/appcomponents/Footer";
+import Link from "next/link";
 
 function TestPage() {
   const faqData = {
     faqs: [
       {
         question: "V enem stavku - kako dodam cvetličarno med lokalne?",
-        answer: `Registriraj se → na strani Moj Račun klikni Dodaj cvetličarno → izpolni obrazec. Cvetličarna bo dodana takoj.`
+        answer: `Registriraj se → na strani Moj Račun klikni Dodaj cvetličarno → izpolni obrazec. Cvetličarna bo dodana takoj.`,
       },
       {
         question:
           "Ne želim svoje strani, digitalnih produktov, samo vpis med lokalne",
-        answer: `Seveda, niste edini. Stran ni potrebno izdelati/objaviti in digitalnih produktov ni potrebno omenjati.     `
+        answer: `Seveda, niste edini. Stran ni potrebno izdelati/objaviti in digitalnih produktov ni potrebno omenjati.     `,
       },
       {
         question: "Smo cvetličarna. Zakaj bi mi dodajali osmrtnice?",
-        answer: `To je zgolj ena od možnosti, ki jih ponujamo cvetličarnam. Mnoge tega ne potrebujejo in se za to možnost ne bodo odločile.      `
+        answer: `To je zgolj ena od možnosti, ki jih ponujamo cvetličarnam. Mnoge tega ne potrebujejo in se za to možnost ne bodo odločile.      `,
       },
       {
         question: "Zanima me samo brezplačno.",
         answer:
-          "Sredi oktobra vas bomo pozvali k sklenitvi naročnine in če se za to ne odločite, potem enostavo počakajte in konec oktobra bodo preostali privilegiji umaknjeni, vaša cvetličarna pa bo še naprej ostala brezplačno na listi lokalnih cvetličarn, a brez kontaktnih informacij in pojavljala se bo na spodnjem delu.      "
+          "Sredi oktobra vas bomo pozvali k sklenitvi naročnine in če se za to ne odločite, potem enostavo počakajte in konec oktobra bodo preostali privilegiji umaknjeni, vaša cvetličarna pa bo še naprej ostala brezplačno na listi lokalnih cvetličarn, a brez kontaktnih informacij in pojavljala se bo na spodnjem delu.      ",
       },
       {
         question: "Kakšna bo cena po koncu promocije?",
         answer: `10€ mesečno za manjše kraje
                 20€ mesečno za občine nad 20.000 prebivalcev
                 30€ mesečno v Ljubljani
-                V primeru letnega plačila se obračuna samo deset mesecev, zadnja dva meseca sta brezplačno. V primeru prekinitve pogodbe, vrnemo vnaprej plačane mesece nazaj.   `
-      }
-    ]
+                V primeru letnega plačila se obračuna samo deset mesecev, zadnja dva meseca sta brezplačno. V primeru prekinitve pogodbe, vrnemo vnaprej plačane mesece nazaj.   `,
+      },
+    ],
   };
 
   return (
-    <Layout from={"18"} forFooter={"memorypage"} currentPage="vodic">
+    <div className="bg-[#F9EBD4] tablet:bg-[#F9EBD4] mobile:bg-[#F9EBD4] min-h-[100vh]">
+      <FAQHeader />
       <div className="flex w-full flex-col  bg-gradient-to-br from-[#ECF0F3] to-[#F2F6F9]">
         <div className="bg[#D4E6F9] h-[72px] tablet:h-[80px] desktop:h-[92.02px] desktop:-mt-10 tablet:-mt-3 mobile:-mt-2.5" />
+
+        <div className="mobile:flex items-center justify-between hidden h-[30px] bg-[#36556C] px-3">
+          <Link href="/c-faq">KAKO ZAČETI</Link>
+          <Link href="/c-info">CENIK</Link>
+          <Link href="/c-priloznost">PRILOŽNOST</Link>
+        </div>
 
         {/* Hero section */}
         <div className="relative bg-[#D4E6F9] desktop:min-h-[485px] tablet:min-h-[400px] mobile:min-h-[400px] py-[30px] mobile:py-[20px] tablet:py-[25px]">
@@ -89,14 +97,16 @@ function TestPage() {
         <div className="bg-[#F9EBD466]">
           <div className="relative max-w-[1029px] tablet:max-w-[740px] py-[125px] tablet:py-[95px] mobile:py-[60px] px-[10px] w-full mx-auto">
             <div className="space-y-4">
-              <h1 className="text-left desktop:text-[32px] font-[400] text-[#3C3E41] desktop:leading-[32px] text-[28px] leading-[40px]">
-                Vpis na seznam lokalnih cvetličarn{" "}
-                <span className="text-left text-[20px] font-[400] leading-[32px] desktop:ext-[28px] mobile:leading-[40px]">
+              <h1 className="text-left desktop:text-[32px] flex desktop:flex-row flex-col desktop:items-start items-center gap-x-2 font-[400] text-[#3C3E41] desktop:leading-[32px] text-[28px] leading-[40px]">
+                <span className="block mobile:text-center">
+                  Vpis na seznam lokalnih cvetličarn{" "}
+                </span>
+                <span className="text-left text-[20px] font-[400] leading-[32px] desktop:ext-[28px] mobile:leading-[40px] block">
                   (predviden čas:{" "}
                   <span className="text-[#EB1D1D]">1 minuta</span>)
                 </span>
               </h1>
-              <p className="desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] flex flex-col gap-1.5">
+              <p className="hidden desktop:flex desktop:text-[18px] text-[16px] font-[400] text-[#3C3E41] leading-[27px] flex-col gap-1.5">
                 Najprej registrirajte svoje podjetje (tukaj).
               </p>
             </div>
@@ -165,12 +175,11 @@ function TestPage() {
         {/* Own website section */}
         <div className="bg-[#FFFFFF]">
           <div className="relative max-w-[1029px] tablet:max-w-[740px] desktop:py-[125px] tablet:py-[95px] mobile:py-[70px] px-[10px] w-full mx-auto">
-            <div className="flex desktop:flex-row flex-col gap-[100px] items-center">
+            <div className="flex desktop:flex-row flex-col gap-[100px] desktop:items-center">
               <div className="hidden desktop:block w-[235px]" />
-              <h1 className="mobile:text-center text-left desktop:text-[32px] font-[400] text-[#3C3E41] desktop:leading-[32px] text-[28px] leading-[40px]">
-                Lastna spletna stran{" "}
-                <span className="text-left text-[20px] font-[400] leading-[32px] mobile:text-[28px] mobile:leading-[40px]">
-                  <br className="hidden mobile:block" />
+              <h1 className="mobile:text-center text-left desktop:text-[32px] font-[400] text-[#3C3E41] desktop:leading-[32px] text-[28px] leading-[40px] flex items-center desktop:items-start gap-x-2 flex-row mobile:flex-col">
+                <span className="block">Lastna spletna stran </span>
+                <span className="text-left text-[20px] font-[400] leading-[32px] mobile:text-[28px] mobile:leading-[40px] block">
                   (predviden čas:{" "}
                   <span className="text-[#EB1D1D]">20 - 30 minut</span>)
                 </span>
@@ -249,10 +258,9 @@ function TestPage() {
         <div className="relative w-full bg-[#FAF5EE] desktop:min-h-[485px] tablet:min-h-[600px] mobile:min-h-[500px] py-[30px] mobile:py-[20px] tablet:py-[25px]">
           <FrequentlyAskedQuestionView2 data={faqData} />
         </div>
-
-        <CommonFooter currentPage="/vodic" />
       </div>
-    </Layout>
+      <FooterForFaq2 />
+    </div>
   );
 }
 
