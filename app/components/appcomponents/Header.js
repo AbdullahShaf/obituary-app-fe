@@ -90,7 +90,7 @@ export function FAQHeader() {
               KAKO ZAČNEM
             </Link>
             <Link
-              href={"/c-priloznost "}
+              href={"/c-priloznost"}
               className="flex text-[18px] leading-[24px] font-[400] text-[#1E2125]"
             >
               <Image
