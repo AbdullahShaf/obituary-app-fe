@@ -164,7 +164,7 @@ function DriverPage() {
                         cvetličarno in na seznamu{" "}
                         <br className="hidden mobile:block" /> lokalnih bo
                         objavljena takoj{" "}
-                        <Link href="/registracija">(tukaj)</Link>.
+                        <Link href="/cvetlicarne?city=Ljubljana">(tukaj)</Link>.
                       </span>
                       <span className="hidden mobile:block">
                         Če imate več cvetličarn, dodate vsako posebej.{" "}
