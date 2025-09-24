@@ -52,6 +52,13 @@ const footerLinkSets = {
     { label: "Spominske", path: "/osmrtnice ", showOnMobile: true },
     { label: "Cvetličarne", path: "/cvetlicarne  ", showOnMobile: true },
   ],
+  "/qr-kode": [
+    { label: "Prva stran", path: "/", showOnMobile: false },
+    { label: "Osmrtnice", path: "/osmrtnice", showOnMobile: true },
+    { label: "Pogrebi", path: "/pogrebi", showOnMobile: true },
+    { label: "Spominske", path: "/spominske", showOnMobile: true },  
+    { label: "Cvetličarne", path: "/cvetlicarne", showOnMobile: true },
+],
   "/resitve-za-cvetlicarne": [
     { label: "Začetna ", path: "/ ", showOnMobile: false },
     { label: "Cvetličarne", path: "/resitve-za-cvetlicarne ", showOnMobile: true },
