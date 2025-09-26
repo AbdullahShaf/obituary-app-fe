@@ -228,8 +228,8 @@ const FuneralBlock = ({ item, index, obituaryCount }) => {
         : "flex mt-6 tablet:mt-6 desktop:mt-8 w-full"
         }`}
       onClick={() => {
-        ["Komunala Trbovlje", "Komunala Hrastnik", "Komunala Zagorje"].includes(item?.CompanyPage?.name)
-          ? toast.success("Kmalu") : null
+        ["Komunala Trbovlje", "Komunala Hrastnik", "Komunala Zagorje"].includes((item?.CompanyPage?.name).trim())
+git          ? toast.success("Kmalu") : null
       }}
     >
       {item?.CompanyPage?.name && item?.CompanyPage?.email ? (
