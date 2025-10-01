@@ -103,14 +103,7 @@ const MemorialPageTopComp = ({
   const formattedDeathDate = formatObituaryDate(data?.deathDate);
 
   const formatTitleCase = (str) => {
-    return str
-      .split(" ")
-      .map(
-        (word) =>
-          word.charAt(0).toLocaleUpperCase("sl") +
-          word.slice(1).toLocaleLowerCase("sl")
-      )
-      .join(" ");
+    return str;
   };
   const burnCandle = async () => {
     // if (!user) {
