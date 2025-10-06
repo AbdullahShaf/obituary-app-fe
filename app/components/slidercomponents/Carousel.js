@@ -71,7 +71,7 @@ const Carousel = () => {
         console.log("Sending params for funerals:", queryParams);
 
         const result = await obituaryService.getFunerals(queryParams);
-
+      
         if (selectedName) {
           const temp = result.obituaries || [];
           let tempObituaries = [];
@@ -79,15 +79,16 @@ const Carousel = () => {
             // {item.name} {item.sirName}
             tempObituaries = temp.filter(
               (obituaries) =>
-                obituaries.name.includes(selectedName) ||
-                obituaries.sirName.includes(selectedName)
+                obituaries.name.startsWith(selectedName)
+                // obituaries.name.includes(selectedName) ||
+                // obituaries.sirName.includes(selectedName)
             );
           }
           setObituaries(tempObituaries);
         } else {
           setObituaries(result.obituaries || []);
         }
-        
+
       } catch (error) {
         console.error("Error fetching funerals:", error);
         setObituaries([]);
