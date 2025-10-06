@@ -132,8 +132,13 @@ export default function HomeContent(props) {
       return;
     }
     setSelectedRegion(item.place);
-    updateParams(selectedCity, item.place);
+    updateParams(selectedCity, item.place, name);
   };
+
+  const handleNameChange = (name)=>{
+    setName(name);
+    updateParams(selectedCity, selectedRegion, name);
+  }
 
   // Handle city select
   const handleCitySelect = (item) => {
@@ -143,7 +148,7 @@ export default function HomeContent(props) {
       return;
     }
     setSelectedCity(item.place);
-    updateParams(item.place, selectedRegion);
+    updateParams(item.place, selectedRegion, name);
   };
 
   // Handler for florist city dropdown
@@ -158,7 +163,7 @@ export default function HomeContent(props) {
   };
 
   // Update URL params - improved version
-  const updateParams = (city, region) => {
+  const updateParams = (city, region, name="") => {
     const params = new URLSearchParams();
 
     // Keep existing florist city if it exists
@@ -170,6 +175,7 @@ export default function HomeContent(props) {
     // Add city and region if they exist
     if (city) params.set("city", city);
     if (region) params.set("region", region);
+    if(name.length>0) params.set("search",name);
 
     const queryString = params.toString();
     router.replace(queryString ? `/?${queryString}` : "/", { scroll: false });
@@ -177,7 +183,7 @@ export default function HomeContent(props) {
 
   useEffect(() => {
     fetchObituary();
-  }, [selectedCity, selectedRegion]);
+  }, [selectedCity, selectedRegion, name]);
 
   const fetchObituary = async () => {
     try {
@@ -195,8 +201,14 @@ export default function HomeContent(props) {
         // );
         return;
       }
-
-      const sortedObituaries = response.obituaries.sort(
+      let tempObituaries = response.obituaries;
+      if(name){
+        const temp = tempObituaries;
+        if(temp.length>0){
+          tempObituaries = temp.filter(obituaries => obituaries.name.startsWith(name) || obituaries.sirName.startsWith(name))
+        }
+      }
+      const sortedObituaries = tempObituaries.sort(
         (a, b) =>
           new Date(b.deathDate).getTime() - new Date(a.deathDate).getTime()
       );
@@ -294,7 +306,7 @@ export default function HomeContent(props) {
                     backgroundColor: "white",
                     fontVariationSettings: "'opsz' 16",
                   }}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) => handleNameChange(e.target.value)}
                 />
               </div>
 

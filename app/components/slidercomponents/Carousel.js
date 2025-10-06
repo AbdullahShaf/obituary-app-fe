@@ -79,7 +79,7 @@ const Carousel = () => {
             // {item.name} {item.sirName}
             tempObituaries = temp.filter(
               (obituaries) =>
-                obituaries.name.startsWith(selectedName)
+                obituaries.name.startsWith(selectedName) || obituaries.sirName.startsWith(selectedName)
                 // obituaries.name.includes(selectedName) ||
                 // obituaries.sirName.includes(selectedName)
             );

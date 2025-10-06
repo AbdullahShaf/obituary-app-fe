@@ -34,6 +34,7 @@ const ObituaryListComponent = ({ city }) => {
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10); // default to mobile
+  const [selectedName, setSelectedName] = useState('');
 
   const regionOptions = [
     allRegionsOption,
@@ -165,7 +166,15 @@ const ObituaryListComponent = ({ city }) => {
       //     new Date(b.deathDate).getTime() - new Date(a.deathDate).getTime()
       // );
 
-      const sortedObituaries = response.obituaries;
+      let sortedObituaries = response.obituaries;
+
+      if(selectedName.length){
+        const temp = sortedObituaries;
+        if(sortedObituaries.length>0){
+          sortedObituaries = temp.filter(obituaries => obituaries.name.startsWith(selectedName) || obituaries.sirName.startsWith(selectedName) );
+        }
+      }
+
 
       setObituaries(sortedObituaries);
     } catch (err) {
@@ -236,6 +245,8 @@ const ObituaryListComponent = ({ city }) => {
                 type="text"
                 placeholder="Išči po imenu / priimku"
                 className="bg-white border-[#7C7C7C] placeholder-[#7C7C7C] text-[16px] font-[400] leading-[24px] border rounded-lg shadow-sm flex flex-1 items-center justify-between h-full px-4 text-[#7C7C7C] focus:outline-none"
+                value={selectedName}
+                onChange={(e)=>setSelectedName(e.target.value)}
               />
             </div>
             {/* Dropdown for Išči po regiji*/}
