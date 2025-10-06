@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import Layout from "@/app/components/appcomponents/Layout";
 import ObituaryCard from "@/app/components/appcomponents/ObituaryCard";
@@ -15,7 +15,7 @@ import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   LocalQuickReview,
-//   LocalQuickReviewModal,
+  //   LocalQuickReviewModal,
 } from "@/app/components/appcomponents/LocalQuickReview";
 import MegaMenu from "@/app/components/appcomponents/MegaMenuMain";
 import obituaryService from "@/services/obituary-service";
@@ -90,17 +90,39 @@ export default function HomeContent(props) {
     })),
   ];
 
-  // Prepare city options (independent of region)
-  const cityOptions = [
-    { place: "- Pokaži vse občine -", id: "allCities" },
-    ...Object.values(regionsAndCities)
-      .flat()
-      .map((city) => ({
-        place: city,
-        id: city,
-      }))
-      .sort((a, b) => a.place.localeCompare(b.place, "sl")),
-  ];
+  // // Prepare city options (independent of region)
+  // const cityOptions = [
+  //   { place: "- Pokaži vse občine -", id: "allCities" },
+  //   ...Object.values(regionsAndCities)
+  //     .flat()
+  //     .map((city) => ({
+  //       place: city,
+  //       id: city,
+  //     }))
+  //     .sort((a, b) => a.place.localeCompare(b.place, "sl")),
+  // ];
+
+  // Prepare city options (dependent on region)
+  const allCitiesOption = { place: " - Pokaži vse občine - ", id: "allCities" };
+  const cityOptions =
+    selectedRegion && selectedRegion !== "allRegions"
+      ? [
+          allCitiesOption,
+          ...regionsAndCities[selectedRegion].map((city) => ({
+            place: city,
+            id: city,
+          })),
+        ]
+      : [
+          allCitiesOption,
+          ...Object.values(regionsAndCities)
+            .flat()
+            .map((city) => ({
+              place: city,
+              id: city,
+            }))
+            .sort((a, b) => a.place.localeCompare(b.place, "sl")),
+        ];
 
   // Handle region select
   const handleRegionSelect = (item) => {
@@ -150,7 +172,7 @@ export default function HomeContent(props) {
     if (region) params.set("region", region);
 
     const queryString = params.toString();
-    router.replace(queryString ? `/?${queryString}` : "/");
+    router.replace(queryString ? `/?${queryString}` : "/", { scroll: false });
   };
 
   useEffect(() => {

@@ -139,7 +139,7 @@ export default function Footer() {
                           whiteSpace: "nowrap", // Prevents text from wrapping
                         }}
                       >
-                        Naj spomin nanje ne ugasne.
+                        Naj spomin nanje ne zbledi.
                       </h>
                     </div>
                     <div className="flex desktop:hidden  mobile:h-[25px] items-center">
@@ -153,12 +153,12 @@ export default function Footer() {
                           whiteSpace: "nowrap", // Prevents text from wrapping
                         }}
                       >
-                        Naj spomin nanje ne ugasne.
+                        Naj spomin nanje ne zbledi.
                       </h>
                     </div>
                   </div>
                   <a
-                    href="#"
+                    href="https://www.facebook.com/people/Osmrtnicacom/61581688912510/"
                     className="hidden tablet:flex desktop:flex items-center text-gray-600 mobile:mt-[75px] tablet:mt-[73px] desktop:mt-[50px] hover:text-blue-500 transition duration-200 "
                   >
                     <div className="rounded-lg shadow-custom-light-dark bg-gradient-to-br from-gray-300 to-white p-[6px] transition duration-300 hover:scale-105 active:scale-95">
@@ -232,7 +232,7 @@ export default function Footer() {
                       </li>
                       <li className="flex tablet:hidden desktop:hidden mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
                         <a
-                          href="#"
+                          href="/kontakt"
                           className="text-[#414141] font-normal   hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px]"
                         >
                           Partnerji
@@ -240,6 +240,7 @@ export default function Footer() {
                       </li>
                     </ul>
                   </div>
+                  {/* here */}
                   <div className="ml-[52px] tablet:ml-[51.75px] desktop:ml-[103.75px]  ">
                     <div className="h-[19px] flex items-center ">
                       <h3 className="font-semibold text-[#ACAAAA]  text-[16px]">
@@ -247,33 +248,9 @@ export default function Footer() {
                       </h3>
                     </div>
                     <ul className="mt-[24px] ">
-                      <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center">
-                        <a
-                          href="#"
-                          className=" text-[#414141] font-normal   hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px]"
-                        >
-                          Pogosta vprašanja
-                        </a>
-                      </li>
-                      <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] mt-4 items-center">
-                        <a
-                          href="#"
-                          className="text-[#414141] font-normal  hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px]"
-                        >
-                          Kaj storiti, ko se zgodi
-                        </a>
-                      </li>
                       <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
                         <a
-                          href="#"
-                          className="text-[#414141] font-normal  hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px]"
-                        >
-                          Kako oddati osmrtnico
-                        </a>
-                      </li>
-                      <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
-                        <a
-                          href="#"
+                          href="/kontakt"
                           className="text-[#414141] font-normal  hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px]"
                         >
                           Kontakt
@@ -281,22 +258,15 @@ export default function Footer() {
                       </li>
                       <li className="hidden tablet:flex desktop:flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
                         <a
-                          href="#"
+                          href="/kontakt"
                           className="text-[#414141] font-normal   hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px]"
                         >
                           Partnerji
                         </a>
                       </li>
-                      <li className="flex desktop:hidden mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
-                        <a
-                          href="#"
-                          className="text-[#414141] font-normal   hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px]"
-                        >
-                          Povej naprej
-                        </a>
-                      </li>
                     </ul>
                   </div>
+                  {/* here 1 */}
                   <div className="hidden tablet:hidden desktop:flex flex-col ml-[107.78px]">
                     <div className="h-[19px] flex items-center ">
                       <h3 className="font-semibold text-[#ACAAAA]  text-[16px]">
@@ -336,14 +306,6 @@ export default function Footer() {
                           Piškotki
                         </a>
                       </li>
-                      <li className="flex h-[24px] items-center mt-4">
-                        <a
-                          href="#"
-                          className="text-[#414141] font-normal   hover:text-blue-500 transition duration-200 text-[16px]"
-                        >
-                          Povej naprej
-                        </a>
-                      </li>
                     </ul>
                   </div>
                 </div>
@@ -353,7 +315,7 @@ export default function Footer() {
               <div className="flex flex-col  w-[311px] self-center ">
                 <div className="flex justify-center items-center h-[38px]   ">
                   <a
-                    href="#"
+                    href="https://www.facebook.com/people/Osmrtnicacom/61581688912510/"
                     className="flex items-center text-gray-600  hover:text-blue-500 transition duration-200 "
                   >
                     <Image

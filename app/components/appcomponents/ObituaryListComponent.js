@@ -205,8 +205,15 @@ const ObituaryListComponent = ({ city }) => {
   };
 
   const cardTopRef = React.useRef(null);
+  const firstRender = React.useRef(true);
 
   useEffect(() => {
+    // skip scroll on initial load
+    if(firstRender.current){
+      firstRender.current = false;
+      return;
+    }
+
     if (cardTopRef.current) {
       cardTopRef.current.scrollIntoView({ behavior: "smooth" });
     }
