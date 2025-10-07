@@ -25,10 +25,11 @@ const CarouselEntry = ({ item }) => {
       <h3 className="text-[#3C3E41] font-semibold text-[12px] mobile:text-[14px] tablet:text-[16px] desktop:text-[18px] flex-1 min-w-0 pl-[8px] mobile:pl-[12px] tablet:pl-[16px] desktop:pl-[22px] truncate">
         {item.name} {item.sirName}
       </h3>
-      {/* <h4 className="text-[#3C3E41] font-normal text-[10px] mobile:text-[12px] tablet:text-[14px] desktop:text-[16px] flex-1 min-w-0 pl-[4px] mobile:pl-[6px] tablet:pl-[8px] desktop:pl-[9px] truncate">
+      <h4 className="text-[#3C3E41] font-normal text-[10px] mobile:text-[12px] tablet:text-[14px] desktop:text-[16px] flex-1 min-w-0 pl-[4px] mobile:pl-[6px] tablet:pl-[8px] desktop:pl-[9px] truncate">
         {item.location || item.city || ""}
-      </h4> */}
-      <button className="flex-shrink-0 p-1 mobile:p-2">
+      </h4>
+      {/* <button className="flex-shrink-0 p-1 mobile:p-2"> */}
+      <button className="flex-shrink-0 p-1 mobile:hidden">
         <img
           src="/arrow-next.png"
           className="w-3 h-3 mobile:w-4 mobile:h-4 tablet:w-5 tablet:h-5 desktop:w-6 desktop:h-6"

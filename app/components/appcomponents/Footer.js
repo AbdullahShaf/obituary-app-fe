@@ -230,21 +230,25 @@ export default function Footer() {
                           </div>
                         </Link>
                       </li>
-                      <li className="flex tablet:hidden desktop:hidden mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
+                      {/* <li className="flex tablet:hidden desktop:hidden mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
                         <a
                           href="/kontakt"
                           className="text-[#414141] font-normal   hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px]"
                         >
                           Partnerji
                         </a>
-                      </li>
+                      </li> */}
                     </ul>
                   </div>
-                  {/* here */}
                   <div className="ml-[52px] tablet:ml-[51.75px] desktop:ml-[103.75px]  ">
-                    <div className="h-[19px] flex items-center ">
+                    <div className="h-[19px] tablet:hidden mobile:hidden flex items-center ">
                       <h3 className="font-semibold text-[#ACAAAA]  text-[16px]">
                         Koristne povezave
+                      </h3>
+                    </div>
+                    <div className="h-[19px] tablet:visible desktop:hidden mobile:visible flex items-center ">
+                      <h3 className="font-semibold text-[#ACAAAA]  text-[16px]">
+                        Drugo
                       </h3>
                     </div>
                     <ul className="mt-[24px] ">
@@ -256,7 +260,7 @@ export default function Footer() {
                           Kontakt
                         </a>
                       </li>
-                      <li className="hidden tablet:flex desktop:flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
+                      <li className="tablet:flex desktop:flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
                         <a
                           href="/kontakt"
                           className="text-[#414141] font-normal   hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px]"
@@ -266,7 +270,6 @@ export default function Footer() {
                       </li>
                     </ul>
                   </div>
-                  {/* here 1 */}
                   <div className="hidden tablet:hidden desktop:flex flex-col ml-[107.78px]">
                     <div className="h-[19px] flex items-center ">
                       <h3 className="font-semibold text-[#ACAAAA]  text-[16px]">
@@ -279,7 +282,7 @@ export default function Footer() {
                           href="/splosni-pogoji"
                           className=" text-[#414141] font-normal   hover:text-blue-500 transition duration-200 text-[16px]"
                         >
-                          Splošni pogoji poslovanja
+                          Splošni pogoji
                         </a>
                       </li>
                       <li className="flex h-[24px] mt-4 items-center">
@@ -335,7 +338,7 @@ export default function Footer() {
                         href="/splosni-pogoji"
                         className=" text-[#414141] font-normal   hover:text-blue-500 transition duration-200 text-[13px]"
                       >
-                        Splošni pogoji poslovanja
+                        Splošni pogoji
                       </a>
                     </div>
                     <div className="flex items-center h-6 ">
@@ -372,15 +375,18 @@ export default function Footer() {
                 </div>
               </div>
             </div>
-            <div className="flex mobile:hidden tablet:flex desktop:hidden h-[33px] tablet:w-[680px] justify-center  mt-[46px]  tablet:pl-[35px]">
-              <div className="w-[612px] h-[33px]  items-end pl-[6px]">
-                <div className=" h-full w-[596px] flex  space-x-[18px] flex-row ">
+            {/* micro links tablet */}
+            {/* <div className="flex mobile:hidden tablet:flex desktop:hidden h-[33px] tablet:w-[680px] justify-center  mt-[46px]  tablet:pl-[35px]"> */}
+            <div className="flex mobile:hidden tablet:flex desktop:hidden h-[33px] tablet:w-[680px] justify-center  mt-[46px]  tablet:pr-[0px]">
+              {/* <div className="w-[612px] h-[33px]  items-end pl-[6px]"> */}
+              <div className="w-[612px] h-[33px]  items-end pr-[0px] flex justify-center">
+                <div className=" h-full w-[596px] flex  space-x-[18px] flex-row justify-end ">
                   <div className="flex items-center h-6 ">
                     <a
                       href="/splosni-pogoji"
                       className=" text-[#414141] font-normal   hover:text-blue-500 transition duration-200 text-[13px]"
                     >
-                      Splošni pogoji poslovanja
+                      Splošni pogoji
                     </a>
                   </div>
                   <div className="flex items-center h-6 ">

@@ -49,17 +49,6 @@ const Carousel = () => {
           endDate: formattedDate, // Same date for single day funerals
         };
 
-        // if(selectedName){
-        //   const result = await obituaryService.getFunerals(queryParams);
-        //   const temp = result.obituaries || [];
-        //   let tempObituaries = [];
-        //   if(temp.length>0){
-        //     // {item.name} {item.sirName}
-        //     tempObituaries.filter(obituaries => obituaries.name.includes(selectedName))
-        //     // here
-        //   }
-        // }
-
         // Add city and region if they exist in URL params
         if (selectedCity) {
           queryParams.city = selectedCity;
@@ -72,6 +61,9 @@ const Carousel = () => {
 
         const result = await obituaryService.getFunerals(queryParams);
       
+        /**
+         * Filter obituaries based on selectedName
+         */
         if (selectedName) {
           const temp = result.obituaries || [];
           let tempObituaries = [];
