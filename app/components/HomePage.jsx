@@ -202,11 +202,13 @@ export default function HomeContent(props) {
         return;
       }
       let tempObituaries = response.obituaries;
-      if(name){
-        const temp = tempObituaries;
-        if(temp.length>0){
-          tempObituaries = temp.filter(obituaries => obituaries.name.startsWith(name) || obituaries.sirName.startsWith(name))
-        }
+      const normalizedName = name?.trim().toLowerCase();
+      if (normalizedName) {
+        tempObituaries = tempObituaries.filter(
+          ({ name: firstName = "", sirName = "" }) =>
+            firstName.toLowerCase().startsWith(normalizedName) ||
+            sirName.toLowerCase().startsWith(normalizedName)
+        );
       }
       const sortedObituaries = tempObituaries.sort(
         (a, b) =>
