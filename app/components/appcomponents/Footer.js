@@ -269,6 +269,30 @@ export default function Footer() {
                           Partnerji
                         </a>
                       </li>
+                      <li className="tablet:flex desktop:hidden mobile:flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
+                        <a
+                          href="/splosni-pogoji"
+                          className="text-[#414141] font-normal   hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px]"
+                        >
+                          Splošni pogoji
+                        </a>
+                      </li>
+                      <li className="tablet:flex desktop:hidden mobile:flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
+                        <a
+                          href="/politika-zasebnosti"
+                          className="text-[#414141] font-normal   hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px]"
+                        >
+                          Politika zasebnosti
+                        </a>
+                      </li>
+                      <li className="tablet:flex desktop:hidden mobile:flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
+                        <a
+                          href="/piskotki"
+                          className="text-[#414141] font-normal   hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px]"
+                        >
+                          Piškotki
+                        </a>
+                      </li>
                     </ul>
                   </div>
                   <div className="hidden tablet:hidden desktop:flex flex-col ml-[107.78px]">
@@ -333,7 +357,7 @@ export default function Footer() {
                     </h>
                   </a>
                 </div>
-                <div className=" flex flex-col mt-[23px] px-[6.5px] ">
+                <div className="hidden flex-col mt-[23px] px-[6.5px] ">
                   <div className="flex justify-between items-center ">
                     <div className="flex items-center h-6 ">
                       <a
@@ -379,6 +403,7 @@ export default function Footer() {
             </div>
             {/* micro links tablet */}
             {/* <div className="flex mobile:hidden tablet:flex desktop:hidden h-[33px] tablet:w-[680px] justify-center  mt-[46px]  tablet:pl-[35px]"> */}
+            <div className="hidden">
             <div className="flex mobile:hidden tablet:flex desktop:hidden h-[33px] tablet:w-[680px] justify-center  mt-[46px]  tablet:pr-[0px]">
               {/* <div className="w-[612px] h-[33px]  items-end pl-[6px]"> */}
               <div className="w-[612px] h-[33px]  items-end pr-[0px] flex justify-center">
@@ -418,6 +443,7 @@ export default function Footer() {
                 </div>
               </div>
             </div>
+            </div>
             <div className="hidden desktop:flex desktop:mt-[92px] w-[680px] desktop:w-[1137px] pr-[1px] ">
               <div className="desktop:w-[427px] h-6 mt-[48px] flex  items-center ">
                 <div className="hidden desktop:flex font-variation-customOpt12 text-[12px] text-[#414141] ">
@@ -428,7 +454,7 @@ export default function Footer() {
                 <BottomSlider data={[{}, {}, {}]} />
               </div>
             </div>
-            <div className="hidden tablet:flex desktop:hidden w-[680px] pr-[1px] ">
+            <div className="hidden tablet:flex desktop:hidden w-[680px] pr-[1px] mt-[50px]">
               <div className="absolute z-50 mobile:ml-[40px] tablet:ml-[42px] w-[280px] h-4 desktop:w-[427px] desktop:h-6 desktop:mt-[48px] mt-[84px] flex  items-center ">
                 <div className="flex desktop:flex font-variation-customOpt12 text-[12px] text-[#414141] ">
                   © osmrtnica.com, 2025. Vse pravice pridržane.
