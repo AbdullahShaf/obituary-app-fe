@@ -104,16 +104,22 @@ const Carousel = () => {
         /**
          * Filter obituaries based on selectedName
          */
-        if (selectedName) {
-          const rawName = selectedName.trim().toLowerCase();
+        if (selectedName && selectedName.length > 0) {
+          const rawName = decodeURIComponent(selectedName).trim().toLowerCase();
           const temp = result.obituaries || [];
           let tempObituaries = [];
-          if (temp.length > 0) {
+          if (temp && temp.length > 0) {
             // {item.name} {item.sirName}
             tempObituaries = temp.filter(
-              (obituaries) =>
-                obituaries.name.toLowerCase().startsWith(rawName) ||
-                obituaries.sirName.toLowerCase().startsWith(rawName)
+              (obituaries) =>{
+                const fullName = `${obituaries.name} ${obituaries.sirName}`;
+                return (
+                  fullName.toLowerCase().startsWith(rawName) ||
+                  obituaries.sirName.toLowerCase().startsWith(rawName)
+                );
+              }
+                // obituaries.name.toLowerCase().startsWith(rawName) ||
+                // obituaries.sirName.toLowerCase().startsWith(rawName)
               // obituaries.name.includes(selectedName) ||
               // obituaries.sirName.includes(selectedName)
             );
