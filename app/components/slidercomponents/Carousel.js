@@ -5,7 +5,6 @@ import { useSearchParams } from "next/navigation";
 import { useBreakpoint } from "@/app/hooks/useBreakpoint";
 import obituaryService from "@/services/obituary-service";
 
-// Helper functions
 const formatDateForDisplay = (dateObj) => {
   const day = dateObj.getDate();
   const month = dateObj.getMonth() + 1;
@@ -38,7 +37,8 @@ const CarouselEntry = ({ item }) => {
     <a
       key={item.id}
       className="flex flex-row items-center border-b border-[#D4D4D4] w-full h-[64px] last:border-b-0 cursor-pointer"
-      href={`/memorypage/${item.id}/${item.name}_${item.sirName}_${funeralDateFormatted}`}
+      // href={`/memorypage/${item.id}/${item.name}_${item.sirName}_${funeralDateFormatted}`}
+      href={`/m/${item.slugKey}`} // Updated to use slugKey
     >
       <h1 className="text-[#0A85C2] font-normal text-sm mobile:text-lg tablet:text-lg desktop:text-xl w-[50px] mobile:w-[60px] tablet:w-[75px] desktop:w-[97px] text-center flex-shrink-0">
         {item.funeralTimestamp
