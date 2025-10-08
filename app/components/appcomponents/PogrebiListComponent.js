@@ -183,7 +183,10 @@ const ObituaryListComponent = ({ city }) => {
   const handleSearch = () => {
     if (selectedCity && selectedCity.length > 0) {
       updateURL(selectedCity, selectedRegion, searchTerm);
+    } else {
+      updateURL(selectedCity, selectedRegion, searchTerm);
     }
+
     fetchObituary();
   };
 
