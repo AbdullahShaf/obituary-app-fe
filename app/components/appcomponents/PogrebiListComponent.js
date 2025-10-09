@@ -332,7 +332,7 @@ const ObituaryListComponent = ({ city }) => {
             />
 
             {/* Search Input */}
-            <div className="flex w-[292px] h-[48px] justify-center items-center">
+            <div className="flex relative w-[292px] h-[48px] justify-center items-center">
               <input
                 type="text"
                 placeholder="Išči po imenu / priimku"
@@ -340,6 +340,32 @@ const ObituaryListComponent = ({ city }) => {
                 onChange={handleSearchChange}
                 className="bg-white border-[#7C7C7C] placeholder-[#7C7C7C] text-[16px] font-[400] leading-[24px] border rounded-lg shadow-sm flex flex-1 items-center justify-between h-full px-4 text-[#7C7C7C] focus:outline-none"
               />
+              {suggestion && suggestion.length > 0 && (
+                <div
+                  className="absolute w-full top-[100%] z-[9999] bg-[#f1fffe] my-[8px] box-border rounded-[4px]"
+                  style={{
+                    boxShadow:
+                      "0 0 0 1px hsla(0, 0%, 0%, 0.1),0 4px 11px hsla(0, 0%, 0%, 0.1)",
+                  }}
+                  ref={suggestionComponentRef}
+                >
+                  <div className="max-h-[300px] py-[4px] relative overflow-y-auto css-qr46ko">
+                    {suggestion &&
+                      suggestion.length > 0 &&
+                      suggestion.map((obit, index) => (
+                        <div
+                          key={index}
+                          className="text-[#7d7d7d] py-[8px] px-[12px] cursor-pointer select-none bg-transparent hover:bg-[#6D778E] hover:text-white box-border rounded-[0.375rem]"
+                          onClick={() => {
+                            setSearchTerm(`${obit.name} ${obit.sirName}`);
+                            setSuggestion([]);
+                            window.location.href = `/m/${obit.slugKey}`;
+                          }}
+                        >{`${obit.name} ${obit.sirName}`}</div>
+                      ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Search Button */}
@@ -356,7 +382,7 @@ const ObituaryListComponent = ({ city }) => {
         <div className="w-full tablet:w-full mobile:w-full mobile:flex hidden flex-col items-center">
           <div className="w-[296px] h-[240px] flex-wrap flex flex-row gap-4 mt-[40px] mb-[42px]">
             {/* Search Input */}
-            <div className="flex w-[296px] h-[48px] justify-center items-center">
+            <div className="flex relative w-[296px] h-[48px] justify-center items-center">
               <input
                 type="text"
                 placeholder="Išči po imenu / priimku"
@@ -364,6 +390,32 @@ const ObituaryListComponent = ({ city }) => {
                 onChange={handleSearchChange}
                 className="bg-white border-[#7C7C7C] placeholder-[#7C7C7C] text-[16px] font-[400] leading-[24px] border rounded-lg shadow-sm flex flex-1 items-center justify-between h-full px-4 text-[#7C7C7C] focus:outline-none"
               />
+              {suggestion && suggestion.length > 0 && (
+                <div
+                  className="absolute w-full top-[100%] z-[9999] bg-[#f1fffe] my-[8px] box-border rounded-[4px]"
+                  style={{
+                    boxShadow:
+                      "0 0 0 1px hsla(0, 0%, 0%, 0.1),0 4px 11px hsla(0, 0%, 0%, 0.1)",
+                  }}
+                  ref={suggestionComponentRef}
+                >
+                  <div className="max-h-[300px] py-[4px] relative overflow-y-auto css-qr46ko">
+                    {suggestion &&
+                      suggestion.length > 0 &&
+                      suggestion.map((obit, index) => (
+                        <div
+                          key={index}
+                          className="text-[#7d7d7d] py-[8px] px-[12px] cursor-pointer select-none bg-transparent hover:bg-[#6D778E] hover:text-white box-border rounded-[0.375rem]"
+                          onClick={() => {
+                            setSearchTerm(`${obit.name} ${obit.sirName}`);
+                            setSuggestion([]);
+                            window.location.href = `/m/${obit.slugKey}`;
+                          }}
+                        >{`${obit.name} ${obit.sirName}`}</div>
+                      ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Region Dropdown */}
