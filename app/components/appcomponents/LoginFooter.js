@@ -92,23 +92,24 @@ export default function LoginFooter() {
                     best@website.com
                   </h>
                 </a>
-
-                <a
-                  href="#"
-                  className="desktop:hidden flex  items-center text-gray-600 ml-[-2px] mt-[8px] hover:text-blue-500 transition duration-200 "
-                >
-                  <div className="rounded-lg shadow-custom-light-dark bg-gradient-to-br from-gray-300 to-white p-[6px] transition duration-300 hover:scale-105 active:scale-95">
-                    <Image
-                      src={"/img_fb1.png"}
-                      alt="FB Icon"
-                      width={18}
-                      height={18}
-                    />
-                  </div>
-                  <h className="font-variation-customOpt16 ml-[16px]">
-                    Facebook
-                  </h>
-                </a>
+<a
+  href="https://www.facebook.com/people/Osmrtnicacom/61581688912510/"
+  className="desktop:hidden flex items-center text-gray-600 ml-[-2px] mt-[8px] hover:text-blue-500 transition duration-200"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <div className="rounded-lg shadow-custom-light-dark bg-gradient-to-br from-gray-300 to-white p-[6px] transition duration-300 hover:scale-105 active:scale-95">
+    <Image
+      src={"/img_fb1.png"}
+      alt="FB Icon"
+      width={18}
+      height={18}
+    />
+  </div>
+  <span className="font-variation-customOpt16 ml-[16px]">
+    Facebook
+  </span>
+</a>
               </div>
               <div
                 className="flex 
@@ -123,7 +124,7 @@ export default function LoginFooter() {
                   <ul className="mt-[24px] ">
                     <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center">
                       <a
-                        href="#"
+                        href="/osmrtnice"
                         className=" text-[#414141] font-variation-customOpt16 hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px]"
                       >
                         Osmrtnice
@@ -241,8 +242,9 @@ export default function LoginFooter() {
                     </div>
 
                     <Link
-                      href={"#"}
+                      href={"https://www.facebook.com/people/Osmrtnicacom/61581688912510/"}
                       className="mt-[15px] rounded-[8px] px-[61.5px] py-[12px] bg-[#5470B0] text-[16px] text-[#FFFFFF] leading-[24px] font-variation-customOpt16 font-[400px]"
+                      target="_blank"
                     >
                       Facebook
                     </Link>
