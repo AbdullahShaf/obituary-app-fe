@@ -173,7 +173,7 @@ const ReviewUserAccount = () => {
         Dodaj bližnjega ?
       </div>
 
-      <div className="flex mobileUserAcc:hidden w-[690px] tabletUserAcc:pl-[26px] tabletUserAcc:max-w-[660px] text-[#717B8C] text-[14px] font-normal font-variation-customOpt14 ">
+      <div className="flex max-w-[690px] tabletUserAcc:pl-[26px] tabletUserAcc:max-w-[660px] text-[#717B8C] text-[14px] font-normal font-variation-customOpt14 ">
         Enostavno je. Zgolj sodelujte na njegovi/njeni spominski strani in
         avtomatsko bo dodan/a med vaše bližnje na tej strani, prikazana bo
         statistika tiste spominske in nastavljeni bodo opomniki ob obletnicah,
@@ -192,13 +192,13 @@ const ReviewUserAccount = () => {
           mobileUserAcc:w-[335px]
           "
         ></input>
-        <div className="w-[227px]   bg-transparent  rounded-[8px]   placeholder:text-[16px] placeholder:font-normal placeholder:text-[#7C7C7C] placeholder:m-[0]">
+        {/* <div className="w-[227px]   bg-transparent  rounded-[8px]   placeholder:text-[16px] placeholder:font-normal placeholder:text-[#7C7C7C] placeholder:m-[0]">
           <DropdownWithSearch
             onSelectCity={handleCitySelect}
             selectedCity={selectedCity}
             isFrom="reviewUser"
           />
-        </div>
+        </div> */}
 
         <div className=" flex mobileUserAcc:hidden justify-center  w-9 items-center h-full aspect-square rounded-lg bg-[#414141]">
           <MagnifyingGlassIcon className="w-5 h-5 text-white " />
