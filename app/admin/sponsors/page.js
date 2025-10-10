@@ -16,15 +16,15 @@ const CompaniesWithApprovalReq = () => {
   const [loading, setLoading] = useState(true);
   const [sponsors, setSponsors] = useState([]);
 
-  const formatDate = (dateString) => {
-    if (!dateString) return "N/A";
-    try {
-      const date = new Date(dateString);
-      if (isNaN(date.getTime())) return "N/A";
-      return date.toLocaleDateString("en-GB");
-    } catch (error) {
-      return "N/A";
-    }
+  const formatDate = (timestamp) => {
+    const funeralDate = new Date(timestamp);
+    if (isNaN(funeralDate.getTime())) return "";
+
+    const day = funeralDate.getDate().toString().padStart(2, "0");
+    const month = (funeralDate.getMonth() + 1).toString().padStart(2, "0");
+    const year = funeralDate.getFullYear();
+
+    return `${day}.${month}.${year}`;
   };
 
   const fetchList = async () => {
@@ -40,7 +40,7 @@ const CompaniesWithApprovalReq = () => {
 
   const deleteSponsor = async (id) => {
     setLoading(true);
-    await adminService.deleteSponosor(id);
+    await adminService.deleteSponsor(id);
     setLoading(false);
     fetchList();
   }
