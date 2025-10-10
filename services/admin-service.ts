@@ -255,9 +255,14 @@ const adminService = {
 
 // services/admin-service.ts
   deleteSponsor: async (id: any) => {
-    const endpoint = "/admin/delete-sponsor/" + id;
-    const response = await axios.delete(endpoint);
-    return response.data;
+    try {
+      const endpoint = "/admin/delete-sponsor/" + id;
+      const response = await axios.delete(endpoint);
+      return response.data;
+    } catch (error) {
+      console.error("Error deleting sponsor:", error);
+      throw error;
+    }
   }
 };
 
