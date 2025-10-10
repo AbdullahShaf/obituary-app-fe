@@ -41,7 +41,16 @@ export default function FormModal({ isShowModal, setIsShowModal, editId, refetch
     const [selectedFile, setSelectedFile] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    console.log('>>>>>> editId', editId);
+    const formatDate = (timestamp) => {
+        const funeralDate = new Date(timestamp);
+        if (isNaN(funeralDate.getTime())) return "";
+
+        const day = funeralDate.getDate().toString().padStart(2, "0");
+        const month = (funeralDate.getMonth() + 1).toString().padStart(2, "0");
+        const year = funeralDate.getFullYear();
+
+        return `${day}.${month}.${year}`;
+    };
 
     // 🆕 Multiple regions and cities
     const [selectedRegions, setSelectedRegions] = useState([{ value: "", inputValue: "" }]);
@@ -448,7 +457,7 @@ export default function FormModal({ isShowModal, setIsShowModal, editId, refetch
                                             <ModalDropBox
                                                 placeholder="START"
                                                 onClick={() => togglePicker("start")}
-                                                isSelectText={startDate ? new Date(startDate).toLocaleDateString("en-GB") : ""}
+                                                isSelectText={startDate ? formatDate(startDate) : ""}
                                             />
                                             {openPicker === "start" && (
                                                 <div className="absolute mt-12 bg-white border rounded shadow-lg z-10">
@@ -474,7 +483,7 @@ export default function FormModal({ isShowModal, setIsShowModal, editId, refetch
                                             <ModalDropBox
                                                 placeholder="END"
                                                 onClick={() => toggleEndPicker("end")}
-                                                isSelectText={endDate ? new Date(endDate).toLocaleDateString("en-GB") : ""}
+                                                isSelectText={endDate ? formatDate(endDate) : ""}
                                             />
                                             {endOpenPicker === "end" && (
                                                 <div className="absolute mt-12 bg-white border rounded shadow-lg z-10">
