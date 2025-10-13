@@ -44,8 +44,6 @@ const ObituaryCardFb = ({
 
   const imageUrl = data?.image || "/user5.jpeg";
 
-  const imageUrl = data?.image || "/user5.jpeg";
-
   const religionImages = {
     1: "/icon_cross.png",
     2: "/img_plus2.png",

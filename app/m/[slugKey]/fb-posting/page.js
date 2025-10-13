@@ -12,6 +12,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { getTemplateCardImages } from "@/utils/commonUtils";
 import { useAuth } from "@/hooks/useAuth";
 import Head from "next/head";
+import Link from "next/link";
 
 const FbPosting = ({ params }) => {
   const { slugKey } = params;
@@ -125,10 +126,12 @@ const FbPosting = ({ params }) => {
         <meta property="og:type" content="website" />
       </Head>
       <Layout from={"3"} forFooter={"memorypage"}>
-        <MemoryHeroSection
-          handleFacebookShare={handleFacebookShare}
-          obituary={obituary}
-        />
+        <Link className="w-full" href={`/m/${slugKey}`}>
+          <MemoryHeroSection
+            handleFacebookShare={handleFacebookShare}
+            obituary={obituary}
+          />
+        </Link>
       </Layout>
     </div>
   );

@@ -5,7 +5,6 @@ const MemoryHeroSection = ({ obituary, handleFacebookShare }) => {
   return (
     <div className="relative mobile:pb-[50px] relative max-w-[683px] overflow-hidden mx-auto desktop:mt-[137.02px] mobile:mt-[115px] tablet:mt-[124px] flex justify-center">
       <img
-      <img
         src="/fb-posting-hero-bg.png"
         alt="Memory page hero background"
         className="mobile:hidden h-[444px] mobile:h-[257px] w-full object-cover"
@@ -14,7 +13,6 @@ const MemoryHeroSection = ({ obituary, handleFacebookShare }) => {
         src="/fb-posting-hero-bg.png"
         alt="Memory page hero background"
         className="mobile:flex hidden h-[267px] w-full object-cover"
-      />
       />
       <div className="absolute top-[4%] left-[3%] right-[3%]">
         <ObituaryCardFb data={obituary} />
