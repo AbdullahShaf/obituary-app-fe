@@ -448,7 +448,7 @@ const MemorialPageTopComp = ({
                   tablet:px-[22px] tablet:pb-[15px]
                   ${
                     screenWidth < 740
-                      ? "w-[330px]"
+                      ? "w-[330px] mobile:!w-[100%] mobile:!max-w-[470px]"
                       : screenWidth >= 740 && screenWidth <= 1024
                       ? "w-[550px]"
                       : ""
@@ -563,7 +563,7 @@ const MemorialPageTopComp = ({
                       tablet:pb-[23px]  tablet:px-[22px]                          
                       desktop:w-[517px] ${
                         screenWidth < 740
-                          ? "w-[330px]"
+                          ? "w-[330px] mobile:!w-[100%] mobile:!max-w-[470px]"
                           : screenWidth >= 740 && screenWidth <= 1024
                           ? "w-[550px]"
                           : ""
@@ -760,7 +760,7 @@ const MemorialPageTopComp = ({
                   flex-col pt-4 pl-[22px] pr-[18px] w-[100%]                       
                   desktop:w-[517px] ${
                     screenWidth < 740
-                      ? "w-[330px]"
+                      ? "w-[330px] mobile:!w-[100%] mobile:!max-w-[470px]"
                       : screenWidth >= 740 && screenWidth <= 1024
                       ? "w-[550px]"
                       : ""
@@ -864,7 +864,7 @@ const MemorialPageTopComp = ({
                             w-[100%] tablet:px-4 
                             desktop:w-[517px] ${
                               screenWidth < 740
-                                ? "w-[330px]"
+                                ? "w-[330px] mobile:!w-[100%] mobile:!max-w-[470px]"
                                 : screenWidth >= 740 && screenWidth <= 1024
                                 ? "w-[550px]"
                                 : ""
@@ -929,7 +929,7 @@ const MemorialPageTopComp = ({
                             mobile:mt-[28px]
                             py-4      
                             pl-[21px] pr-[28px]
-                            w-[100%] mobile:w-[330px] tablet:w-[550px] tablet:px-4 
+                            w-[100%] mobile:!w-[100%] mobile:!max-w-[470px] tablet:w-[550px] tablet:px-4 
                             desktop:w-[517px] sm:w-[517px] desktop:pl-[22px] desktop:pr-[17px]
                              shadow-custom-light-dark-box bg-gradient-to-br rounded-2xl from-[#E3E8EC] to-[#FFFFFF]"
                   style={{
