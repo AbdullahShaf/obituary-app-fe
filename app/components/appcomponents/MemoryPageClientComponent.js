@@ -135,7 +135,6 @@ const MemoryPageContent = ({ params, obituaryDataFromServer }) => {
 
       const data = response;
 
-      // Build URL with city and region as query params
       const urlParams = [];
       if (queryParams.city)
         urlParams.push(`city=${encodeURIComponent(queryParams.city)}`);
