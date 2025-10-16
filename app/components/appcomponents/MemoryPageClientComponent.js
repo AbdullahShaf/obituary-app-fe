@@ -162,7 +162,6 @@ const MemoryPageContent = ({ params, obituaryDataFromServer }) => {
   const handleFacebookShare = async () => {
     try {
       const pageUrl = `${APP_BASE_URL}/m/${slugKey}`;
-
       const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
         pageUrl
       )}`;
