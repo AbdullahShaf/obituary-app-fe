@@ -4,10 +4,10 @@ import APP_BASE_URL from "@/config/appConfig";
 
 export async function generateMetadata({ params }) {
   const { slugKey } = params;
-  const image = `${process.env.NEXT_PUBLIC_APP_BASE_URL}/api/og?slugKey=${slugKey}`;
+  const image = `${APP_BASE_URL}/api/og?slugKey=${slugKey}`;
 
   return {
-    title: "Vpis v žalno knjigo",
+    title: "Vpis v žalno knjigo ",
     description: "Vpis v žalno knjigo in informacije o pogrebu so tukaj.",
     openGraph: {
       title: "Vpis v žalno knjigo",
