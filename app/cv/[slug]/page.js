@@ -42,7 +42,7 @@ export default function FloristPage() {
       <Head>
         <title>
           {company?.name ? `${company.name} - Cvetličarna` : "Cvetličarna"} |
-          Osrmtnica
+          Osmrtnica
         </title>
         <link rel="canonical" href={`https://www.osmrtnica.com/cv/${slug}`} />
         <meta
