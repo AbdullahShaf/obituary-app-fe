@@ -1,228 +1,58 @@
-"use client";
-import { Suspense, useEffect } from "react";
-import { useState } from "react";
-import Head from "next/head";
-import Layout from "../../components/appcomponents/Layout";
-import ObituaryPublished from "../../components/appcomponents/ObituaryPublished";
-import FlowerShops from "../../components/appcomponents/FlowerShops";
-import ShippingNotifications from "../../components/appcomponents/ShippingNotifications";
-import MemorialPageTopComp from "../../components/appcomponents/MemorialPageTopComp";
-import ModalLibrary from "../../components/appcomponents/ModalLibrary";
-import ImageFullView from "../../components/appcomponents/ImageFullView";
-import imgUp from "@/public/ico_up.png";
-import Image from "next/image";
 import obituaryService from "@/services/obituary-service";
-import { toast } from "react-hot-toast";
-import AnnouncementBlock from "../../components/appcomponents/AnnouncementBlock";
-import { FlowerShops2 } from "../../components/appcomponents/FlowerShops";
-import { useRouter, useSearchParams } from "next/navigation";
-import { getTemplateCardImages } from "@/utils/commonUtils";
-import { useAuth } from "@/hooks/useAuth";
+import MemoryPageClientComponent from "../../components/appcomponents/MemoryPageClientComponent";
+import API_BASE_URL, { APP_BASE_URL } from "@/config/apiConfig";
 
-const MemoryPageContent = ({ params }) => {
+export async function generateMetadata({ params }) {
   const { slugKey } = params;
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const image = `${APP_BASE_URL}/api/og?slugKey=${slugKey}&t=${Date.now()}`;
 
-  const { user, isLoading } = useAuth();
+  const response = await obituaryService.getMemory({ slugKey });
+  const obituary = response?.obituary || {};
 
-  const [isShowModal, setIsShowModal] = useState(false);
-  const [select_id, setSelect_Id] = useState("");
-  const [selectedImage, setSelectedImage] = useState("");
-  const [currentUser, setCurrentUser] = useState(null);
-  const [showShops, setShowShops] = useState(false);
-  const [showImageView, setShowImageView] = useState(false);
-  const [imageId, setImageId] = useState("0");
+  const fullName =
+    obituary?.firstName && obituary?.lastName
+      ? `${obituary.firstName} ${obituary.lastName}`
+      : null;
 
-  const [obituary, setObituary] = useState({});
-
-  const city = searchParams.get("city");
-  const region = searchParams.get("region");
-
-  useEffect(() => {
-    fetchMemory();
-  }, [user, isLoading]);
-
-  const fetchMemory = async () => {
-    try {
-      const response = await obituaryService.getMemory({ slugKey: slugKey });
-
-      if (response.error) {
-        // toast.error(
-        //   response.error || "Prišlo je do napake."
-        // );
-        return;
-      }
-
-      setObituary(response.obituary);
-
-      if (response?.obituary) {
-        const visitRespone = await obituaryService.updateObituaryVisits({
-          obituaryId: response?.obituary?.id,
-          userId: currentUser?.id || null,
-        });
-
-        if (visitRespone.error) {
-          // toast.error(
-          //   visitRespone.error || "Prišlo je do napake."
-          // );
-          return;
-        }
-
-        // setObituary(visitRespone);
-        if (visitRespone.Condolences.length === 0) {
-          const persons = [
-            {
-              name: "osmrtnica.com",
-              createdTimestamp: new Date(),
-              relation: "",
-              message: "Počivaj v miru",
-            },
-          ];
-          updateObituary({ ["Condolences"]: persons });
-        }
-      }
-    } catch (err) {
-      console.error("Error fetching obituary:", err);
-      // toast.error(err.message || "Failed to fetch obituary.");
-    }
+  return {
+    title: fullName
+      ? `${fullName} - Spominska stran | Osmrtnica`
+      : "Spominska stran | Osmrtnica",
+    description: fullName
+      ? `Spominska stran za ${fullName}. Delite spomine, prižgite svečko in izrazite sožalje.`
+      : "Spominska stran za pokojnega. Delite spomine, prižgite svečko in izrazite sožalje.",
+    alternates: {
+      canonical: `https://www.osmrtnica.com/m/${slugKey}`,
+    },
+    openGraph: {
+      title: fullName ? `${fullName} - Spominska stran` : "Spominska stran",
+      description: fullName
+        ? `Spominska stran za ${fullName}. Delite spomine, prižgite svečko in izrazite sožalje.`
+        : "Spominska stran za pokojnega. Delite spomine, prižgite svečko in izrazite sožalje.",
+      url: `${APP_BASE_URL}/m/${slugKey}`,
+      siteName: "Osmrtnica",
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          alt: "Obituary Image",
+        },
+      ],
+      type: "website",
+    },
   };
+}
 
-  const updateObituary = (updatedData) => {
-    setObituary((prevObituary) => ({
-      ...prevObituary,
-      ...updatedData,
-    }));
-  };
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setCurrentUser(JSON.parse(storedUser));
-    }
-  }, []);
-
-  const handleMemoryChange = async (type) => {
-    try {
-      // Use city and region from searchParams if available, fallback to obituary
-      const queryParams = {
-        city: city || obituary.city,
-        region: region || obituary.region,
-        date: obituary.createdTimestamp,
-        type: type,
-      };
-
-      const response = await obituaryService.getMemoryId(queryParams);
-
-      const data = response;
-
-      // Build URL with city and region as query params
-      const urlParams = [];
-      if (queryParams.city)
-        urlParams.push(`city=${encodeURIComponent(queryParams.city)}`);
-      if (queryParams.region)
-        urlParams.push(`region=${encodeURIComponent(queryParams.region)}`);
-      const queryString = urlParams.length ? `?${urlParams.join("&")}` : "";
-
-      // Temporarily commented
-      router.push(`/m/${data.slugKey}${queryString}`);
-    } catch (error) {
-      console.error("Error fetching memory:", error);
-      if (error?.response?.status === 404) {
-        // toast.error(`No ${type} memory exists`);
-      } else {
-        // toast.error("Prišlo je do napake.");
-      }
-    }
-  };
+export default async function Page({ params }) {
+  const { slugKey } = params;
+  const response = await obituaryService.getMemory({ slugKey });
+  const obituary = response?.obituary || {};
 
   return (
-    <>
-      <Head>
-        <title>{obituary?.firstName && obituary?.lastName ? `${obituary.firstName} ${obituary.lastName} - Spominska stran` : 'Spominska stran'} | Osmrtnica</title>
-        <link rel="canonical" href={`https://www.osmrtnica.com/m/${slugKey}`} />
-        <meta name="description" content={obituary?.firstName && obituary?.lastName ? `Spominska stran za ${obituary.firstName} ${obituary.lastName}. Delite spomine, prižgite svečko in izrazite sožalje.` : 'Spominska stran za pokojnega. Delite spomine, prižgite svečko in izrazite sožalje.'} />
-      </Head>
-      
-      <Layout
-        from={"3"}
-        onChangeMemory={handleMemoryChange}
-        forFooter={"memorypage"}
-      >
-        <div className="flex flex-1 flex-col mx-auto bg-[#ecf0f3] pt-[20px] max-w-[100vw] overflow-x-hidden">
-          <ModalLibrary
-            isShowModal={isShowModal}
-            setIsShowModal={setIsShowModal}
-            select_id={select_id}
-            set_Id={setSelect_Id}
-            selectedImage={selectedImage}
-            data={obituary}
-            updateObituary={updateObituary}
-          />
-          <ImageFullView
-            showImageView={showImageView}
-            imageId={imageId}
-            setShowImageView={setShowImageView}
-            data={obituary?.Photos}
-          />
-          <MemorialPageTopComp
-            set_Id={setSelect_Id}
-            setModal={setIsShowModal}
-            data={obituary}
-            updateObituary={updateObituary}
-          />
-
-          {obituary?.Keepers?.length === 0 && <AnnouncementBlock />}
-
-          <ShippingNotifications
-            set_Id={setSelect_Id}
-            setModal={setIsShowModal}
-            images={getTemplateCardImages(obituary?.cardImages)}
-            blurredImages={Boolean(obituary?.cardImages?.length)}
-          />
-
-          <FlowerShops
-            setIsOpen={(value) => {
-              setShowShops(value);
-            }}
-            data={obituary}
-            showShop={showShops}
-          />
-
-          <FlowerShops2
-            setIsOpen={(value) => {
-              setShowShops(value);
-            }}
-            showShop={showShops}
-          />
-
-          <ObituaryPublished
-            set_Id={setSelect_Id}
-            setModal={setIsShowModal}
-            data={obituary}
-          />
-          <a
-            className="z-50 bottom-10 right-10 fixed w-[48px] h-[48px] mt-[26px] 
-                shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]
-                flex justify-center items-center rounded-lg"
-            href="#memoryPageTop"
-          >
-            <Image
-              src={imgUp}
-              alt="imgPrevious"
-              className=" w-[24px] h-[24px]"
-            />
-          </a>
-        </div>
-      </Layout>
-    </>
+    <MemoryPageClientComponent
+      params={params}
+      obituaryDataFromServer={obituary}
+    />
   );
-};
-
-const MemoryPage = (props) => (
-  <Suspense fallback={<div>Loading...</div>}>
-    <MemoryPageContent {...props} />
-  </Suspense>
-);
-
-export default MemoryPage;
+}
