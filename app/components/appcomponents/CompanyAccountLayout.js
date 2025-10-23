@@ -232,7 +232,8 @@ const CompanyAccountLayout = ({ children }) => {
           />
           {pathname == "/c/osmrtnica-com/nase_osmrtnice" ||
             pathname == "/c/osmrtnica-com/nase_spominske" ||
-            (pathname == "/c/osmrtnica-com/nasa_darila" && (
+            pathname == "/c/osmrtnica-com/nasa_darila" ||
+            (pathname == "/c/osmrtnica-com/nasi_podatki" && (
               <div
                 className={`text-[#6D778E] text-[12px] absolute mobile:block hidden right-3`}
               >
@@ -248,7 +249,8 @@ const CompanyAccountLayout = ({ children }) => {
                 <div
                   className={`flex ${
                     headingOne === "Vnešene osmrtnice" ||
-                    headingOne === "Darila strankam"
+                    headingOne === "Darila strankam" ||
+                    headingOne === "Račun in nastavitve"
                       ? "mobile:hidden"
                       : "h-[38px]"
                   }  items-center`}
