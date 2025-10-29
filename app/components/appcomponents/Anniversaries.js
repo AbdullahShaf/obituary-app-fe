@@ -102,6 +102,8 @@ const Anniversaries = () => {
     }
   };
 
+  console.log('>>>>>>>>> memories', memories);
+
   const formattedDate = (timestamp) => {
     const funeralDate = new Date(timestamp);
     if (isNaN(funeralDate.getTime())) return "";
@@ -217,7 +219,7 @@ const Anniversaries = () => {
                 {/* First item */}
                 {/* 23 October 2024 */}
                 <Link
-                  href={item.name === "Angela" ? "/memorypage" : ""}
+                  href={item.name === "Angela" ? "/memorypage" : `/m/${item.slugKey}`}
                   className={`flex flex-col justify-center items-center w-[210px] mobileUserAcc:w-[160px] h-[90px] mobileUserAcc:h-[73px] mobileUserAcc:items-center py-[13px] px-[3px] border-[2px] border-[#0A85C2] rounded-[8px] ${item.className}`}
                 >
                   <h2 className="text-[16px] text-[#6D778E] font-normal flex flex-col items-center leading-[18.75px] pb-[4px]">
@@ -268,7 +270,10 @@ const Anniversaries = () => {
                       <TextStyle
                         text={
                           "Zadnja svečka: " +
-                          formattedDate(item.lastCandleBurnt)
+                          formattedDate(
+                            item.candles[item.candles.length - 1].createdTimestamp
+                            // item.lastCandleBurnt
+                          )
                         }
                         size={"text-[14px]"}
                       />
@@ -307,24 +312,24 @@ const Anniversaries = () => {
                       <div
                         className={`text-[16px]  font-medium leading-[18px] mt-[5px]
                        ${(() => {
-                         const nextAnniversary = getNextAnniversary(
-                           item.birthDate,
-                           item.deathDate
-                         );
-                         const anniversaryDate =
-                           nextAnniversary.type === "birth"
-                             ? item.birthDate
-                             : item.deathDate;
+                            const nextAnniversary = getNextAnniversary(
+                              item.birthDate,
+                              item.deathDate
+                            );
+                            const anniversaryDate =
+                              nextAnniversary.type === "birth"
+                                ? item.birthDate
+                                : item.deathDate;
 
-                         const anniversaryWithNewYear = new Date(
-                           anniversaryDate
-                         );
-                         anniversaryWithNewYear.setFullYear(
-                           nextAnniversary.year
-                         );
+                            const anniversaryWithNewYear = new Date(
+                              anniversaryDate
+                            );
+                            anniversaryWithNewYear.setFullYear(
+                              nextAnniversary.year
+                            );
 
-                         return getColorBasedOnDate(anniversaryWithNewYear);
-                       })()}
+                            return getColorBasedOnDate(anniversaryWithNewYear);
+                          })()}
                         `}
                       >
                         {(() => {
@@ -348,6 +353,10 @@ const Anniversaries = () => {
                             .toISOString()
                             .split("T")[0]
                             .split("-");
+
+                          if (day == 31 && month == 12) {
+                            return `-`;
+                          }
 
                           return `${day}.${month}.${year}`;
                         })()}
@@ -388,14 +397,13 @@ const Anniversaries = () => {
 
               <div className="hidden desktopUserAcc:flex items-start justify-between">
                 <Link
-                  href={item.name === "Angela" ? "/memorypage" : ""}
+                  href={item.name === "Angela" ? "/memorypage" : `/m/${item.slugKey}`}
                   className={`flex 
-                    ${
-                      item.Keepers?.length > 0
-                        ? item.isKeeper
-                          ? "bg-[#e9f1e8] border-2 border-purple-500"
-                          : "bg-[#e9f1e8] border-2 border-blue-500"
-                        : "bg-[#ffffff] border-2 border-blue-500"
+                    ${item.Keepers?.length > 0
+                      ? item.isKeeper
+                        ? "bg-[#e9f1e8] border-2 border-purple-500"
+                        : "bg-[#e9f1e8] border-2 border-blue-500"
+                      : "bg-[#ffffff] border-2 border-blue-500"
                     }
                      flex-col justify-center items-center w-[230px] h-[73px] mobileUserAcc:w-full mobileUserAcc:flex-row mobileUserAcc:justify-around mobileUserAcc:items-center py-[13px] border-[2px]  rounded-[8px]  `}
                 >
@@ -436,7 +444,10 @@ const Anniversaries = () => {
                         isLeft={false}
                         isCandle={true}
                         val={item.totalCandles}
-                        date={formattedDate(item.lastCandleBurnt)}
+                        date={formattedDate(
+                          item.candles[item.candles.length - 1].createdTimestamp
+                        )}
+                        // date={formattedDate(item.lastCandleBurnt)}
                       />
                     ) : (
                       <CommonView
@@ -492,6 +503,7 @@ const Anniversaries = () => {
                             item.birthDate,
                             item.deathDate
                           );
+                          console.log('>>>>>>>>>> nextAnniversary', item, nextAnniversary)
                           const anniversaryDate =
                             nextAnniversary.type === "birth"
                               ? item.birthDate
@@ -508,6 +520,10 @@ const Anniversaries = () => {
                             .toISOString()
                             .split("T")[0]
                             .split("-");
+
+                          if (day == 31 && month == 12) {
+                            return `-`;
+                          }
 
                           return `${day}.${month}.${year}`;
                         })()}
@@ -605,13 +621,11 @@ function CommonView({ isLeft, isCandle = false, val, date }) {
 
   return (
     <div
-      className={`flex flex-row  desktopUserAcc:flex-col w-full ${
-        isLeft && "desktopUserAcc:items-end"
-      } ${
-        date !== "" || (date === "" && val === "")
+      className={`flex flex-row  desktopUserAcc:flex-col w-full ${isLeft && "desktopUserAcc:items-end"
+        } ${date !== "" || (date === "" && val === "")
           ? "desktopUserAcc:items-start"
           : ""
-      } `}
+        } `}
     >
       {date !== "" && val && (
         <>
@@ -657,9 +671,8 @@ function CommonView({ isLeft, isCandle = false, val, date }) {
 function TextStyle({ text, size }) {
   return (
     <div
-      className={`${size}    ${
-        text == "14.09.2024" ? "text-[#EB1D1D]" : "text-[#6D778E]"
-      }  font-normal leading-[16.41px] mobileUserAcc:text-[12px] pt-1`}
+      className={`${size}    ${text == "14.09.2024" ? "text-[#EB1D1D]" : "text-[#6D778E]"
+        }  font-normal leading-[16.41px] mobileUserAcc:text-[12px] pt-1`}
     >
       {text}
     </div>

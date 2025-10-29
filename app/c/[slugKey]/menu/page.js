@@ -70,7 +70,9 @@ export default function Funeral() {
   function mobileToast(e) {
     e.preventDefault(); // prevents navigation and scrolling
 
-    toast.success("V pripravi. Prosimo, da uporabite tablico ali računalnik za dostop do te strani.")
+    toast.success(
+      "V pripravi. Prosimo, da uporabite tablico ali računalnik za dostop do te strani."
+    );
   }
 
   return (
@@ -128,7 +130,10 @@ export default function Funeral() {
               <div className="text-[#2198D3] mt-[50px] text-[14px] leading-[24px] font-variation-customOpt14 font-semibold block mobile:hidden">
                 MESEČNI PREGLED IN STATISTIKE
               </div>
-              <Link href={"/c" + `/${user?.slugKey}` + "/nase_osmrtnice"} className="block mobile:hidden">
+              <Link
+                href={"/c" + `/${user?.slugKey}` + "/nase_osmrtnice"}
+                className="block mobile:hidden"
+              >
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/ico_pregled.png"}
@@ -139,7 +144,10 @@ export default function Funeral() {
                 </div>
               </Link>
 
-              <Link href={"/c" + `/${user?.slugKey}` + "/nase_spominske"} className="block mobile:hidden">
+              <Link
+                href={"/c" + `/${user?.slugKey}` + "/nase_spominske"}
+                className="block mobile:hidden"
+              >
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/user/spominske.png"}
@@ -149,7 +157,10 @@ export default function Funeral() {
                   />
                 </div>
               </Link>
-              <Link href={"/c" + `/${user?.slugKey}` + "/nasa_darila"} className="block mobile:hidden">
+              <Link
+                href={"/c" + `/${user?.slugKey}` + "/nasa_darila"}
+                className="block mobile:hidden"
+              >
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/user/mobi_predloge.png"}
@@ -176,7 +187,7 @@ export default function Funeral() {
                   placeholderText={"NAŠ RAČUN"}
                 />
               </Link>
-              <div className="w-[314px] flex-col mobile:flex hidden">
+              <div className="mobile:w-full flex-col mobile:flex hidden">
                 <div
                   onClick={() => {
                     setIsButtonHide(!isButtonHide);
@@ -188,7 +199,7 @@ export default function Funeral() {
                 {user?.createObituaryPermission ? (
                   <Link
                     href={"/osmrtnice-vpis"}
-                    className="bg-white rounded-lg py-4 px-6 flex items-center gap-4 justify-between shadow-[5px_5px_10px_rgba(197,135,14,1)] mt-[2px] mobileUserAcc:mt-[5px] relative overflow-hidden min-h-[55px]"
+                    className="bg-gray-200 rounded-lg py-4 px-6 flex items-center gap-4 justify-between shadow-[5px_5px_10px_rgba(194,194,194,0.5)] mt-[2px] mobileUserAcc:mt-[5px] relative overflow-hidden min-h-[55px]"
                   >
                     <div className="absolute top-0 left-0 w-full h-full flex items-center justify-end bg-gradient-to-b from-[rgba(249,171,22,1)] to-[rgba(197,135,14,1)]">
                       <div className="px-5">
@@ -208,7 +219,7 @@ export default function Funeral() {
                         </svg>
                       </div>
                     </div>
-                    <div className="flex items-center gap-5 absolute top-[2px] left-[2px] w-[calc(100%-55px)] h-[51px] bg-white rounded-s-md px-3">
+                    <div className="flex items-center gap-5 absolute top-[2px] left-[2px] w-[calc(100%-55px)] h-[51px] bg-gray-100 rounded-s-md px-3">
                       <img
                         src="/user/plus.png"
                         alt="predloge"
@@ -254,7 +265,7 @@ export default function Funeral() {
                     </div>
                   </div>
                 )}
-                <div className="w-[314] h-[58px] mt-[8px] py-[2px] px-[2px] rounded-[10px] shadow-custom-light-dark-box-image bg-transparent hidden mobile:block"></div>
+                <div className="w-[314] h-[58px] mt-[8px] py-[2px] px-[2px] rounded-[10px] shadow-custom-light-dark-box-image bg-transparent hidden mobile:hidden"></div>
                 <Link
                   href={"/darila"}
                   className="bg-white rounded-lg py-4 px-6 flex items-center gap-4 justify-between shadow-[5px_5px_10px_rgba(194,194,194,0.5)] mt-[9px] mobileUserAcc:mt-[15px] relative overflow-hidden min-h-[55px]"
@@ -329,36 +340,54 @@ export default function Funeral() {
                   </div>
                 </Link>
               </div>
-              <div className="mt-[100px] hidden mobile:block">
-                <p className="text-[#6D778E] text-[15px] leading-[24px] font-variation-customOpt14 hidden mobile:block">POZOR: <br />Uporabniški kotiček za podjetja zaenkrat še ni optimiziran za mobilni telefon, razen prvih treh daril za stranke. Za pregled preostalega prosim uporabite računalnik ali tablico. </p>
+              <div className="mt-[100px] hidden mobile:hidden">
+                <p className="text-[#6D778E] text-[15px] leading-[24px] font-variation-customOpt14 hidden mobile:block">
+                  POZOR: <br />
+                  Uporabniški kotiček za podjetja zaenkrat še ni optimiziran za
+                  mobilni telefon, razen prvih treh daril za stranke. Za pregled
+                  preostalega prosim uporabite računalnik ali tablico.{" "}
+                </p>
               </div>
-              <div className="text-[#2198D3] mt-4 text-[14px] leading-[24px] font-variation-customOpt14 font-semibold hidden mobile:block">
-                MESEČNI PREGLED IN STATISTIKE
+              <div className="text-[#2198D3] mobile:mt-12 mt-4 text-[14px] leading-[24px] font-variation-customOpt14 font-semibold hidden mobile:block">
+                <span className="mobile:hidden block">
+                  MESEČNI PREGLED IN STATISTIKE
+                </span>
+                <span className="mobile:block hidden">STATISTIKE</span>
               </div>
               {/* <Link href={"/c" + `/${user?.slugKey}` + "/nase_osmrtnice"} className="hidden mobile:block"> */}
-              <Link href={""} onClick={mobileToast} className="hidden mobile:block">
+              <Link
+                href={"/c" + `/${user?.slugKey}` + "/nase_osmrtnice"}
+                // onClick={mobileToast}
+                className="hidden mobile:block"
+              >
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/ico_pregled.png"}
                     placeholderText={"OSMRTNICE"}
                     arrow={"down"}
-                    isOpen={1}
                   />
                 </div>
               </Link>
               {/* <Link href={"/c" + `/${user?.slugKey}` + "/nase_spominske"} className="hidden mobile:block"> */}
-              <Link href={""} onClick={mobileToast} className="hidden mobile:block">
+              <Link
+                href={"/c" + `/${user?.slugKey}` + "/nase_spominske"}
+                // onClick={mobileToast}
+                className="hidden mobile:block"
+              >
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/user/spominske.png"}
                     placeholderText={"SPOMINSKE"}
                     arrow={"down"}
-                    isOpen={1}
                   />
                 </div>
               </Link>
               {/* <Link href={"/c" + `/${user?.slugKey}` + "/nasa_darila"} className="hidden mobile:block"> */}
-              <Link href={""} onClick={mobileToast} className="hidden mobile:block">
+              <Link
+                href={"/c" + `/${user?.slugKey}` + "/nasa_darila"}
+                // onClick={mobileToast}
+                className="hidden mobile:block"
+              >
                 <div className="mt-[8px]">
                   <ButtonWhiteBGCap
                     placeholderImg={"/user/mobi_predloge.png"}
@@ -382,6 +411,12 @@ export default function Funeral() {
                 <ButtonWhiteBG
                   placeholderImg={"/ico_obletnice.png"}
                   placeholderText={"NAŠ RAČUN"}
+                />
+              </Link>
+              <Link href={"/"} className="mt-[8px] hidden mobile:block">
+                <ButtonWhiteBG
+                  placeholderImg={"/ico_obletnice.png"}
+                  placeholderText={"NAZAJ NA SPLETNO STRAN"}
                 />
               </Link>
               <div
@@ -520,10 +555,7 @@ export default function Funeral() {
                     alt="predloge"
                     className="w-6 h-6 object-contain"
                   />
-                  <Link
-                    href={"/darila"}
-                    className="text-[16px] text-[#6D778E]"
-                  >
+                  <Link href={"/darila"} className="text-[16px] text-[#6D778E]">
                     PODARI SKRBNIKA
                   </Link>
                 </div>
@@ -557,10 +589,7 @@ export default function Funeral() {
                     alt="predloge"
                     className="w-6 h-6 object-contain"
                   />
-                  <Link
-                    href={"/darila"}
-                    className="text-[16px] text-[#6D778E]"
-                  >
+                  <Link href={"/darila"} className="text-[16px] text-[#6D778E]">
                     MOBI PREDLOGE
                   </Link>
                 </div>
