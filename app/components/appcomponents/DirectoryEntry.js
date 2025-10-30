@@ -91,7 +91,7 @@ const DirectoryEntry = () => {
     items,
     extraItem,
     borderColor,
-    footerText,
+    showContactButton=false,
     showFreeRegistration = false,
   }) => (
     <div className="flex bg-white flex-col w-full tablet:w-[310px] desktop:w-[333px]">
@@ -165,11 +165,11 @@ const DirectoryEntry = () => {
                             </p>
                         </div>
                     )} */}
-          {footerText && (
+          {showContactButton && (
             <div className="flex flex-col items-center mt-10">
-              <p className="text-[14px] text-[#3090D5] font-normal underline">
-                {footerText}
-              </p>
+              <Link href="/kontakt" className="text-[14px] text-[#3090D5] font-normal underline cursor-pointer">
+                Kontaktirajte nas
+              </Link>
             </div>
           )}
         </div>
@@ -291,7 +291,9 @@ const DirectoryEntry = () => {
               title="ŠE DODATNE"
               price="UGODNOSTI"
               items={containerArray3}
-              footerText={"Kontaktirajte nas"}
+            //   footerText={"Kontaktirajte nas"}
+                showContactButton
+
             />
 
             {/* How to proceed - Mobile & Tablet */}
