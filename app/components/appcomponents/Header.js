@@ -87,12 +87,12 @@ export function FAQHeader() {
             />
           </Link>
           <div className="flex gap-[24px] items-center mobile:hidden">
-            <Link
+            {/* <Link
               href={"/vodic"}
               className="flex text-[18px] leading-[24px] font-[400] text-white bg-[#083545]  tablet:w-[72px] w-[149px] rounded-[2px] py-[5px] text-center items-center justify-center"
             >
               VODIČ
-            </Link>
+            </Link> */}
             <Link
               href={"/c-info"}
               className="flex text-[18px] leading-[24px] font-[400] text-[#1E2125]"
@@ -123,12 +123,12 @@ export function FAQHeader() {
               href={"/resitve-za-cvetlicarne"}
             >
               <div className="flex space-x-6 items-center">
-                <Link
+                {/* <Link
                   href={"/vodic"}
                   className="flex text-[18px] leading-[24px] font-[400] text-white bg-[#083545]  mobile:w-[72px] rounded-[2px] py-[5px] text-center items-center justify-center"
                 >
                   VODIČ
-                </Link>
+                </Link> */}
                 <Image
                   src={"/ico_arrow.png"}
                   alt="Menu"
