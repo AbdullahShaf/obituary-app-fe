@@ -187,10 +187,32 @@ export default function Faq1() {
 
             {/* set for desktop */}
             <div className="flex justify-between items-center w-full mt-[50px] pb-[60px] mobile:hidden">
-              <Link className="text-[20px] text-[#0A85C2] underline" href={"/kontakt"}>
+              <Link
+                className="text-[20px] text-[#0A85C2] underline"
+                href={"/kontakt"}
+              >
                 Kontaktirajte nas
               </Link>
-              <Link href={"/podjetja"}>
+              <div
+                className="flex w-[250px] h-[60px] rounded-full bg-white"
+                style={{
+                  boxShadow: "5px 5px 10px 0px #A6ABBD",
+                  border: "0.5px solid #6D778E66",
+                }}
+              >
+                <Link
+                  href={"/cenik"}
+                  className={`w-[250px] h-[60px] shrink-0 rounded-full text-[#3C3E41] justify-center items-center self-center shadow-custom-light-dark flex font-semibold text-[20px]`}
+                  style={{
+                    background:
+                      "background: linear-gradient(0deg, rgba(231, 235, 240, 0.3), rgba(231, 235, 240, 0.3)), linear-gradient(180deg, rgba(0, 0, 0, 0) 60.83%, rgba(24, 96, 163, 0.1) 100%)",
+                    boxShadow: "inset -5px -5px 10px 0px #A6ABBD",
+                  }}
+                >
+                  Cenik / Naročilo
+                </Link>
+              </div>
+              {/* <Link href={"/podjetja"}>
                 <button>
                   <Image
                     src="/pridruzi-se-button.svg"
@@ -199,7 +221,7 @@ export default function Faq1() {
                     height={60}
                   />
                 </button>
-              </Link>
+              </Link> */}
             </div>
             {/* <Link
               href={"/podjetja"}
@@ -426,11 +448,14 @@ export default function Faq1() {
 
           {/* set for mobile */}
           <div className="w-full hidden mobile:flex px-7 mb-10 mt-3 justify-between items-center">
-            <Link className="text-[17px] text-[#0A85C2] underline" href={"/kontakt"}>
+            <Link
+              className="text-[17px] text-[#0A85C2] underline"
+              href={"/kontakt"}
+            >
               Kontaktirajte nas
             </Link>
             <Link
-              href={"/podjetja"}
+              href={"/cenik"}
               className="w-[140px] h-[35px] flex items-center justify-center rounded-[2px] text-[14px] text-[#FFFFFF]"
               style={{
                 background:
@@ -438,7 +463,7 @@ export default function Faq1() {
                 border: "2px solid #6D778E",
               }}
             >
-              PRIDRUŽI SE
+              Cenik / Naročilo
             </Link>
           </div>
           <FooterForFaq2 />
