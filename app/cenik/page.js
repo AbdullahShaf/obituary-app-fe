@@ -1,12 +1,20 @@
 "use client";
+import PaymentModal from "../components/PaymentModal";
 import React, { useState } from "react";
 import CompanyAccountLayout from "../components/appcomponents/CompanyAccountLayout";
 import Layout from "../components/appcomponents/Layout";
 import Tabs from "../components/appcomponents/Tabs";
 import PricingCard from "../components/appcomponents/PricingCard";
+import CustomPackageCard from "../components/appcomponents/CustomPackageCard";
+import { Button } from "@nextui-org/react";
+import axios from "@/services/axios";
+import toast from "react-hot-toast";
+import { useAuth } from "@/hooks/useAuth";
 import Link from "next/link";
+import Image from "next/image";
 
 const Subscription = () => {
+  const { user } = useAuth();
   const tabs = [
     { id: "spominske", label: "Spominske" },
     { id: "cvetlicarne", label: "Cvetličarne" },
@@ -28,6 +36,65 @@ const Subscription = () => {
     useState("mesecno");
   const [activeFormTabOglasevalci, setActiveFormTabOglasevalci] =
     useState("mesecno");
+  const [paymentModal, setPaymentModal] = useState({
+    isOpen: false,
+    packageType: null,
+    customCode: null,
+  });
+
+  const handlePayment = (packageType, customCode = null) => {
+    setPaymentModal({
+      isOpen: true,
+      packageType,
+      customCode,
+    });
+  };
+
+  const handleCustomCodeSubmit = (code, type) => {
+    // Map the code to the appropriate package type
+    const codeToPackageMap = {
+      "CUSTOM-001": "custom_one",
+      "CUSTOM-002": "custom_two",
+    };
+
+    const packageType = codeToPackageMap[code];
+    if (!packageType) {
+      toast.error(
+        "Neveljavna koda. Prosimo preverite kodo in poskusite znova."
+      );
+      return;
+    }
+
+    handlePayment(packageType, code);
+  };
+
+  const handleManagePayments = async () => {
+    if (!user) {
+      toast.error("Potrebna je prijava");
+      return;
+    }
+
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/payment/portal`,
+        {
+          headers: { "access-token": localStorage.getItem("access-token") },
+        }
+      );
+
+      if (response.data.success) {
+        window.open(response.data.data.portalUrl, "_blank");
+      }
+    } catch (error) {
+      if (error.response?.status === 404) {
+        toast.error("Ni najdenih plačil za upravljanje");
+      } else {
+        toast.error(
+          error.response?.data?.message || "Napaka pri dostopu do portala"
+        );
+      }
+    }
+  };
 
   const FormTabsContentCvetlicarne = () => {
     switch (activeFormTabCvetlicarne) {
@@ -35,14 +102,32 @@ const Subscription = () => {
         return (
           <>
             <div className="mobile:w-[99%] w-[550px] flex flex-col gap-4">
-              <PricingCard label="MESEČNO" title="Manjša mesta" price="10 €" />
+              <PricingCard
+                label="MESEČNO"
+                title="Manjša mesta"
+                price="10 €"
+                onPayment={() => handlePayment("florist_monthly_small_city")}
+                paymentEnabled={true}
+              />
               <PricingCard
                 label="MESEČNO"
                 price="20 €"
                 title="Večja mesta"
                 number={1}
+                onPayment={() => handlePayment("florist_monthly_large_city")}
+                paymentEnabled={true}
               />
-              <PricingCard label="MESEČNO" price="30 €" title="Ljubljana" />
+              <PricingCard
+                label="MESEČNO"
+                price="30 €"
+                title="Ljubljana"
+                onPayment={() => handlePayment("florist_monthly_capital_city")}
+                paymentEnabled={true}
+              />
+              {/* <CustomPackageCard 
+                type="florist"
+                onCodeSubmit={(code) => handleCustomCodeSubmit(code, 'florist')}
+              /> */}
             </div>
           </>
         );
@@ -50,14 +135,32 @@ const Subscription = () => {
         return (
           <>
             <div className="mobile:w-[99%] w-[550px] flex flex-col gap-4">
-              <PricingCard label="LETNO" title="Manjša mesta" price="100 €" />
+              <PricingCard
+                label="LETNO"
+                title="Manjša mesta"
+                price="100 €"
+                onPayment={() => handlePayment("florist_yearly_small_city")}
+                paymentEnabled={true}
+              />
               <PricingCard
                 label="LETNO"
                 price="200 €"
                 title="Večja mesta"
                 number={1}
+                onPayment={() => handlePayment("florist_yearly_large_city")}
+                paymentEnabled={true}
               />
-              <PricingCard label="LETNO" price="300 €" title="Ljubljana" />
+              <PricingCard
+                label="LETNO"
+                price="300 €"
+                title="Ljubljana"
+                onPayment={() => handlePayment("florist_yearly_capital_city")}
+                paymentEnabled={true}
+              />
+              {/* <CustomPackageCard 
+                type="florist"
+                onCodeSubmit={(code) => handleCustomCodeSubmit(code, 'florist')}
+              /> */}
             </div>
           </>
         );
@@ -71,29 +174,65 @@ const Subscription = () => {
       case "mesecno":
         return (
           <div className="mobile:w-[99%] w-[550px] flex flex-col gap-4">
-            <PricingCard label="MESEČNO" title="Manjša mesta" price="10 €" />
+            <PricingCard
+              label="MESEČNO"
+              title="Manjša mesta"
+              price="10 €"
+              onPayment={() => handlePayment("advertiser_monthly_small_city")}
+              paymentEnabled={true}
+            />
             <PricingCard
               label="MESEČNO"
               price="20 €"
-              title="Manjša mesta"
+              title="Večja mesta"
               number={1}
+              onPayment={() => handlePayment("advertiser_monthly_large_city")}
+              paymentEnabled={true}
             />
-            <PricingCard label="MESEČNO" price="30 €" title="Ljubljana" />
+            <PricingCard
+              label="MESEČNO"
+              price="30 €"
+              title="Ljubljana"
+              onPayment={() => handlePayment("advertiser_monthly_capital_city")}
+              paymentEnabled={true}
+            />
             <PricingCard label="MESEČNO" title="Regijsko" number={2} />
+            {/* <CustomPackageCard 
+              type="advertiser"
+              onCodeSubmit={(code) => handleCustomCodeSubmit(code, 'advertiser')}
+            /> */}
           </div>
         );
       case "letno":
         return (
           <div className="mobile:w-[99%] w-[550px] flex flex-col gap-4">
-            <PricingCard label="LETNO" title="Manjša mesta" price="100 €" />
+            <PricingCard
+              label="LETNO"
+              title="Manjša mesta"
+              price="100 €"
+              onPayment={() => handlePayment("advertiser_yearly_small_city")}
+              paymentEnabled={true}
+            />
             <PricingCard
               label="LETNO"
               price="200 €"
-              title="Manjša mesta"
+              title="Večja mesta"
               number={1}
+              onPayment={() => handlePayment("advertiser_yearly_large_city")}
+              paymentEnabled={true}
             />
-            <PricingCard label="LETNO" price="300 €" title="Ljubljana" />
+            <PricingCard
+              label="LETNO"
+              price="300 €"
+              title="Ljubljana"
+              onPayment={() => handlePayment("advertiser_yearly_capital_city")}
+              paymentEnabled={true}
+            />
             <PricingCard label="LETNO" title="Regijsko" number={2} />
+            {/* <CustomPackageCard 
+              type="advertiser"
+              onCodeSubmit={(code) => handleCustomCodeSubmit(code, 'advertiser')}
+            /> */}
           </div>
         );
       default:
@@ -105,8 +244,9 @@ const Subscription = () => {
     switch (active) {
       case "spominske":
         return (
-          <div className="mobile:px-1 mobile:max-w-[500px] mobile:mx-auto p-4 flex flex-col mb-[40px] items-center justify-center desktop:justify-start desktop:items-start mobile:gap-y-11 gap-y-9">
-            <div className="mobile:w-[99%] w-[550px] flex flex-col gap-4">
+          // <div className="mobile:px-1 mobile:max-w-[500px] mobile:mx-auto p-4 flex flex-col mb-[40px] items-center justify-center desktop:justify-start desktop:items-start mobile:gap-y-11 gap-y-9">
+          <div className="mobile:px-1 mobile:max-w-[500px] mobile:mx-auto p-4 flex flex-col mb-[40px] items-center justify-center desktop:justify-start desktop:items-start">
+            <div className="mobile:w-[99%] w-[550px] flex flex-col gap-4 mb-[68px]">
               <div className="w-full flex items-center gap-4">
                 <h2 className="mobile:text-[24px] text-[32px] text-[#000000]">
                   Spominska stran
@@ -143,16 +283,22 @@ const Subscription = () => {
                 price="10 €"
                 mobilesublabel="(na naši strani)"
                 title="1 mesec"
+                onPayment={() => handlePayment("memory_page_one_month")}
+                paymentEnabled={true}
               />
               <PricingCard
                 label="spominska STRAN"
                 price="20 €"
                 title="1 leto"
+                onPayment={() => handlePayment("memory_page_one_year")}
+                paymentEnabled={true}
               />
               <PricingCard
                 label="spominska knjiga"
                 price="30 €"
                 title="6 let"
+                onPayment={() => handlePayment("memory_page_six_years")}
+                paymentEnabled={true}
               />
               <div className="text-[#414141] flex gap-1 w-full desktop:w-[754px] text-[14px] desktop:text-[16px]">
                 <p className="text-[14px]">1</p>{" "}
@@ -194,7 +340,15 @@ const Subscription = () => {
                 icon="/fb-icon.png"
               />
               <div className="w-full flex justify-end mt-[60px]">
-                <div
+                <Link href={"/kontakt"}>
+                  <Image
+                    src={"/Kontaktirajte_nas_btn.png"}
+                    alt="Arrow Right"
+                    width={250}
+                    height={60}
+                  />
+                </Link>
+                {/* <div
                   className="flex w-[250px] h-[60px] rounded-full bg-transparent"
                   style={{
                     boxShadow: "5px 5px 10px 0px #A6ABBD",
@@ -212,7 +366,7 @@ const Subscription = () => {
                   >
                     Kontaktirajte nas
                   </Link>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -245,8 +399,8 @@ const Subscription = () => {
                   tabContent={
                     <>
                       <FormTabsContentCvetlicarne />
-                      <div className="mobile:w-[99%] mt-4 w-[550px] flex flex-col gap-4">
-                        <div className="text-[#414141] flex gap-1 mobile:mb-7 mb-4 w-full desktop:w-[744px] text-[14px] desktop:text-[16px]">
+                      <div className="mobile:w-[99%] mt-4 w-[550px] flex flex-col">
+                        <div className="text-[#414141] flex gap-1 mb-[68px] w-full desktop:w-[744px] text-[14px] desktop:text-[16px]">
                           <p className="text-[14px]">1</p>{" "}
                           <div className="flex flex-col">
                             <p className="mt-1">
@@ -259,50 +413,52 @@ const Subscription = () => {
                             </p>
                           </div>
                         </div>
-                        <div className="relative">
-                          <PricingCard
-                            number={2}
-                            label="Izdelava lastne strani"
-                            title="Brezplačno"
-                          />
-                          <div className="absolute top-1 right-3 text-[#414141] text-[20px]">
-                            *
+                        <div className="w-full flex flex-col gap-4">
+                          <div className="relative">
+                            <PricingCard
+                              number={2}
+                              label="Izdelava lastne strani"
+                              title="Brezplačno"
+                            />
+                            <div className="absolute top-1 right-3 text-[#414141] text-[20px]">
+                              *
+                            </div>
                           </div>
-                        </div>
-                        <div className="relative">
-                          <PricingCard
-                            number={2}
-                            label="možnost vpisovanja lokalnih osmrtnic"
-                            mobilelabel="MOŽNOST VPISOVANJA OSMRTNIC"
-                            title="Brezplačno"
-                          />
-                          <div className="absolute top-1 right-3 text-[#414141] text-[20px]">
-                            *
+                          <div className="relative">
+                            <PricingCard
+                              number={2}
+                              label="možnost vpisovanja lokalnih osmrtnic"
+                              mobilelabel="MOŽNOST VPISOVANJA OSMRTNIC"
+                              title="Brezplačno"
+                            />
+                            <div className="absolute top-1 right-3 text-[#414141] text-[20px]">
+                              *
+                            </div>
                           </div>
-                        </div>
-                        <div className="relative">
-                          <PricingCard
-                            number={2}
-                            label="darila za vaše stranke; skrbnik, digitalne kartice, qr kode"
-                            mobilelabel="ZA STRANKE: SKRBNIK, KARTICE, QR KODE"
-                            title="Brezplačno"
-                          />
-                          <div className="absolute top-1 right-3 text-[#414141] text-[20px]">
-                            *
+                          <div className="relative">
+                            <PricingCard
+                              number={2}
+                              label="darila za vaše stranke; skrbnik, digitalne kartice, qr kode"
+                              mobilelabel="ZA STRANKE: SKRBNIK, KARTICE, QR KODE"
+                              title="Brezplačno"
+                            />
+                            <div className="absolute top-1 right-3 text-[#414141] text-[20px]">
+                              *
+                            </div>
                           </div>
-                        </div>
-                        <div className="relative">
-                          <PricingCard
-                            number={3}
-                            label="vpis na strani naši partnerji"
-                            title="Za vedno"
-                          />
-                          <div className="absolute top-1 right-3 text-[#414141] text-[20px]">
-                            *
+                          <div className="relative">
+                            <PricingCard
+                              number={3}
+                              label="vpis na strani naši partnerji"
+                              title="Za vedno"
+                            />
+                            <div className="absolute top-1 right-3 text-[#414141] text-[20px]">
+                              *
+                            </div>
                           </div>
                         </div>
                         <div>
-                          <div className="text-[#414141] flex gap-1 w-full desktop:w-[744px] text-[14px] desktop:text-[16px]">
+                          <div className="text-[#414141] flex gap-1 w-full mt-4 desktop:w-[744px] text-[14px] desktop:text-[16px]">
                             <p className="text-[14px]">2</p>{" "}
                             <p className="mobile:hidden block mt-1">
                               Poleg naštetega so občasno mogoče še druge
@@ -358,25 +514,14 @@ const Subscription = () => {
                 className="w-full flex justify-end mt-[60px] desktop:w-[794px]"
                 style={{ marginTop: "60px" }}
               >
-                <div
-                  className="flex w-[250px] h-[60px] rounded-full bg-transparent"
-                  style={{
-                    boxShadow: "5px 5px 10px 0px #A6ABBD",
-                    border: "0.5px solid #6D778E66",
-                  }}
-                >
-                  <Link
-                    href={"/kontakt"}
-                    className={`w-[250px] h-[60px] shrink-0 rounded-full text-[#3C3E41] justify-center items-center self-center shadow-custom-light-dark flex font-semibold text-[20px]`}
-                    style={{
-                      background:
-                        "background: linear-gradient(0deg, rgba(231, 235, 240, 0.3), rgba(231, 235, 240, 0.3)), linear-gradient(180deg, rgba(0, 0, 0, 0) 60.83%, rgba(24, 96, 163, 0.1) 100%)",
-                      boxShadow: "inset -5px -5px 10px 0px #A6ABBD",
-                    }}
-                  >
-                    Kontaktirajte nas
-                  </Link>
-                </div>
+                <Link href="/kontakt">
+                  <Image
+                    src={"/Kontaktirajte_nas_btn.png"}
+                    alt="Kontaktirajte nas"
+                    width={250}
+                    height={60}
+                  />
+                </Link>
               </div>
             </div>
           </div>
@@ -410,7 +555,7 @@ const Subscription = () => {
                     <>
                       <FormTabsContentOglasevalci />
                       <div className="mobile:w-[99%] mt-4 w-[550px] flex flex-col gap-4">
-                        <div className=" space-y-1 mb-[68px]">
+                        <div className="mb-[68px] space-y-1">
                           <div className="text-[#414141] flex gap-1 w-full desktop:w-[744px] text-[14px] desktop:text-[16px]">
                             <p className="text-[14px]">1</p>{" "}
                             <p className="mt-1">
@@ -532,10 +677,18 @@ const Subscription = () => {
                 />
               </div>
               <div
-                className="w-full flex justify-end mt-[60px] desktop:w-[794px] w-full"
+                className="w-full flex justify-end mt-[60px] desktop:w-[794px]"
                 style={{ marginTop: "60px" }}
               >
-                <div
+                <Link href="/kontakt">
+                  <Image
+                    src={"/Kontaktirajte_nas_btn.png"}
+                    alt="Kontaktirajte nas"
+                    width={250}
+                    height={60}
+                  />
+                </Link>
+                {/* <div
                   className="flex w-[250px] h-[60px] rounded-full bg-transparent"
                   style={{
                     boxShadow: "5px 5px 10px 0px #A6ABBD",
@@ -553,7 +706,7 @@ const Subscription = () => {
                   >
                     Kontaktirajte nas
                   </Link>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -562,13 +715,13 @@ const Subscription = () => {
       case "pogrebna-podjetja":
         return (
           <div className="p-4 mb-[300px] mobile:max-w-[500px] mobile:mx-auto flex flex-col items-center justify-center desktop:justify-start desktop:items-start space-y-4">
-            <div className="mobile:w-[99%] w-[550px] desktop:w-[744px] flex flex-col gap-4">
+            <div className="mobile:w-[99%] w-[550px] flex flex-col gap-4">
               <div className="w-full flex items-center gap-4">
                 <h2 className="mobile:text-[24px] text-[32px] text-[#000000]">
                   Pogrebna podjetja
                 </h2>
               </div>
-              <p className="text-[#414141] flex gap-1 w-full mobile:text-[14px] text-[16px]">
+              <p className="text-[#414141] flex gap-1 w-full desktop:w-[744px] mobile:text-[14px] text-[16px]">
                 <p className="text-[14px]"></p>{" "}
                 <p className="mt-1">
                   Vse je brezplačno. Registrirajte se in vse potrebne
@@ -576,10 +729,18 @@ const Subscription = () => {
                 </p>
               </p>
               <div
-                className="w-full flex justify-end mt-[60px]"
+                className="w-full flex justify-end mt-[60px] desktop:w-[744px]"
                 style={{ marginTop: "60px" }}
               >
-                <div
+                <Link href={"/kontakt"}>
+                  <Image
+                    src={"/Kontaktirajte_nas_btn.png"}
+                    alt="Kontaktirajte nas"
+                    width={250}
+                    height={60}
+                  />
+                </Link>
+                {/* <div
                   className="flex w-[250px] h-[60px] rounded-full bg-transparent"
                   style={{
                     boxShadow: "5px 5px 10px 0px #A6ABBD",
@@ -597,7 +758,7 @@ const Subscription = () => {
                   >
                     Kontaktirajte nas
                   </Link>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -614,14 +775,48 @@ const Subscription = () => {
           style={{ fontFamily: "Roboto Flex" }}
           className="w-full bg-[#ECF0F3] lg:px-8 mobile:py-3 py-8"
         >
-          <div className="w-full desktop:w-[1200px]  mx-auto">
+          <div className="w-full desktop:w-[1200px] mx-auto">
+            {/* Manage Payments Button for logged in users */}
+            {user && (active === "spominske" || active === "cvetlicarne") && (
+              <div className="flex justify-center mb-6">
+                <Button
+                  variant="bordered"
+                  onClick={handleManagePayments}
+                  className="bg-slate-50 rounded-xl right-0 text-slate-600"
+                >
+                  Upravljaj plačila
+                </Button>
+              </div>
+            )}
+
             <Tabs
               tabs={tabs}
               tabContent={<TabContent />}
               active={active}
               setActive={setActive}
             />
-            {/* <div className="w-[100px] h-[30px] bg-red-500"></div> */}
+
+            {/* Payment Modal */}
+            <PaymentModal
+              isOpen={paymentModal.isOpen}
+              onClose={() =>
+                setPaymentModal({
+                  isOpen: false,
+                  packageType: null,
+                  customCode: null,
+                })
+              }
+              packageType={paymentModal.packageType}
+              customCode={paymentModal.customCode}
+              onPaymentCreated={(data) => {
+                setPaymentModal({
+                  isOpen: false,
+                  packageType: null,
+                  customCode: null,
+                });
+                toast.success("Preusmerjamo na plačilo...");
+              }}
+            />
           </div>
         </div>
       </Layout>
