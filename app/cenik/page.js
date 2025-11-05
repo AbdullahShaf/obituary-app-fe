@@ -680,7 +680,7 @@ const Subscription = () => {
                 className="w-full flex justify-end mt-[60px] desktop:w-[794px]"
                 style={{ marginTop: "60px" }}
               >
-                <Link>
+                <Link href="/kontakt">
                   <Image
                     src={"/Kontaktirajte_nas_btn.png"}
                     alt="Kontaktirajte nas"
