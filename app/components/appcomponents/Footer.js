@@ -125,7 +125,7 @@ export default function Footer() {
               Pišite nam
             </Link>
             <Link
-              href="https://www.facebook.com/osmrtnicaportal"
+              href="https://www.facebook.com/osmrtnicacom/"
               target="_blank"
               className=""
             >
@@ -217,7 +217,7 @@ export default function Footer() {
                     </div>
                   </div>
                   <a
-                    href="https://www.facebook.com/osmrtnicaportal"
+                    href="https://www.facebook.com/osmrtnicacom/"
                     className="hidden tablet:flex desktop:flex items-center text-gray-600 mobile:mt-[75px] tablet:mt-[73px] desktop:mt-[50px] hover:text-blue-500 transition duration-200 "
                     target="_blank"
                   >
@@ -392,7 +392,7 @@ export default function Footer() {
               <div className="flex flex-col  w-[311px] self-center ">
                 <div className="flex justify-center items-center h-[38px]   ">
                   <a
-                    href="https://www.facebook.com/osmrtnicaportal"
+                    href="https://www.facebook.com/osmrtnicacom/"
                     className="flex items-center text-gray-600  hover:text-blue-500 transition duration-200 "
                     target="_blank"
                   >
@@ -579,7 +579,7 @@ export function FooterForFaq() {
             Pišite nam
           </Link>
           <Link
-            href="https://www.facebook.com/osmrtnicaportal"
+            href="https://www.facebook.com/osmrtnicacom/"
             className=""
             target="_blank"
           >
@@ -668,7 +668,7 @@ export function FooterForFaq2() {
             Pišite nam
           </Link>
           <Link
-            href="https://www.facebook.com/osmrtnicaportal"
+            href="https://www.facebook.com/osmrtnicacom/"
             className=""
             target="_blank"
           >
@@ -748,7 +748,7 @@ export function FooterForFaq3() {
             Pišite nam
           </Link>
           <Link
-            href="https://www.facebook.com/osmrtnicaportal"
+            href="https://www.facebook.com/osmrtnicacom/"
             className=""
             target="_blank"
           >
@@ -866,7 +866,7 @@ export function TermsAndCond() {
             Pišite nam
           </Link>
           <Link
-            href="https://www.facebook.com/osmrtnicaportal"
+            href="https://www.facebook.com/osmrtnicacom/"
             target="_blank"
             className=""
           >
