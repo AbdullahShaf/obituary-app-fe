@@ -636,12 +636,12 @@ export function FooterForFaq2() {
             Cvetličarne
           </Link>
           <div className="w-[5px] h-[5px] bg-[#DAEBF1] rounded-full underline"></div>
-          <Link href="/vodic" className="text-[#DAEBF1]  underline">
-            Vodič
+          <Link href="/cenik" className="text-[#DAEBF1]  underline">
+            Cenik
           </Link>
           <div className="w-[5px] h-[5px] bg-[#DAEBF1] rounded-full underline"></div>
-          <Link href="/oglasevalci" className="text-[#DAEBF1]  underline">
-            Oglaševalci
+          <Link href="/c-priloznost" className="text-[#DAEBF1]  underline">
+            Promocija
           </Link>
         </div>
       </div>
