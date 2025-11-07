@@ -1,13 +1,19 @@
 import React from "react";
 
-const FreeCharge = () => {
+const FreeCharge = ({ mbZero = false }) => {
   return (
     <div className="w-full bg-[#edf1f4]">
-      <div className="relative max-w-[1920px]  py-[65px] desktop:py-[105px] tablet:py-[75px] w-full overflow-hidden flex mx-auto justify-center items-center">
+      <div
+        className={
+          mbZero
+            ? "relative max-w-[1920px]  pt-[65px] desktop:pt-[105px] tablet:pt-[75px] w-full overflow-hidden flex mx-auto justify-center items-center"
+            : "relative max-w-[1920px]  py-[65px] desktop:py-[105px] tablet:py-[75px] w-full overflow-hidden flex mx-auto justify-center items-center"
+        }
+      >
         {/*Main container */}
-        <div className="w-[669px] h-[616px] tablet:w-[637px] tablet:h-[685px] mobile:w-[337px] mobile:h-[483px] flex flex-col">
+        <div className="w-[669px] h-[616px] tablet:w-[637px] tablet:h-[685px] mobile:w-[100%] mobile:max-w-[480px] mobile:h-[483px] flex flex-col">
           {/*header container*/}
-          <div className="flex mobile:w-[304px] mobile:h-[228px] tablet:h-[228px] mx-auto flex-col">
+          <div className="flex mobile:w-[100%] mobile:h-[228px] tablet:h-[228px] mx-auto flex-col">
             <div className="text-[40px] text-[#3C3E41] mobile:text-[28px] mobile:font-variation-customOpt28 text-center font-variation-customOpt40  tablet:mt-[1px] tablet:truncate mobile:mt-[1px] leading-[48px] mobile:leading-10">
               Spletno stran si sami izdelate v 30 minutah
             </div>
