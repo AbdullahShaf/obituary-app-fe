@@ -571,16 +571,18 @@ const Subscription = () => {
                   </div>
                   <div className="mt-6">
                     <Link
-                      href="mailto:info@osmrtnica.com"
+                      href="/kontakt"
                       className="text-[#0A85C2] underline underline-offset-2 text-[16px]"
                     >
                       Kontaktirajte nas
                 </Link>
               </div>
                   <div className="mt-6">
+                    <Link href="/podjetja">
                     <button className="bg-[#2B5F99] hover:bg-[#234a7a] text-white px-8 py-3 rounded-full text-[16px] font-medium transition-colors">
                       Registracija za cvetličarne
                     </button>
+                    </Link>
                   </div>
                 </>
               )}
