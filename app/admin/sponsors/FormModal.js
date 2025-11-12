@@ -38,7 +38,6 @@ export default function FormModal({ isShowModal, setIsShowModal, editId, refetch
     const [cpa, setCPA] = useState('');
     const [who, setWHO] = useState('');
     const [notes, setNotes] = useState('');
-    const [websiteLink, setWebsiteLink] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -182,13 +181,6 @@ export default function FormModal({ isShowModal, setIsShowModal, editId, refetch
         formData.append(`notes`, notes);
         formData.append(`price`, price);
 
-        // Save website link to localStorage using sponsor ID as key
-        const rawId = editId ? editId.id : `sponsor_${Date.now()}`;
-        const sponsorId = rawId.replace(/^sponsor_/, ""); // removes leading "sponsor_"
-        if (websiteLink) {
-            localStorage.setItem(`sponsor_website_sponsor_${sponsorId}`, websiteLink);
-        }
-
         if (editId) {
             await adminService.editSponosor(formData, editId?.id);
             toast.success('Sponsor updated');
@@ -204,7 +196,6 @@ export default function FormModal({ isShowModal, setIsShowModal, editId, refetch
         setCPA('');
         setWHO('');
         setNotes('');
-        setWebsiteLink('');
         setStartDate(null);
         setEndDate(null);
         setSelectedFile(null);
@@ -220,8 +211,6 @@ export default function FormModal({ isShowModal, setIsShowModal, editId, refetch
             setCPA(editId?.cpa);
             setWHO(editId?.who);
             setNotes(editId?.notes);
-            const cleanEditId = editId?.id?.replace(/^sponsor_/, "");
-            setWebsiteLink(localStorage.getItem(`sponsor_website_sponsor_${cleanEditId}`) || '');
             setStartDate(editId.startDate);
             setEndDate(editId.endDate);
             if (editId?.cities) {
@@ -544,7 +533,7 @@ export default function FormModal({ isShowModal, setIsShowModal, editId, refetch
                                     </div>
                                     <div className="flex justify-between">
                                         <div className="w-[30%]">
-                                            <div className="px-[10px] pl-6 mt-[12px] h-[38px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
+                                            <div className="px-[10px] pl-6 mt-[4px] h-[38px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
                                                 <input
                                                     type="text"
                                                     value={cpa}
@@ -555,7 +544,7 @@ export default function FormModal({ isShowModal, setIsShowModal, editId, refetch
                                             </div>
                                         </div>
                                         <div className="w-[68%]">
-                                            <div className="px-[10px] pl-6 mt-[12px] h-[38px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
+                                            <div className="px-[10px] pl-6 mt-[4px] h-[38px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
                                                 <input
                                                     type="text"
                                                     value={who}
@@ -564,17 +553,6 @@ export default function FormModal({ isShowModal, setIsShowModal, editId, refetch
                                                     onChange={(e) => setWHO(e.target.value)}
                                                 />
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div className="w-full">
-                                        <div className="px-[10px] pl-6 mt-[12px] h-[38px] rounded-[6px] bg-[#F2F8FF66] shadow-custom-dark-to-white w-full">
-                                            <input
-                                                type="url"
-                                                value={websiteLink}
-                                                placeholder="LINK"
-                                                className="w-full h-full bg-transparent focus:outline-none text-[#ACAAAA]"
-                                                onChange={(e) => setWebsiteLink(e.target.value)}
-                                            />
                                         </div>
                                     </div>
                                     <div className="w-full">
