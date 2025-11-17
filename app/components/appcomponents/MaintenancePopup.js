@@ -6,7 +6,11 @@ import imgBell from "@/public/ico_notification_bell1.png";
 
 const MaintenancePopup = ({ message, onClose }) => {
   return (
-    <div className="fixed top-[40px] left-0 right-0 z-[60] flex justify-end px-4">
+    <div
+      className="fixed top-[40px] left-0 right-0 z-[60] flex justify-end px-4"
+      role="status"
+      aria-live="polite"
+    >
       <div className="w-full max-w-[460px] bg-[#E8F0F6] rounded-3xl shadow-custom-light-dark border border-[#0000001A]">
         <div className="flex items-center justify-between px-[24px] py-[18px] border-b border-[#E6E8ED]">
           <div className="flex items-center space-x-3">

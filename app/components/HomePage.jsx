@@ -19,7 +19,7 @@ import {
 } from "@/app/components/appcomponents/LocalQuickReview";
 import MegaMenu from "@/app/components/appcomponents/MegaMenuMain";
 import obituaryService from "@/services/obituary-service";
-// import { toast } from "react-hot-toast";`
+// import { toast } from "react-hot-toast";
 import MaintenancePopup from "@/app/components/appcomponents/MaintenancePopup";
 import regionsAndCities from "@/utils/regionAndCities";
 // import MainOptions from "./components/appcomponents/MainOptions";
@@ -61,15 +61,17 @@ export default function HomeContent(props) {
   }, [searchParams]);
 
   useEffect(() => {
-    if (hasRedirected) return;
+    if (hasRedirected || !showMaintenancePopup) return;
 
     const redirectTimeout = setTimeout(() => {
-      setHasRedirected(true);
-      window.location.href = "https://staging.osmrtnica.com/";
+      if (typeof window !== "undefined" && window.location.hostname !== "staging.osmrtnica.com") {
+        setHasRedirected(true);
+        window.location.href = "https://staging.osmrtnica.com/";
+      }
     }, 2000);
 
     return () => clearTimeout(redirectTimeout);
-  }, [hasRedirected]);
+  }, [hasRedirected, showMaintenancePopup]);
 
   useEffect(() => {
     if (!showMaintenancePopup) return;
