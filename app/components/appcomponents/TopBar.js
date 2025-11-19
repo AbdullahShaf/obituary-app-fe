@@ -9,7 +9,6 @@ const TopBar = ({
   setIsMessageModalVisible,
   setIsLocalQuickModalVisible,
   setIsLocalQuickReviewModalVisible,
-  onLocalQuickReviewClick, // New prop
 }) => {
   const popuButtonRef = React.useRef();
 

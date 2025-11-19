@@ -218,8 +218,8 @@ export default function Step6({
   }, [companyId])
 
   async function handleSave() {
-    await handleBCSubmit();
-    await handleShopSubmit();
+    handleBCSubmit();
+    handleShopSubmit();
   }
 
   // --------------------

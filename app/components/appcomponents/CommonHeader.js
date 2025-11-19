@@ -165,8 +165,8 @@ function CommonHeader({ currentPage }) {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
-        {/* Show TopBar only for specific pages */}
-        {/* {(currentPage === "pogrebi" || currentPage === "osmrtnice") && (
+        {/* TODO: Temporarily disabled pending TopBar redesign - restore by 2026-01-31
+        {(currentPage === "pogrebi" || currentPage === "osmrtnice") && (
           <TopBar
             setIsModalVisible={setIsModalVisible}
             setIsMessageModalVisible={setIsMessageModalVisible}
