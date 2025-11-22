@@ -197,7 +197,7 @@ const LoginRegistrationModal = ({
                     type="email"
                     value={loginEmail}
                     onChange={(e) => setLoginEmail(e.target.value)}
-                    className="w-full h-full bg-transparent focus:outline-none text-[#848484] text-[14px]"
+                    className="w-full h-full bg-transparent focus:outline-none text-[#1860A3] text-[16px]"
                     placeholder=""
                   />
                 </div>
@@ -211,7 +211,7 @@ const LoginRegistrationModal = ({
                     type="password"
                     value={loginPassword}
                     onChange={(e) => setLoginPassword(e.target.value)}
-                    className="h-[38px] w-full bg-transparent focus:outline-none text-[#848484] text-[14px]"
+                    className="h-[38px] w-full bg-transparent focus:outline-none text-[#1860A3] text-[16px]"
                     placeholder=""
                   />
                 </div>
@@ -270,7 +270,7 @@ const LoginRegistrationModal = ({
                     type="email"
                     value={regEmail}
                     onChange={(e) => setRegEmail(e.target.value)}
-                    className="w-full h-full bg-transparent focus:outline-none text-[#848484] text-[14px]"
+                    className="w-full h-full bg-transparent focus:outline-none text-[#1860A3] text-[16px]"
                     placeholder=""
                   />
                 </div>
@@ -284,7 +284,7 @@ const LoginRegistrationModal = ({
                     type="password"
                     value={regPassword}
                     onChange={(e) => setRegPassword(e.target.value)}
-                    className="h-[38px] w-full bg-transparent focus:outline-none text-[#848484] text-[14px]"
+                    className="h-[38px] w-full bg-transparent focus:outline-none text-[#1860A3] text-[16px]"
                     placeholder=""
                   />
                 </div>
@@ -298,7 +298,7 @@ const LoginRegistrationModal = ({
                     type="password"
                     value={regConfirmPassword}
                     onChange={(e) => setRegConfirmPassword(e.target.value)}
-                    className="h-[38px] w-full bg-transparent focus:outline-none text-[#848484] text-[14px]"
+                    className="h-[38px] w-full bg-transparent focus:outline-none text-[#1860A3] text-[16px]"
                     placeholder=""
                   />
                 </div>
