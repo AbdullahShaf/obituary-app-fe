@@ -314,8 +314,7 @@ const handleSubmit = async () => {
   const currentUser = isAuthenticated ? user : {};
 
   // Temporarily commented
-  // Allow SUPERADMIN to submit regardless of createObituaryPermission
-  if (!currentUser.createObituaryPermission && currentUser.role !== "SUPERADMIN") {
+  if (!currentUser.createObituaryPermission) {
     toast.error("Nimaš dovoljenja za objavo osmrtnic");
     return;
   }
