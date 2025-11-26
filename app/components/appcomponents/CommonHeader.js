@@ -44,6 +44,11 @@ const headerLinkSets = {
     { label: "Žalna stran", path: "/zalna-stran", active: false },
     { label: " Spominska", path: "/spominska", active: false },
   ],
+  "/lokalni": [
+    { label: "Cvetličarne", path: "/cvetličarne", active: false },
+    { label: "Pogrebna podjetja", path: "/pogrebna-podjetja", active: false },
+    { label: " Lokalci", path: "/lokalci", active: false },
+  ],
   "/spominska": [
     { label: "QR kode", path: "/qr-kode", active: false },
     { label: "Žalna stran", path: "/zalna-stran", active: false },
@@ -265,6 +270,7 @@ function CommonHeader({ currentPage }) {
                   >
                     <Image src="/back.svg" alt="Back" height={28} width={28} />
                   </button>
+                
                 )}
                 <SideMenu />
               </div>
