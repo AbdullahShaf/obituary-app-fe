@@ -12,8 +12,7 @@ const DropdownWithCustomDesign = ({
   defaultStyles = {
     backgroundColor: "#f1fffe",
     border: "1px solid #d4d4d4"
-  },
-  variant = "default",
+  }
 }) => {
   const flattenedOptions = Object.keys(regionsAndCities)
     .flatMap((region) =>
@@ -46,8 +45,6 @@ const DropdownWithCustomDesign = ({
     }
   };
 
-  const isGhostVariant = variant === "ghost";
-
   return (
     <div className="w-full mx-auto">
       <Select
@@ -67,17 +64,11 @@ const DropdownWithCustomDesign = ({
         styles={{
           control: (base) => ({
             ...base,
-            ...(isGhostVariant
-              ? {
-                  backgroundColor: "transparent",
-                  border: "none",
-                }
-              : defaultStyles), // Light gray border
+            ...defaultStyles, // Light gray border
             boxShadow: "none", // Remove default shadow
             borderRadius: "4px",
             "&:hover": { borderColor: "#105ccf" }, // Change border on hover
-            minHeight: isGhostVariant ? "48px" : "36px", // Match the dropdown height in the image
-            paddingLeft: isGhostVariant ? "0px" : base.paddingLeft,
+            minHeight: "36px", // Match the dropdown height in the image
           }),
           dropdownIndicator: (base) => ({
             ...base,
@@ -99,19 +90,10 @@ const DropdownWithCustomDesign = ({
             color: "#333", // Text color
             cursor: "pointer",
           }),
-          placeholder: (base) => ({
-            ...base,
-            color: isGhostVariant ? "#ACAAAA" : "#6D778E",
-            fontSize: isGhostVariant ? "16px" : base.fontSize,
-          }),
           singleValue: (base) => ({
             ...base,
-            color: isGhostVariant ? "#6D778E" : "#105CCF",
-            fontSize: isGhostVariant ? "16px" : "18px",
-          }),
-          input: (base) => ({
-            ...base,
-            color: isGhostVariant ? "#6D778E" : base.color,
+            color: "#105CCF",
+            fontSize: "18px",
           }),
         }}
       />

@@ -15,18 +15,6 @@ import MobileCards from "./MobileCards";
 import { getCardsImageAndPdfsFiles } from "@/utils/downloadCards";
 import BackDropLoader from "../ui/backdrop-loader";
 import { useAuth } from "@/hooks/useAuth";
-import ModalNew4 from "./ModalNew4";
-
-const DEFAULT_EVENT_NAME = "Zadnje slovo";
-const DEFAULT_EVENT_LOCATION = "Poslovilna vežica";
-
-const createEmptyEvent = () => ({
-  eventName: "",
-  eventLocation: "",
-  eventDate: null,
-  eventHour: null,
-  eventMinute: null,
-});
 
 const AddObituary = ({ set_Id, setModal }) => {
   const router = useRouter();
@@ -66,110 +54,37 @@ const AddObituary = ({ set_Id, setModal }) => {
   const [isCemeteryModalOpen, setIsCemeteryModalOpen] = useState(false);
   const [showMemoryPageIcon, setShowMemoryPageIcon] = useState(false);
   const [memoryPageMessage, setMemoryPageMessage] = useState("Svojci cvetje in sveče hvaležno odklanjajo.");
-  const [showMemoryIconTooltip, setShowMemoryIconTooltip] = useState(false);
-  const [memoryIconTooltipSide, setMemoryIconTooltipSide] = useState("right");
 
   const addEvent = () => {
-    setEvents((prev) => [...prev, createEmptyEvent()]);
+    setEvents([
+      ...events,
+      {
+        eventName: "",
+        eventLocation: "",
+        eventDate: null,
+        eventHour: null,
+        eventMinute: null,
+      },
+    ]);
   };
 
   const updateEvent = (index, key, value) => {
-    setEvents((prevEvents) => {
-      if (!prevEvents[index]) {
-        return prevEvents;
-      }
-      const updatedEvents = [...prevEvents];
-      const updatedEvent = { ...updatedEvents[index], [key]: value };
-
-      if (
-        key === "eventHour" &&
-        (updatedEvent.eventMinute === null ||
-          updatedEvent.eventMinute === undefined)
-      ) {
-        updatedEvent.eventMinute = 0;
-      }
-
-      updatedEvents[index] = updatedEvent;
-      return updatedEvents;
-    });
+    const updatedEvents = [...events];
+    updatedEvents[index][key] = value;
+    setEvents(updatedEvents);
   };
-
-  // Default text will be shown only when field is empty AND date/time exists (handled in display logic)
 
   const [activeDivtype, setActiveDivType] = useState("KORAK 1");
-  const memoryIconTooltipTimeoutRef = useRef(null);
-  const memoryIconButtonRef = useRef(null);
-
-  const updateMemoryIconTooltipSide = () => {
-    if (typeof window === "undefined") return;
-    const tooltipWidth = 260;
-    const triggerRect = memoryIconButtonRef.current?.getBoundingClientRect();
-    if (!triggerRect) return;
-    const spaceRight = window.innerWidth - triggerRect.right;
-    const newSide = spaceRight > tooltipWidth + 16 ? "right" : "left";
-    setMemoryIconTooltipSide(newSide);
-  };
-
-  const triggerMemoryIconTooltip = () => {
-    updateMemoryIconTooltipSide();
-    setShowMemoryIconTooltip(true);
-    if (memoryIconTooltipTimeoutRef.current) {
-      clearTimeout(memoryIconTooltipTimeoutRef.current);
-    }
-    memoryIconTooltipTimeoutRef.current = setTimeout(() => {
-      setShowMemoryIconTooltip(false);
-    }, 4000);
-  };
-
-  useEffect(() => {
-    return () => {
-      if (memoryIconTooltipTimeoutRef.current) {
-        clearTimeout(memoryIconTooltipTimeoutRef.current);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!showMemoryIconTooltip) return;
-    updateMemoryIconTooltipSide();
-    const handleResize = () => updateMemoryIconTooltipSide();
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [showMemoryIconTooltip]);
-
-  const handleToggleMemoryIcon = () => {
-    setShowMemoryPageIcon((prev) => {
-      const next = !prev;
-      if (next) {
-        triggerMemoryIconTooltip();
-      } else {
-        setShowMemoryIconTooltip(false);
-      }
-      return next;
-    });
-  };
 
   const hours = Array.from({ length: 24 }, (_, i) => i + 1);
   const minutes = Array.from({ length: 4 }, (_, i) => i * 15);
 
   const funeralDropdownRef = useRef(null);
-  const handleFuneralHourSelect = (hour) => {
-    setSelecteFuneralHour(hour);
-    setSelectedFuneralMinute((prev) =>
-      prev === null || prev === undefined ? 0 : prev
-    );
-    setShowFuneralHoursDropdown(false);
-    setShowFuneralMinutesDropdown(false);
-  };
-
-  const handleFuneralMinuteSelect = (minute) => {
-    setSelectedFuneralMinute(minute);
-    setShowFuneralMinutesDropdown(false);
-  };
 
   const [cemeteries, setCemeteries] = useState([]);
+  useEffect(() => {
+    console.log(inputValueFuneralCemetery, "=================");
+  }, [inputValueFuneralCemetery]);
   const funeralCemeteryOptions = [
     ...(cemeteries?.map((item) => ({
       value: item.id,
@@ -369,10 +284,10 @@ const handleSubmit = async () => {
   const currentUser = isAuthenticated ? user : {};
 
   // Temporarily commented
-  // if (!currentUser.createObituaryPermission) {
-  //   toast.error("Nimaš dovoljenja za objavo osmrtnic");
-  //   return;
-  // }
+  if (!currentUser.createObituaryPermission) {
+    toast.error("Nimaš dovoljenja za objavo osmrtnic");
+    return;
+  }
 
   if (!validateFields()) return;
 
@@ -445,10 +360,6 @@ const handleSubmit = async () => {
     formData.append("deathReportExists", isDeathReportConfirmed);
     formData.append("events", JSON.stringify(events));
     formData.append("obituary", obituaryText);
-    formData.append("showMemoryPageIcon", showMemoryPageIcon ? "true" : "false");
-    if (showMemoryPageIcon && memoryPageMessage && memoryPageMessage.trim()) {
-      formData.append("memoryPageMessage", memoryPageMessage.trim());
-    }
 
     if (uploadedPicture) {
       formData.append("picture", uploadedPicture);
@@ -1092,21 +1003,13 @@ const handleSubmit = async () => {
           {activeDivtype === "KORAK 2" && (
             <div className="flex flex-col justify-start  mobile:max-w-[310px] mobile:w-full ">
               <div className="flex flex-col">
-                <div className="flex items-center justify-between">
-                  <div
-                    className="text-[#6D778E] mobile:text-[14px] mobile:leading-[16px] mobile:font-variation-customOpt14
+                <div
+                  className="text-[#6D778E] mobile:text-[14px] mobile:leading-[16px] mobile:font-variation-customOpt14
              font-normal text-[16px] leading-[24px] font-variation-customOpt14"
-                  >
-                    POGREB
-                  </div>
-                  <button
-                    type="button"
-                    className="text-[12px] uppercase tracking-[0.08em] text-[#6D778E]"
-                    onClick={() => setIsCemeteryModalOpen(true)}
-                  >
-                    DODAJ
-                  </button>
+                >
+                  POGREB
                 </div>
+
                 <div className="flex w-full gap-9 mobile:gap-5 mobile:flex-col">
                   <div className="flex w-[231px] mobile:w-full py-2 justify-between border-b-[1px] text-[#105CCF] border-[#D4D4D4]">
                     {selectedCity}
@@ -1266,7 +1169,10 @@ const handleSubmit = async () => {
                             <div
                               key={hour}
                               className="cursor-pointer hover:bg-gray-100 px-2 py-1 text-black"
-                              onClick={() => handleFuneralHourSelect(hour)}
+                              onClick={() => {
+                                setShowFuneralHoursDropdown(false);
+                                setSelecteFuneralHour(hour);
+                              }}
                             >
                               {hour.toString().padStart(2, "0")}
                             </div>
@@ -1301,7 +1207,11 @@ const handleSubmit = async () => {
                           <div
                             key={minute}
                             className="cursor-pointer hover:bg-gray-100 px-2 py-1"
-                                  onClick={() => handleFuneralMinuteSelect(minute)}
+                            onClick={() => {
+                              console.log(`Selected minute: ${minute}`);
+                              setShowFuneralMinutesDropdown(false);
+                              setSelectedFuneralMinute(minute);
+                            }}
                           >
                             {minute.toString().padStart(2, "0")}
                           </div>
@@ -1325,6 +1235,7 @@ const handleSubmit = async () => {
                     <div className="text-[#6D778E] flex mobile:hidden mobile:text-[#6D778E] text-[14px] font-normal leading-[24px] font-variation-customOpt16 mt-7">
                       Poimenuj dogodek, kot naj bo vpisan
                     </div>
+
                     <div className=" hidden mobile:flex mobile:text-[#6D778E] text-[16px] font-normal leading-[24px] font-variation-customOpt16 mt-7">
                       Poimenuj dogodek{" "}
                       <span className="text-[#ACAAAA] text-[13px] font-variation-customOpt13 ml-1">
@@ -1335,7 +1246,7 @@ const handleSubmit = async () => {
                     <div className="h-[38px] flex mobile:hidden mt-[4px] bg-[#6D778E] border border-rgba(109, 119, 142, 0.22) desktop:shadow-custom-dark-to-white tablet:shadow-custom-dark-to-white w-full">
                       <input
                         type="text"
-                        placeholder={DEFAULT_EVENT_NAME}
+                        placeholder="(npr. Zadnje slovo, Spominska maša, ipd)"
                         value={event.eventName}
                         onChange={(e) =>
                           updateEvent(index, "eventName", e.target.value)
@@ -1366,7 +1277,7 @@ const handleSubmit = async () => {
                     <div className="h-[38px] flex mobile:hidden mobile:h-[20px] mt-[4px] bg-[#6D778E] mobile:mt-0 mobile:bg-transparent desktop:shadow-custom-dark-to-white tablet:shadow-custom-dark-to-white mobile:border-b-2 mobile:boder-[#D4D4D4] w-full">
                       <input
                         type="text"
-                        placeholder={DEFAULT_EVENT_LOCATION}
+                        placeholder="(npr. Mrliška vežica št x, Pokopališče Gabrsko, Trbovlje)"
                         value={event.eventLocation}
                         onChange={(e) =>
                           updateEvent(index, "eventLocation", e.target.value)
@@ -1531,11 +1442,8 @@ const handleSubmit = async () => {
                                     key={hour}
                                     className="cursor-pointer hover:bg-gray-100 px-2 py-1 text-black"
                                     onClick={() => {
+                                      console.log("Test");
                                       updateEvent(index, "eventHour", hour);
-                                      // Default minute to 0 if not set
-                                      if (events[index].eventMinute === null || events[index].eventMinute === undefined) {
-                                        updateEvent(index, "eventMinute", 0);
-                                      }
                                       setOpenEventTimePicker(null);
                                     }}
                                   >
@@ -1772,53 +1680,8 @@ const handleSubmit = async () => {
 
               <div>
                 <div className="flex flex-col">
-                  <div className="flex items-center justify-between text-[#6D778E] mobile:text-[#1E2125] text-[16px] mobile:text-[14px] py-3 border-b-[1px] border-[#D4D4D4] font-normal leading-[16px] font-variation-customOpt14 mt-7 mobile:mt-0">
-                    <span>DOGODKI</span>
-                  <button
-                    type="button"
-                    className="relative flex items-center gap-3 group"
-                    ref={memoryIconButtonRef}
-                    onClick={handleToggleMemoryIcon}
-                    title={memoryPageMessage}
-                  >
-                      <span className="sr-only">Preklopi ikono na spominski strani</span>
-                       <svg
-                         width="24"
-                         height="24"
-                         viewBox="0 0 24 24"
-                         xmlns="http://www.w3.org/2000/svg"
-                         fillRule="evenodd"
-                         clipRule="evenodd"
-                         className="fill-[#0A85C2]"
-                       >
-                         <path d="M1 15c4.075-1.121 9.51.505 11 6 1.985-5.939 7.953-7.051 11-6-2.467 1.524-3.497 9-11 9s-8.487-7.471-11-9zm8.203-12.081c.008-1.612 1.319-2.919 2.933-2.919 1.615 0 2.926 1.307 2.934 2.919 1.4-.799 3.187-.317 3.995 1.081.807 1.398.331 3.187-1.062 4 1.393.813 1.869 2.602 1.062 4-.808 1.398-2.595 1.88-3.995 1.081-.008 1.612-1.319 2.919-2.934 2.919-1.614 0-2.925-1.307-2.933-2.919-1.4.799-3.188.317-3.995-1.081-.807-1.398-.331-3.187 1.062-4-1.393-.813-1.869-2.602-1.062-4 .807-1.398 2.595-1.88 3.995-1.081zm2.797 2.581c1.38 0 2.5 1.12 2.5 2.5s-1.12 2.5-2.5 2.5-2.5-1.12-2.5-2.5 1.12-2.5 2.5-2.5z" />
-                         <line
-                            x1="21"
-                            y1="3"
-                            x2="3"
-                            y2="21"
-                            stroke="#1E2125"
-                            strokeWidth="2.3"
-                            strokeLinecap="round"
-                         />
-                       </svg>
-                      <div className="relative w-6 h-6 border border-[#6D778E] rounded-sm flex items-center justify-center">
-                        {showMemoryPageIcon && (
-                          <div className="absolute inset-[3px] bg-[#0A85C2]"></div>
-                        )}
-                      </div>
-                    {showMemoryIconTooltip && (
-                      <div
-                        className={`absolute top-1/2 -translate-y-1/2 z-20 w-max max-w-[260px] rounded-md bg-[#0A85C2] text-white text-[12px] leading-[16px] px-3 py-2 shadow-lg after:content-[''] after:absolute after:top-1/2 after:-translate-y-1/2 ${
-                          memoryIconTooltipSide === "right"
-                            ? "left-full ml-3 after:left-[-6px] after:border-y-[6px] after:border-y-transparent after:border-r-[6px] after:border-r-[#0A85C2]"
-                            : "right-full mr-3 after:right-[-6px] after:border-y-[6px] after:border-y-transparent after:border-l-[6px] after:border-l-[#0A85C2]"
-                        }`}
-                      >
-                        {memoryPageMessage}
-                      </div>
-                    )}
-                    </button>
+                  <div className="text-[#6D778E] mobile:text-[#1E2125] text-[16px] mobile:text-[14px] py-3 border-b-[1px] border-[#D4D4D4] font-normal leading-[16px] font-variation-customOpt14 mt-7 mobile:mt-0">
+                    DOGODKI
                   </div>
                 </div>
 
@@ -1871,8 +1734,9 @@ const handleSubmit = async () => {
                     {events
                       .filter(
                         (event) =>
-                          event.eventDate &&
-                          (event.eventHour !== null || event.eventMinute !== null)
+                          event.eventName &&
+                          event.eventLocation &&
+                          event.eventDate
                       )
                       .sort((a, b) => {
                         const dateA = new Date(a.eventDate).setHours(
@@ -1890,7 +1754,7 @@ const handleSubmit = async () => {
                           {" "}
                           {/* Added key prop */}
                           <div className="text-[16px] text-[#1E2125] font-normal leading-6">
-                            {event.eventName || (event.eventDate && event.eventHour !== null && event.eventMinute !== null ? DEFAULT_EVENT_NAME : "")}
+                            {event.eventName}
                           </div>
                           <div
                             index={index}
@@ -1925,7 +1789,7 @@ const handleSubmit = async () => {
                             </div>
 
                             <div className="text-[18px] font-normal text-[#1E2125] mobile:text-[16px] mobile:mt-1">
-                              {event.eventLocation || (event.eventDate && event.eventHour !== null && event.eventMinute !== null ? DEFAULT_EVENT_LOCATION : "")}
+                              {event.eventLocation || ""}
                             </div>
                           </div>
                         </div>
@@ -2012,6 +1876,27 @@ const handleSubmit = async () => {
                   </div>
                 )}
 
+                <div className="flex flex-row items-center gap-4 mt-8 mobile:mt-6">
+                  <div
+                    className="relative w-10 h-8 cursor-pointer"
+                    onClick={() => setShowMemoryPageIcon(!showMemoryPageIcon)}
+                  >
+                    <div className="absolute inset-0 border-[1px] border-[#6D778E]"></div>
+                    {showMemoryPageIcon && (
+                      <div className="absolute inset-[3px] bg-[#0A85C2]"></div>
+                    )}
+                  </div>
+                  <div className="flex flex-col">
+                    <div className="text-[16px] text-[#1E2125] leading-[22px] font-normal">
+                      Prikaži ikono na spominski strani
+                    </div>
+                    {showMemoryPageIcon && (
+                      <div className="text-[14px] mt-1 text-[#ACAAAA] font-normal">
+                        Svojci cvetje in sveče hvaležno odklanjajo.
+                      </div>
+                    )}
+                  </div>
+                </div>
 
                 <div className="flex flex-row w-full space-x-8 mobile:space-y-2 mobile:space-x-0 mobile:flex-col  mt-16 mobile:mt-12">
                   <div
@@ -2035,19 +1920,8 @@ const handleSubmit = async () => {
           )}
         </div>
       </div>
-      <ModalNew4
-        isShowModal={isCemeteryModalOpen}
-        setIsShowModal={setIsCemeteryModalOpen}
-        defaultCity={selectedCity}
-        onSaved={() => {
-          if (selectedCity?.trim()) {
-            getCemeteries(selectedCity);
-          }
-        }}
-      />
     </>
   );
 };
 
 export default AddObituary;
-

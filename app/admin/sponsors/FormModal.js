@@ -35,7 +35,6 @@ export default function FormModal({ isShowModal, setIsShowModal, editId, refetch
     const [endOpenPicker, setEndOpenPicker] = useState(null);
     const [price, setPrice] = useState('');
     const [company, setCompany] = useState('');
-    const [websiteLink, setWebsiteLink] = useState('');
     const [cpa, setCPA] = useState('');
     const [who, setWHO] = useState('');
     const [notes, setNotes] = useState('');
@@ -177,7 +176,6 @@ export default function FormModal({ isShowModal, setIsShowModal, editId, refetch
         formData.append(`startDate`, startDate);
         formData.append(`endDate`, endDate);
         formData.append(`company`, company);
-        formData.append(`websiteLink`, websiteLink);
         formData.append(`cpa`, cpa);
         formData.append(`who`, who);
         formData.append(`notes`, notes);
@@ -195,7 +193,6 @@ export default function FormModal({ isShowModal, setIsShowModal, editId, refetch
         setSelectedPage('');
         setPrice('');
         setCompany('');
-        setWebsiteLink('');
         setCPA('');
         setWHO('');
         setNotes('');
@@ -211,7 +208,6 @@ export default function FormModal({ isShowModal, setIsShowModal, editId, refetch
             setSelectedPage(editId?.page);
             setPrice(editId?.price);
             setCompany(editId?.company);
-            setWebsiteLink(editId?.websiteLink || '');
             setCPA(editId?.cpa);
             setWHO(editId?.who);
             setNotes(editId?.notes);
@@ -541,8 +537,8 @@ export default function FormModal({ isShowModal, setIsShowModal, editId, refetch
                                             placeholder="LINK TO THEIR WEBSITE"
                                             className="w-full h-full bg-transparent focus:outline-none text-[#ACAAAA]"
                                             onChange={(e) => setWebsiteLink(e.target.value)}
-                                            />
-                                        </div>
+                                        />
+                                    </div>
                                     </div>
                                     <div className="flex justify-between">
                                         <div className="w-[30%]">
