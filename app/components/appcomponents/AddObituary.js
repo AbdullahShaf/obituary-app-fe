@@ -15,18 +15,6 @@ import MobileCards from "./MobileCards";
 import { getCardsImageAndPdfsFiles } from "@/utils/downloadCards";
 import BackDropLoader from "../ui/backdrop-loader";
 import { useAuth } from "@/hooks/useAuth";
-import ModalNew4 from "./ModalNew4";
-
-const DEFAULT_EVENT_NAME = "Zadnje slovo";
-const DEFAULT_EVENT_LOCATION = "Poslovilna vežica";
-
-const createEmptyEvent = () => ({
-  eventName: "",
-  eventLocation: "",
-  eventDate: null,
-  eventHour: null,
-  eventMinute: null,
-});
 
 const AddObituary = ({ set_Id, setModal }) => {
   const router = useRouter();
@@ -62,39 +50,34 @@ const AddObituary = ({ set_Id, setModal }) => {
   const [obituaryResponse, setObituaryResponse] = useState(null);
   const cardRefs = useRef([]);
   const [birthMode, setBirthMode] = useState("full");
-  const [events, setEvents] = useState([createEmptyEvent()]);
-  const [isCemeteryModalOpen, setIsCemeteryModalOpen] = useState(false);
-  const [showMemoryPageIcon, setShowMemoryPageIcon] = useState(false);
-  const [memoryPageMessage, setMemoryPageMessage] = useState("Svojci cvetje in sveče hvaležno odklanjajo.");
-  const [showMemoryIconTooltip, setShowMemoryIconTooltip] = useState(false);
-  const [memoryIconTooltipSide, setMemoryIconTooltipSide] = useState("right");
+  const [events, setEvents] = useState([
+    {
+      eventName: "",
+      eventLocation: "",
+      eventDate: null,
+      eventHour: null,
+      eventMinute: null,
+    },
+  ]);
 
   const addEvent = () => {
-    setEvents((prev) => [...prev, createEmptyEvent()]);
+    setEvents([
+      ...events,
+      {
+        eventName: "",
+        eventLocation: "",
+        eventDate: null,
+        eventHour: null,
+        eventMinute: null,
+      },
+    ]);
   };
 
   const updateEvent = (index, key, value) => {
-    setEvents((prevEvents) => {
-      if (!prevEvents[index]) {
-        return prevEvents;
-      }
-      const updatedEvents = [...prevEvents];
-      const updatedEvent = { ...updatedEvents[index], [key]: value };
-
-      if (
-        key === "eventHour" &&
-        (updatedEvent.eventMinute === null ||
-          updatedEvent.eventMinute === undefined)
-      ) {
-        updatedEvent.eventMinute = 0;
-      }
-
-      updatedEvents[index] = updatedEvent;
-      return updatedEvents;
-    });
+    const updatedEvents = [...events];
+    updatedEvents[index][key] = value;
+    setEvents(updatedEvents);
   };
-
-  // Default text will be shown only when field is empty AND date/time exists (handled in display logic)
 
   const [activeDivtype, setActiveDivType] = useState("KORAK 1");
   const memoryIconTooltipTimeoutRef = useRef(null);
@@ -155,21 +138,11 @@ const AddObituary = ({ set_Id, setModal }) => {
   const minutes = Array.from({ length: 4 }, (_, i) => i * 15);
 
   const funeralDropdownRef = useRef(null);
-  const handleFuneralHourSelect = (hour) => {
-    setSelecteFuneralHour(hour);
-    setSelectedFuneralMinute((prev) =>
-      prev === null || prev === undefined ? 0 : prev
-    );
-    setShowFuneralHoursDropdown(false);
-    setShowFuneralMinutesDropdown(false);
-  };
-
-  const handleFuneralMinuteSelect = (minute) => {
-    setSelectedFuneralMinute(minute);
-    setShowFuneralMinutesDropdown(false);
-  };
 
   const [cemeteries, setCemeteries] = useState([]);
+  useEffect(() => {
+    console.log(inputValueFuneralCemetery, "=================");
+  }, [inputValueFuneralCemetery]);
   const funeralCemeteryOptions = [
     ...(cemeteries?.map((item) => ({
       value: item.id,
@@ -369,10 +342,10 @@ const handleSubmit = async () => {
   const currentUser = isAuthenticated ? user : {};
 
   // Temporarily commented
-  // if (!currentUser.createObituaryPermission) {
-  //   toast.error("Nimaš dovoljenja za objavo osmrtnic");
-  //   return;
-  // }
+  if (!currentUser.createObituaryPermission) {
+    toast.error("Nimaš dovoljenja za objavo osmrtnic");
+    return;
+  }
 
   if (!validateFields()) return;
 
@@ -445,10 +418,6 @@ const handleSubmit = async () => {
     formData.append("deathReportExists", isDeathReportConfirmed);
     formData.append("events", JSON.stringify(events));
     formData.append("obituary", obituaryText);
-    formData.append("showMemoryPageIcon", showMemoryPageIcon ? "true" : "false");
-    if (showMemoryPageIcon && memoryPageMessage && memoryPageMessage.trim()) {
-      formData.append("memoryPageMessage", memoryPageMessage.trim());
-    }
 
     if (uploadedPicture) {
       formData.append("picture", uploadedPicture);
@@ -1092,21 +1061,13 @@ const handleSubmit = async () => {
           {activeDivtype === "KORAK 2" && (
             <div className="flex flex-col justify-start  mobile:max-w-[310px] mobile:w-full ">
               <div className="flex flex-col">
-                <div className="flex items-center justify-between">
-                  <div
-                    className="text-[#6D778E] mobile:text-[14px] mobile:leading-[16px] mobile:font-variation-customOpt14
+                <div
+                  className="text-[#6D778E] mobile:text-[14px] mobile:leading-[16px] mobile:font-variation-customOpt14
              font-normal text-[16px] leading-[24px] font-variation-customOpt14"
-                  >
-                    POGREB
-                  </div>
-                  <button
-                    type="button"
-                    className="text-[12px] uppercase tracking-[0.08em] text-[#6D778E]"
-                    onClick={() => setIsCemeteryModalOpen(true)}
-                  >
-                    DODAJ
-                  </button>
+                >
+                  POGREB
                 </div>
+
                 <div className="flex w-full gap-9 mobile:gap-5 mobile:flex-col">
                   <div className="flex w-[231px] mobile:w-full py-2 justify-between border-b-[1px] text-[#105CCF] border-[#D4D4D4]">
                     {selectedCity}
@@ -1266,7 +1227,10 @@ const handleSubmit = async () => {
                             <div
                               key={hour}
                               className="cursor-pointer hover:bg-gray-100 px-2 py-1 text-black"
-                              onClick={() => handleFuneralHourSelect(hour)}
+                              onClick={() => {
+                                setShowFuneralHoursDropdown(false);
+                                setSelecteFuneralHour(hour);
+                              }}
                             >
                               {hour.toString().padStart(2, "0")}
                             </div>
@@ -1301,7 +1265,11 @@ const handleSubmit = async () => {
                           <div
                             key={minute}
                             className="cursor-pointer hover:bg-gray-100 px-2 py-1"
-                                  onClick={() => handleFuneralMinuteSelect(minute)}
+                            onClick={() => {
+                              console.log(`Selected minute: ${minute}`);
+                              setShowFuneralMinutesDropdown(false);
+                              setSelectedFuneralMinute(minute);
+                            }}
                           >
                             {minute.toString().padStart(2, "0")}
                           </div>
@@ -1325,6 +1293,7 @@ const handleSubmit = async () => {
                     <div className="text-[#6D778E] flex mobile:hidden mobile:text-[#6D778E] text-[14px] font-normal leading-[24px] font-variation-customOpt16 mt-7">
                       Poimenuj dogodek, kot naj bo vpisan
                     </div>
+
                     <div className=" hidden mobile:flex mobile:text-[#6D778E] text-[16px] font-normal leading-[24px] font-variation-customOpt16 mt-7">
                       Poimenuj dogodek{" "}
                       <span className="text-[#ACAAAA] text-[13px] font-variation-customOpt13 ml-1">
@@ -1335,7 +1304,7 @@ const handleSubmit = async () => {
                     <div className="h-[38px] flex mobile:hidden mt-[4px] bg-[#6D778E] border border-rgba(109, 119, 142, 0.22) desktop:shadow-custom-dark-to-white tablet:shadow-custom-dark-to-white w-full">
                       <input
                         type="text"
-                        placeholder={DEFAULT_EVENT_NAME}
+                        placeholder="(npr. Zadnje slovo, Spominska maša, ipd)"
                         value={event.eventName}
                         onChange={(e) =>
                           updateEvent(index, "eventName", e.target.value)
@@ -1366,7 +1335,7 @@ const handleSubmit = async () => {
                     <div className="h-[38px] flex mobile:hidden mobile:h-[20px] mt-[4px] bg-[#6D778E] mobile:mt-0 mobile:bg-transparent desktop:shadow-custom-dark-to-white tablet:shadow-custom-dark-to-white mobile:border-b-2 mobile:boder-[#D4D4D4] w-full">
                       <input
                         type="text"
-                        placeholder={DEFAULT_EVENT_LOCATION}
+                        placeholder="(npr. Mrliška vežica št x, Pokopališče Gabrsko, Trbovlje)"
                         value={event.eventLocation}
                         onChange={(e) =>
                           updateEvent(index, "eventLocation", e.target.value)
@@ -1531,11 +1500,8 @@ const handleSubmit = async () => {
                                     key={hour}
                                     className="cursor-pointer hover:bg-gray-100 px-2 py-1 text-black"
                                     onClick={() => {
+                                      console.log("Test");
                                       updateEvent(index, "eventHour", hour);
-                                      // Default minute to 0 if not set
-                                      if (events[index].eventMinute === null || events[index].eventMinute === undefined) {
-                                        updateEvent(index, "eventMinute", 0);
-                                      }
                                       setOpenEventTimePicker(null);
                                     }}
                                   >
@@ -1871,8 +1837,9 @@ const handleSubmit = async () => {
                     {events
                       .filter(
                         (event) =>
-                          event.eventDate &&
-                          (event.eventHour !== null || event.eventMinute !== null)
+                          event.eventName &&
+                          event.eventLocation &&
+                          event.eventDate
                       )
                       .sort((a, b) => {
                         const dateA = new Date(a.eventDate).setHours(
@@ -1890,7 +1857,7 @@ const handleSubmit = async () => {
                           {" "}
                           {/* Added key prop */}
                           <div className="text-[16px] text-[#1E2125] font-normal leading-6">
-                            {event.eventName || (event.eventDate && event.eventHour !== null && event.eventMinute !== null ? DEFAULT_EVENT_NAME : "")}
+                            {event.eventName}
                           </div>
                           <div
                             index={index}
@@ -1925,7 +1892,7 @@ const handleSubmit = async () => {
                             </div>
 
                             <div className="text-[18px] font-normal text-[#1E2125] mobile:text-[16px] mobile:mt-1">
-                              {event.eventLocation || (event.eventDate && event.eventHour !== null && event.eventMinute !== null ? DEFAULT_EVENT_LOCATION : "")}
+                              {event.eventLocation || ""}
                             </div>
                           </div>
                         </div>
@@ -2012,7 +1979,6 @@ const handleSubmit = async () => {
                   </div>
                 )}
 
-
                 <div className="flex flex-row w-full space-x-8 mobile:space-y-2 mobile:space-x-0 mobile:flex-col  mt-16 mobile:mt-12">
                   <div
                     onClick={() => setActiveDivType("KORAK 2")}
@@ -2035,19 +2001,8 @@ const handleSubmit = async () => {
           )}
         </div>
       </div>
-      <ModalNew4
-        isShowModal={isCemeteryModalOpen}
-        setIsShowModal={setIsCemeteryModalOpen}
-        defaultCity={selectedCity}
-        onSaved={() => {
-          if (selectedCity?.trim()) {
-            getCemeteries(selectedCity);
-          }
-        }}
-      />
     </>
   );
 };
 
 export default AddObituary;
-
