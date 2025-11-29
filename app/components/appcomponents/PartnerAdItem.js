@@ -6,7 +6,8 @@ import CircleArrow from "../../../public/lokalni/circle-arrow.png";
 import Image from "next/image";
 
 const PartnerAdItem = ({ partner }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHoveredImage, setIsHoveredImage] = useState(false);
+  const [isHoveredContent, setIsHoveredContent] = useState(false);
   const [width, setWidth] = useState(null);
 
   useEffect(() => {
@@ -21,11 +22,12 @@ const PartnerAdItem = ({ partner }) => {
   }, []);
 
   return (
-    <div className="min-w-80 flex flex-col w-80">
+    <div className="relative flex flex-col w-80 h-[423px]">
+      {/* Image Section */}
       <div
-        className="img-section h-[340px] w-[340px] relative border border-[#4E4E4E4D] overflow-hidden group"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        className="img-section h-[340px] w-full relative border border-[#4E4E4E4D] overflow-hidden group"
+        onMouseEnter={() => setIsHoveredImage(true)}
+        onMouseLeave={() => setIsHoveredImage(false)}
       >
         <span className="absolute right-0 top-0 city-tag bg-[#3B3B3B] text-white py-[6px] px-[22px] text-lg leading-6 font-normal z-20">
           {partner.city}
@@ -36,7 +38,9 @@ const PartnerAdItem = ({ partner }) => {
           fill
           src={partner?.mainImage}
           alt={partner.name}
-          className="absolute inset-0 h-full w-full min-w-[340px] object-cover transition-opacity duration-1000 group-hover:opacity-0"
+          className={`absolute inset-0 h-full w-full min-w-[340px] object-cover transition-opacity duration-500 ${
+            isHoveredImage ? "opacity-0" : "opacity-100"
+          }`}
         />
 
         {/* Secondary Image */}
@@ -44,36 +48,44 @@ const PartnerAdItem = ({ partner }) => {
           fill
           src={partner?.secondaryImage}
           alt={partner?.name}
-          className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-1000 group-hover:opacity-100"
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
+            isHoveredImage ? "opacity-100" : "opacity-0"
+          }`}
         />
       </div>
 
       {/* Content Section */}
-      <div className="min-h-[83px] content-section py-4 px-2 bg-gradient-to-r from-[#E3E8EC] to-white shadow-[5px_5px_10px_rgba(194,194,194,0.4)] shadow-[2px_2px_2px_rgba(0,0,0,0.15)] relative w-[340px]">
-        <div className="content flex flex-col gap-[2px] ml-3 mt-1">
+      <div
+        className={`content-section absolute bottom-0 left-0 pb-24px w-full bg-gradient-to-r from-[#E3E8EC] to-white shadow-[5px_5px_10px_rgba(194,194,194,0.4)] shadow-[2px_2px_2px_rgba(0,0,0,0.15)] overflow-hidden transition-all duration-300`}
+        style={{
+          height: isHoveredContent ? "206px" : "83px", // expand upwards on hover
+        }}
+        onMouseEnter={() => setIsHoveredContent(true)}
+        onMouseLeave={() => setIsHoveredContent(false)}
+      >
+        <div className="content flex flex-col gap-[2px] ml-3 mt-[18px] relative z-10">
           <Link target="_blank" href={partner?.website}>
-            <h2
-              className="text-[#0A85C2] text-sm uppercase leading-6 font-light 
-                  max-w-[250px] overflow-hidden text-ellipsis whitespace-nowrap"
-            >
-              {isHovered
+            <h2 className="text-[#0A85C2] text-sm uppercase leading-6 font-light max-w-[250px] overflow-hidden text-ellipsis whitespace-nowrap mb-[2px]">
+              {isHoveredImage
                 ? partner?.secondaryImageDescription
                 : partner?.mainImageDescription}
             </h2>
           </Link>
 
-          <p className="text-[#1E2125] text-xl leading-[100%] font-light max-w-[250px] overflow-hidden text-ellipsis whitespace-nowrap">
+          <p className="text-[#1E2125] text-lg leading-[100%] font-light max-w-[250px] overflow-hidden text-ellipsis whitespace-nowrap mb-[26px]">
             {partner?.name}
           </p>
 
-          {width >= 1279 && (
-            <p
-              className="
-              text-[#1E2125] text-sm leading-[140%] font-light text-justify mt-2 line-clamp-3 pr-2"
-            >
-              {partner?.notes}
-            </p>
-          )}
+          <p className="text-[#4E4E4E] max-w-[270px] text-xs leading-[140%] font-light text-justify pr-4 mb-2 line-clamp-5">
+            {partner?.notes} Lorem Ipsum has been the industry's standard dummy
+            text ever since the 1500s, when an unknown printer took a galley of
+            type and scrambled it to make a type specimen book. It has survived
+            not only five centuries, but also the leap into electronic
+            typesetting, remaining essentially unchanged. It was popularised in
+            the 1960s with the release of Letraset sheets containing Lorem Ipsum
+            passages, and more recently with desktop publishing software like
+            Aldus PageMa
+          </p>
         </div>
 
         <Link target="_blank" href={partner?.website}>
