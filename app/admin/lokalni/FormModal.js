@@ -91,7 +91,11 @@ export default function FormModal({
   useEffect(() => {
     getCategories();
   }, []);
-
+  useEffect(() => {
+    if (isShowModal && !editId) {
+      resetStates();
+    }
+  }, [isShowModal, editId]);
   const formatDate = (timestamp) => {
     const funeralDate = new Date(timestamp);
     if (isNaN(funeralDate.getTime())) return "";

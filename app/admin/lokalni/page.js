@@ -73,8 +73,8 @@ const CompaniesWithApprovalReq = () => {
         <div className="flex justify-end mb-4">
           <button
             onClick={() => {
-              setIsShowModal1(true);
               setEditId(null);
+              setIsShowModal1(true);
             }}
             className="w-[180px] h-[50px] rounded-[10px] bg-[#09C1A3] text-white font-semibold text-md"
           >
