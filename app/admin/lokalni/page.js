@@ -2,9 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import SideMenuAdmin from "../../components/appcomponents/SideMenuAdmin";
-import adminService from "../../../services/admin-service";
 import { toast } from "react-hot-toast";
-import { TOAST_MESSAGE } from "../../../utils/toastMessage";
 import FormModal from "./FormModal";
 import partnerService from "@/services/partner-service";
 import TickGreen from "@/public/ico_tick.png";
@@ -16,7 +14,6 @@ const CompaniesWithApprovalReq = () => {
   const [editId, setEditId] = useState(null);
   const [whichScreen, setWhichScreen] = useState(1);
   const [whichTab, setWhichTab] = useState("");
-  const [companies, setCompanies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [partners, setPartners] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -34,17 +31,33 @@ const CompaniesWithApprovalReq = () => {
 
   const fetchList = async () => {
     setLoading(true);
-    const res = await partnerService.getAllPartnersPlusLocals();
-    setPartners(res);
-    setLoading(false);
+    try {
+      const res = await partnerService.getAllPartnersPlusLocals();
+      if (res) {
+        setPartners(res);
+      }
+    } catch (error) {
+      console.error("Failed to fetch partners:", error);
+      toast.error("Failed to load partners");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const fetchCategories = async () => {
     setLoading(true);
-    const res = await categoryService.getAllCategories();
-    const obj = Object.fromEntries(res.map((item) => [item.id, item]));
-    setCategories(obj);
-    setLoading(false);
+    try {
+      const res = await categoryService.getAllCategories();
+      if (res) {
+        const obj = Object.fromEntries(res.map((item) => [item.id, item]));
+        setCategories(obj);
+      }
+    } catch (error) {
+      console.error("Failed to fetch categories:", error);
+      toast.error("Failed to load categories");
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -53,8 +66,16 @@ const CompaniesWithApprovalReq = () => {
   }, []);
 
   const deletePartner = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this partner?")) {
+      return;
+    }
     setLoading(true);
-    await partnerService.deletePartner(id);
+    try {
+      await partnerService.deletePartner(id);
+      toast.success("Partner deleted");
+    } catch (error) {
+      toast.error("Failed to delete partner");
+    }
     setLoading(false);
     fetchList();
   };

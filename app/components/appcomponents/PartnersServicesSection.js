@@ -34,12 +34,17 @@ const PartnersServicesSection = ({
   }, [paramValue]);
 
   const fetchPartners = async (service) => {
-    if (!service || service.length === 0) {
-      const response = await partnerService.getAllPartners();
-      setPartners(response);
-    } else {
-      const response = await partnerService.getPartnersByCategory(service);
-      setPartners(response);
+    try {
+      if (!service || service.length === 0) {
+        const response = await partnerService.getAllPartners();
+        setPartners(response);
+      } else {
+        const response = await partnerService.getPartnersByCategory(service);
+        setPartners(response);
+      }
+    } catch (error) {
+      console.error("Failed to fetch partners:", error);
+      setPartners([]);
     }
   };
 

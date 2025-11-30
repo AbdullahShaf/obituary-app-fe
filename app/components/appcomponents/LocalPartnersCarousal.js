@@ -66,6 +66,12 @@ const LocalCarousal = ({ categories }) => {
     resumeTimeout.current = setTimeout(() => setIsPaused(false), 6000);
   };
 
+  useEffect(() => {
+    return () => {
+      if (resumeTimeout.current) clearTimeout(resumeTimeout.current);
+    };
+  }, []);
+
   // ----------------------
   // Navigation
   // ----------------------
@@ -85,13 +91,13 @@ const LocalCarousal = ({ categories }) => {
   // Reset index for infinite looping
   // ----------------------
   useEffect(() => {
+    let timeoutId;
     if (index >= total + visibleCount) {
-      // reached cloned end, reset to real first
-      setTimeout(() => setIndex(visibleCount), 50);
+      timeoutId = setTimeout(() => setIndex(visibleCount), 50);
     } else if (index < visibleCount) {
-      // reached cloned start, reset to real last
-      setTimeout(() => setIndex(total + visibleCount - 1), 50);
+      timeoutId = setTimeout(() => setIndex(total + visibleCount - 1), 50);
     }
+    return () => clearTimeout(timeoutId);
   }, [index, total, visibleCount]);
 
   // ----------------------
@@ -130,34 +136,38 @@ const LocalCarousal = ({ categories }) => {
 
       {/* Desktop + Tablet Navigation */}
       <div className="hidden md:flex flex-row items-center justify-end w-full gap-8 mb-10">
-        <img
-          src={ArrowLeft.src}
-          alt="arrow-left"
-          className="hover:cursor-pointer w-4"
+        <button
           onClick={prev}
-        />
-        <img
-          src={ArrowRight.src}
-          alt="arrow-right"
-          className="hover:cursor-pointer w-4"
+          aria-label="Previous slide"
+          className="hover:cursor-pointer"
+        >
+          <img src={ArrowLeft.src} alt="" className="w-4" />
+        </button>
+        <button
           onClick={next}
-        />
+          aria-label="Next slide"
+          className="hover:cursor-pointer"
+        >
+          <img src={ArrowRight.src} alt="" className="w-4" />
+        </button>
       </div>
 
       {/* Mobile Navigation */}
       <div className="flex md:hidden flex-row items-center justify-center w-full gap-10 mt-3">
-        <img
-          src={ArrowLeft.src}
-          alt="arrow-left"
-          className="hover:cursor-pointer w-5"
+        <button
           onClick={prev}
-        />
-        <img
-          src={ArrowRight.src}
-          alt="arrow-right"
-          className="hover:cursor-pointer w-5"
+          aria-label="Previous slide"
+          className="hover:cursor-pointer"
+        >
+          <img src={ArrowLeft.src} alt="" className="w-5" />
+        </button>
+        <button
           onClick={next}
-        />
+          aria-label="Next slide"
+          className="hover:cursor-pointer"
+        >
+          <img src={ArrowRight.src} alt="" className="w-5" />
+        </button>
       </div>
     </div>
   );
@@ -170,9 +180,7 @@ const LocalPartnersCarousalItem = ({ name }) => {
                  text-base md:text-lg text-[#B9B9B9] uppercase rounded-sm min-w-[150px]
                  flex justify-center items-center"
     >
-      <a href="#" target="_blank" rel="noopener noreferrer">
-        {name}
-      </a>
+      <span>{name}</span>
     </div>
   );
 };

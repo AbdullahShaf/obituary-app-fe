@@ -5,24 +5,10 @@ import { Modal, ModalContent } from "@nextui-org/react";
 import cancle_icon from "@/public/cancle_icon.png";
 import Image from "next/image";
 import Select from "react-select";
-import DatePicker from "react-datepicker";
-import ModalDropBox from "./ModalDropBox";
-import { sl } from "date-fns/locale";
 import regionsAndCities from "@/utils/regionAndCities";
-import adminService from "../../../services/admin-service";
 import { toast } from "react-hot-toast";
 import categoryService from "@/services/category-service";
 import partnerService from "@/services/partner-service";
-
-const fixedCategories = [
-  "osmrtnice",
-  "pogrebi",
-  "cvetlicarne",
-  "pogrebna podjetja",
-].map((item) => ({
-  value: item,
-  label: item,
-}));
 
 const regionOptions = Object.keys(regionsAndCities).map((region) => ({
   value: region,
@@ -71,18 +57,20 @@ export default function FormModal({
 
   const addCategory = async () => {
     if (newCategoryName.trim() === "") return;
-    setCategories([
-      ...categories,
-      { value: newCategoryName, label: newCategoryName },
-    ]);
+
     try {
       const response = await categoryService.createCategory({
         name: newCategoryName,
       });
+      setCategories([
+        ...categories,
+        { value: response.id, label: response.name },
+      ]);
       getCategories();
       toast.success("Category added successfully");
     } catch (error) {
       console.log(error);
+      toast.error("Failed to add category");
     }
     setNewCategoryName("");
     setIsCategoryAdding(false);
@@ -237,30 +225,37 @@ export default function FormModal({
   const handlePublish = async () => {
     setIsLoading(true);
 
-    const allCities = selectedCities?.map((c) => c.value) || [];
-    const allRegions = selectedRegions?.map((r) => r.value) || [];
+    try {
+      const allCities = selectedCities?.map((c) => c.value) || [];
+      const allRegions = selectedRegions?.map((r) => r.value) || [];
 
-    const formData = new FormData();
+      const formData = new FormData();
 
-    if (selectedFile) formData.append("mainImage", selectedFile);
-    if (selectedFile2) formData.append("secondaryImage", selectedFile2);
+      if (selectedFile) formData.append("mainImage", selectedFile);
+      if (selectedFile2) formData.append("secondaryImage", selectedFile2);
 
-    formData.append("category", selectedCategory?.value); // FIXED
-    formData.append("city", allCities.join(",")); // FIXED
-    formData.append("region", allRegions.join(",")); // FIXED
-    formData.append("name", companyName);
-    formData.append("notes", notes);
-    formData.append("website", websiteLink);
-    formData.append("mainImageDescription", mainImageDescription);
-    formData.append("secondaryImageDescription", secondaryImageDescription);
-    formData.append("isLocalNews", isLocalNews);
+      formData.append("category", selectedCategory?.value); // FIXED
+      formData.append("city", allCities.join(",")); // FIXED
+      formData.append("region", allRegions.join(",")); // FIXED
+      formData.append("name", companyName);
+      formData.append("notes", notes);
+      formData.append("website", websiteLink);
+      formData.append("mainImageDescription", mainImageDescription);
+      formData.append("secondaryImageDescription", secondaryImageDescription);
+      formData.append("isLocalNews", isLocalNews);
 
-    await partnerService.createPartner(formData);
-    toast.success("Partner created");
+      await partnerService.createPartner(formData);
+      toast.success("Partner created");
 
-    setIsLoading(false);
-    resetStates();
-    refetch();
+      setIsLoading(false);
+      resetStates();
+      refetch();
+    } catch (error) {
+      console.log(error);
+      toast.error("Partner creation failed");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleUpdate = async () => {
@@ -271,33 +266,41 @@ export default function FormModal({
 
     const formData = new FormData();
 
-    if (selectedFile)
-      formData.append("mainImage", selectedFile || editId.mainImage);
-    if (selectedFile2)
-      formData.append("secondaryImage", selectedFile2 || editId.secondaryImage);
+    try {
+      if (selectedFile)
+        formData.append("mainImage", selectedFile || editId.mainImage);
+      if (selectedFile2)
+        formData.append(
+          "secondaryImage",
+          selectedFile2 || editId.secondaryImage
+        );
 
-    formData.append("category", selectedCategory?.value ?? editId.category);
-    formData.append("city", allCities.join(",") || editId.city); // FIXED
-    formData.append("region", allRegions.join(",") || editId.region); // FIXED
-    formData.append("name", companyName || editId.name);
-    formData.append("notes", notes || editId.notes);
-    formData.append("website", websiteLink || editId.website);
-    formData.append(
-      "mainImageDescription",
-      mainImageDescription || editId.mainImageDescription
-    );
-    formData.append(
-      "secondaryImageDescription",
-      secondaryImageDescription || editId.secondaryImageDescription
-    );
-    formData.append("isLocalNews", JSON.stringify(isLocalNews));
+      formData.append("category", selectedCategory?.value ?? editId.category);
+      formData.append("city", allCities.join(",") || editId.city); // FIXED
+      formData.append("region", allRegions.join(",") || editId.region); // FIXED
+      formData.append("name", companyName || editId.name);
+      formData.append("notes", notes || editId.notes);
+      formData.append("website", websiteLink || editId.website);
+      formData.append(
+        "mainImageDescription",
+        mainImageDescription || editId.mainImageDescription
+      );
+      formData.append(
+        "secondaryImageDescription",
+        secondaryImageDescription || editId.secondaryImageDescription
+      );
+      formData.append("isLocalNews", isLocalNews);
 
-    await partnerService.updatePartner(editId.id, formData);
-    toast.success("Partner updated");
-
-    setIsLoading(false);
-    resetStates();
-    refetch();
+      await partnerService.updatePartner(editId.id, formData);
+      toast.success("Partner updated");
+      resetStates();
+      refetch();
+    } catch (error) {
+      console.error("Failed to update partner:", error);
+      toast.error("Failed to update partner");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const resetStates = () => {
@@ -339,7 +342,6 @@ export default function FormModal({
             label: item,
           };
         });
-        console.log(">>>>>> arr1", arr1);
         setSelectedCities(arr1);
       }
       if (editId?.region) {
@@ -352,7 +354,7 @@ export default function FormModal({
         setSelectedRegions(arr2);
       }
     }
-  }, [editId]);
+  }, [editId, categoryOptions]);
 
   return (
     <Modal

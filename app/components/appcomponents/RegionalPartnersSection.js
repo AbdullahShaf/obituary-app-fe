@@ -5,7 +5,7 @@ import PartnerAdItem from "./PartnerAdItem";
 import RegionSelectionList from "./RegionSelectionList";
 import partnerService from "@/services/partner-service";
 import regionsAndCities from "@/utils/regionAndCities";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import IconDown from "../../../public/lokalni/down.png"; // ADDED
 
@@ -33,12 +33,17 @@ const RegionalPartnersSection = ({ activeSection, setActiveSection }) => {
   }, [paramValue]);
 
   const fetchRegionalPartners = async (region) => {
-    if (!region || region.length === 0) {
-      const response = await partnerService.getAllPartners();
-      setRegionalPartners(response);
-    } else {
-      const response = await partnerService.getRegionalPartners(region);
-      setRegionalPartners(response);
+    try {
+      if (!region || region.length === 0) {
+        const response = await partnerService.getAllPartners();
+        setRegionalPartners(response);
+      } else {
+        const response = await partnerService.getRegionalPartners(region);
+        setRegionalPartners(response);
+      }
+    } catch (error) {
+      console.error("Failed to fetch regional partners:", error);
+      setRegionalPartners([]);
     }
   };
 

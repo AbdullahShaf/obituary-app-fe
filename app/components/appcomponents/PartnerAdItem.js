@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import CircleArrow from "../../../public/lokalni/circle-arrow.png";
 import Image from "next/image";
@@ -8,18 +8,11 @@ import Image from "next/image";
 const PartnerAdItem = ({ partner }) => {
   const [isHoveredImage, setIsHoveredImage] = useState(false);
   const [isHoveredContent, setIsHoveredContent] = useState(false);
-  const [width, setWidth] = useState(null);
 
-  useEffect(() => {
-    setWidth(window.innerWidth);
-
-    function handleResize() {
-      setWidth(window.innerWidth);
-    }
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  // Fix website URL (always ensure http/https exists)
+  const website = partner?.website?.startsWith("http")
+    ? partner.website
+    : `https://${partner.website}`;
 
   return (
     <div className="relative flex flex-col w-80 h-[423px]">
@@ -56,15 +49,15 @@ const PartnerAdItem = ({ partner }) => {
 
       {/* Content Section */}
       <div
-        className={`content-section absolute bottom-0 left-0 pb-24px w-full bg-gradient-to-r from-[#E3E8EC] to-white shadow-[5px_5px_10px_rgba(194,194,194,0.4)] shadow-[2px_2px_2px_rgba(0,0,0,0.15)] overflow-hidden transition-all duration-300`}
+        className={`content-section absolute bottom-0 left-0 w-full bg-gradient-to-r from-[#E3E8EC] to-white shadow-[5px_5px_10px_rgba(194,194,194,0.4)] shadow-[2px_2px_2px_rgba(0,0,0,0.15)] overflow-hidden transition-all duration-300`}
         style={{
-          height: isHoveredContent ? "206px" : "83px", // expand upwards on hover
+          height: isHoveredContent ? "206px" : "83px",
         }}
         onMouseEnter={() => setIsHoveredContent(true)}
         onMouseLeave={() => setIsHoveredContent(false)}
       >
         <div className="content flex flex-col gap-[2px] ml-3 mt-[18px] relative z-10">
-          <Link target="_blank" href={partner?.website}>
+          <Link target="_blank" rel="noopener noreferrer" href={website}>
             <h2 className="text-[#0A85C2] text-sm uppercase leading-6 font-light max-w-[250px] overflow-hidden text-ellipsis whitespace-nowrap mb-[2px]">
               {isHoveredImage
                 ? partner?.secondaryImageDescription
@@ -81,11 +74,11 @@ const PartnerAdItem = ({ partner }) => {
           </p>
         </div>
 
-        <Link target="_blank" href={partner?.website}>
+        <Link target="_blank" rel="noopener noreferrer" href={website}>
           <Image
             src={CircleArrow}
             alt={partner?.name}
-            className="size-9 absolute right-2 top-2"
+            className="size-9 absolute right-2 top-2 cursor-pointer"
           />
         </Link>
       </div>

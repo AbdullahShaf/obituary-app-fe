@@ -68,11 +68,11 @@ const DefaultItemsList = ({ defaultItems, selected, onSelect }) => {
   return (
     <div className="flex flex-row gap-[14px]">
       {defaultItems.map((item, index) => {
-        const isActive = selected === item.link;
+        const isActive = selected === item.name;
         return (
           <button
             key={index}
-            onClick={() => onSelect(item.link)}
+            onClick={() => onSelect(item.name)}
             className={`rounded-[3px] py-1 px-3 uppercase text-base leading-6 h-12 flex items-center border-2
               ${
                 isActive

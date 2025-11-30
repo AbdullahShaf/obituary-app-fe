@@ -7,6 +7,7 @@ const partnerService = {
       return response.data;
     } catch (error) {
       console.error("Error fetching partners", error);
+      throw error;
     }
   },
 
@@ -16,6 +17,7 @@ const partnerService = {
       return response.data;
     } catch (error) {
       console.error("Error fetching partners", error);
+      throw error;
     }
   },
 
@@ -25,6 +27,7 @@ const partnerService = {
       return response.data;
     } catch (error) {
       console.error("Error fetching local news partners", error);
+      throw error;
     }
   },
 
@@ -34,6 +37,7 @@ const partnerService = {
       return response.data;
     } catch (error) {
       console.error("Error fetching regional partners", error);
+      throw error;
     }
   },
 
@@ -43,6 +47,7 @@ const partnerService = {
       return response.data;
     } catch (error) {
       console.error("Error fetching partners by category", error);
+      throw error;
     }
   },
 
@@ -52,6 +57,7 @@ const partnerService = {
       return response.data;
     } catch (error) {
       console.error("Error deleting partner", error);
+      throw error;
     }
   },
 
@@ -61,17 +67,17 @@ const partnerService = {
       return response.data;
     } catch (error) {
       console.error("Error updating partner", error);
+      throw error;
     }
   },
 
   createPartner: async (partnerData: any) => {
     try {
-      const response = await axios.post("/partner", partnerData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const response = await axios.post("/partner", partnerData);
       return response.data;
     } catch (error) {
       console.error("Error creating partner", error);
+      throw error;
     }
   },
 
@@ -81,6 +87,7 @@ const partnerService = {
       return response.data;
     } catch (error) {
       console.error("Error fetching partner", error);
+      throw error;
     }
   },
 };

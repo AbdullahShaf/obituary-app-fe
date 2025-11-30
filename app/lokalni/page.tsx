@@ -12,13 +12,13 @@ import PartnersServicesSection from "../components/appcomponents/PartnersService
 import categoryService from "@/services/category-service";
 
 const LokalniContent = () => {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<any[]>([]);
   const [activeSection, setActiveSection] = useState("region");
 
   useEffect(() => {
     const fetchCategories = async () => {
       const response = await categoryService.getAllCategories();
-      setCategories(response);
+      setCategories(Array.isArray(response) ? response : []);
     };
     fetchCategories();
   }, []);
