@@ -5,6 +5,7 @@ import Image from "next/image";
 import { FAQHeader } from "@/app/components/appcomponents/Header";
 import { FooterForFaq2 } from "../components/appcomponents/Footer";
 import { useBreakpoint } from "../hooks/useBreakpoint";
+import Cancel from "@/public/xmark.png";
 import Link from "next/link";
 
 export default function Faq1() {
@@ -33,23 +34,15 @@ export default function Faq1() {
               Priložnost za prve cvetličarne
             </h1>
             <h2 className="text-[22px] mobile:hidden block mt-2 font-bold text-center">
-              Dodatne ugodnosti
-            </h2>
-
-            <p className="font-light text-[16px] mt-[50px] leading-[24px]">
-              Poleg mesečnih Skrbnikov, digitalnih kartic sožalja, zahval in
-              vabil ter nekaterih novosti v nadaljevanju, pripada prvim
-              cvetličarnam še nekaj dodatnih ugodnosti.
-            </p>
-            <h2 className="text-[22px] mobile:block hidden mobile:font-[20px] mt-2 font-bold text-center">
-              Dva meseca. Brez obveznosti.
+              Številne ugodnosti
             </h2>
 
             <section className="mt-10 text-[16px] space-y-6 leading-[1.6] mobile:w-[360px] w-[720px]">
-              <div className="w-full bg-[#083545] relative h-12 flex items-center text-[#D4D4D4] text-[18px] pl-6">
-                <h3 className="font-medium mb-1">
-                  Dodatne ugodnosti za prve naročnike
+              <div className="w-full bg-[#083545] relative h-12 flex items-center justify-between text-[#D4D4D4] text-[18px] px-6">
+                <h3 className="font-medium">
+                  Dodatne ugodnosti za prve pridružene cvetličarne?
                 </h3>
+                <Image src={Cancel} alt="Cancel" width={12.5} height={12.5} />
               </div>
               <div className="w-[636px] ml-8">
                 <p className="font-light text-[16px]">
@@ -57,38 +50,51 @@ export default function Faq1() {
                   <br />
                   <div className=" mt-3">
                     <span className="font-light text-[16px]">
-                      Pridružene cvetličarne, ki poravnajo prvo letno pogodbo
+                      Cvetličarne, ki se pridružijo
                     </span>{" "}
                     <span className="text-[#EB1D1D] font-bold underline underline-offset-2 text-[16px]">
-                      do 18. novembra
+                      do konca leta
                     </span>
-
-                    <span className="" > prejmejo: </span>
+                    <span className=""> čaka še nekaj dodatnih ugodnosti:</span>
                   </div>
                 </p>
 
-                <ul className="list-disc list-inside text-[16px] mt-3 space-y-[12px]">
+                <ul className="list-disc list-outside pl-6 text-[16px] mt-3 space-y-[12px]">
                   <li>
-                    <span className="text-[#0A85C2] font-bold">
-                      50% popust
-                    </span>{" "}
-                    <span>za drugo in vsako naslednjo cvetličarno. </span>
-                    <div className="text-[#6D778E] leading-[24px] text-[14px] pl-5">
-                      S polno ceno se obračuna cvetličarna v največji občini in za vse naslednje cvetličarne velja 50% popust na siceršnjo ceno. Enako velja za pojavljanje med lokalnimi cvetličarnami v drugih krajih (vnesete naslov svoje cvetličarne in izberete drugo občino, kjer naj se pojavlja). Ta promocija velja izključno za naše FB sledilce.
-                    </div>
+                    <span className="text-[#0A85C2] font-bold mr-1">
+                      Tretja in peta občina sta brezplačni.
+                    </span>
+                    <span>
+                      Za oglaševanje v dveh občinah, je ena dodatna manjša
+                      občina brezplačno, za oglaševanje v treh prejmete dve
+                      občini brezplačno.
+                    </span>
+                    {/* <div className="text-[#6D778E] leading-[24px] text-[14px] pl-5">
+                      S polno ceno se obračuna cvetličarna v največji občini in
+                      za vse naslednje cvetličarne velja 50% popust na siceršnjo
+                      ceno. Enako velja za pojavljanje med lokalnimi
+                      cvetličarnami v drugih krajih (vnesete naslov svoje
+                      cvetličarne in izberete drugo občino, kjer naj se
+                      pojavlja). Ta promocija velja izključno za naše FB
+                      sledilce.
+                    </div> */}
                   </li>
 
                   <li>
-                    <span className="text-[#0A85C2] font-bold">
+                    <span className="text-[#0A85C2] font-bold mr-1">
                       Skupna FB promocija - cvetličarna tedna
-                    </span>{" "}
-                    <span>(predstavitev na našem FB profilu za večje </span>
-                    <p className="ml-5"><span>partnerje </span>
-                      <span className="text-[#6D778E] leading-[24px] text-[14px] ">(in od januarja naprej vsem, ki bodo oddali naprej največ Skrbnikov, digitalnih kartic, vpisali osmrtnic oz drugače promovirali koristi portala osmrtnica.com.</span>
-                    </p>
+                    </span>
+                    <span>(predstavitev na našem FB za večje partnerje)</span>
                   </li>
 
-                  <li>prednost pri uvajanju nekaterih novih produktov</li>
+                  <li>
+                    <span className="text-[#0A85C2] font-bold mr-1">
+                      Ljubljana
+                    </span>
+                    <span>
+                      - brezplačno oglaševanje še v eni dodatni občini
+                    </span>
+                  </li>
                 </ul>
 
                 <p className="font-light text-[16px] mt-12">
@@ -98,17 +104,7 @@ export default function Faq1() {
                   v posamezni občini:
                 </p>
 
-                <ul className="list-disc list-inside text-[16px] mt-4 space-y-[12px]">
-                  <li>
-                    <span className="text-[#0A85C2] font-bold">
-                      3+3 mesece oglaševanja
-                    </span>{" "}
-                    brezplačno!
-                    <div className="text-[#6D778E] text-[14px] pl-5 leading-[24px]">
-                      3 mesece brezplačnega oglaševanja na eni izmed strani: Osmrtnice, Pogrebi ali Cvetličarne, aktivnim sodelujočim na naši Facebook strani pa omogočamo še do 3 dodatne mesece oglaševanja. Druga pridružena cvetličarna v občini prejme 1+1 mesec brezplačno.
-                    </div>
-                  </li>
-
+                <ul className="list-disc list-outside pl-6 text-[16px] mt-4 space-y-[12px]">
                   <li>
                     <span className="text-[#0A85C2] font-bold">
                       Garantirana enaka cena
@@ -117,34 +113,45 @@ export default function Faq1() {
                     <span className="text-[#0A85C2] font-bold">
                       vse do leta 2030
                     </span>{" "}
-                    <div className="pl-5">
+                    <div className="">
                       <span className="text-[#6D778E] text-[14px] leading-[24px]">
-                        (kot velja po uradnem ceniku letos jeseni. Pomeni, da četudi bi kdaj v naslednjih letih spremenili ceno naročnine, bo vaša cena ostala nespremenjena za isti paket vse do leta 2030). Velja za uradno ceno oglaševanja, ne za popuste, ki se spreminjajo).
+                        (kot velja po uradnem ceniku letos jeseni. Pomeni, da
+                        četudi bi kdaj v naslednjih letih spremenili ceno
+                        naročnine, bo vaša cena ostala nespremenjena za isti
+                        paket vse do leta 2030). Velja za uradno ceno
+                        oglaševanja, ne za popuste, ki se spreminjajo).
                       </span>
                     </div>
                   </li>
                 </ul>
-
-
               </div>
             </section>
 
-            <div className="w-full mt-12">
+            <div className="w-full mt-12 ml-10">
               <p className=" mb-5  text-[16px]">Splača se biti med prvimi.</p>
               <p className="text-[#6D778E] font-light  text-[14px] leading-[24px]">
                 Op. vse promocije veljajo samo v primeru letne naročnine.
               </p>
+              <p className="text-[#6D778E] font-light  text-[14px] leading-[24px]">
+                Op. popusti za isto stvar se ne seštevajo. Upošteva se najvišji
+                popust.
+              </p>
             </div>
 
             {/* set for desktop */}
-            <div className="w-full mt-[50px] pb-[60px] mobile:hidden space-y-[12px]">
-              <p
-                className="text-[16px]"
-              >
-                <a className="text-[#0A85C2] underline" href="mailto:info@osmrtnica.com">Kontaktirajte nas za izdelavo ponudbe.</a>
+            <div className="w-full mt-[50px] pb-[60px] mobile:hidden space-y-[12px] px-6">
+              <p className="text-[16px]">
+                <a
+                  className="text-[#0A85C2] underline"
+                  href="mailto:info@osmrtnica.com"
+                >
+                  Kontaktirajte nas za izdelavo ponudbe.
+                </a>
               </p>
               <p className="text-[16px] leading-[24px]">
-                Pošljite nam svoje podatke s podatki cvetličarne oz cvetličarn z navedbo občine oz občin, za katere se zanimate in čas (mesečno oz letno) in poslali vam bomo ponudbo s povezavo za plačilo po spletu oz predračun za plačilo na TRR.
+                Pošljite nam svoje podatke s podatki cvetličarne oz cvetličarn z
+                navedbo občine oz občin, za katere se zanimate in poslali vam
+                bomo ponudbo.
               </p>
               {/* <div
                 className="flex w-[250px] h-[60px] rounded-full bg-white"
@@ -204,186 +211,208 @@ export default function Faq1() {
     );
   }
 
-  if (breakpoint === "mobile") {
-    return (
-      <>
-        <Head>
-          <title>C-Priložnost | Osmrtnica</title>
-          <meta name="robots" content="noindex, follow" />
-        </Head>
+  // if (breakpoint === "mobile") {
+  //   return (
+  //     <>
+  //       <Head>
+  //         <title>C-Priložnost | Osmrtnica</title>
+  //         <meta name="robots" content="noindex, follow" />
+  //       </Head>
 
-        <div className="bg-[#F9EBD4] min-h-[100vh] text-[#3C3E41]">
-          <FAQHeader />
+  //       <div className="bg-[#F9EBD4] min-h-[100vh] text-[#3C3E41]">
+  //         <FAQHeader />
 
-          <div className="w-full hidden mobile:flex gap-[16px] absolute top-[62px] left-0 right-0">
-            <div className="bg-[#36556C] w-full">
-              <div className="mobile:flex text-[#FFFFFF] items-center justify-between hidden h-[30px] bg-[#36556C] px-3 mobile:max-w-[348px] mx-auto">
-                <Link href="/c-faq" className="text-[#fff]">
-                  KAKO ZAČETI
-                </Link>
-                <Link href="/cenik" className="text-[#fff]">
-                  CENIK
-                </Link>
-                <Link href="/c-priloznost" className="text-[#fff]">
-                  PRILOŽNOST
-                </Link>
-              </div>
-            </div>
-          </div>
+  //         <div className="w-full hidden mobile:flex gap-[16px] absolute top-[62px] left-0 right-0">
+  //           <div className="bg-[#36556C] w-full">
+  //             <div className="mobile:flex text-[#FFFFFF] items-center justify-between hidden h-[30px] bg-[#36556C] px-3 mobile:max-w-[348px] mx-auto">
+  //               <Link href="/c-faq" className="text-[#fff]">
+  //                 KAKO ZAČETI
+  //               </Link>
+  //               <Link href="/cenik" className="text-[#fff]">
+  //                 CENIK
+  //               </Link>
+  //               <Link href="/c-priloznost" className="text-[#fff]">
+  //                 PRILOŽNOST
+  //               </Link>
+  //             </div>
+  //           </div>
+  //         </div>
 
-          <div className="flex flex-col items-center pt-[200px] w-full px-4 max-w-[720px] mx-auto mobile:px-3 mobile:max-w-[480px]">
-            <Image src="/faq_page_icon.png" alt="FAQ" width={79} height={79} />
-            <h1 className="text-[40px] font-light mt-4 text-center mobile:text-[26px]">
-              Priložnost
-            </h1>
-            <h2 className="text-[40px] font-light text-center mobile:text-[26px]">
+  //         <div className="flex flex-col items-center pt-[200px] w-full px-4 max-w-[720px] mx-auto mobile:px-3 mobile:max-w-[480px]">
+  //           <Image src="/faq_page_icon.png" alt="FAQ" width={79} height={79} />
+  //           <h1 className="text-[40px] font-light mt-4 text-center mobile:text-[26px]">
+  //             Priložnost
+  //           </h1>
+  //           <h2 className="text-[40px] font-light text-center mobile:text-[26px]"></h2>
+  //           <h2 className="text-[22px]  block mt-2 font-bold text-center mobile:hidden">
+  //             Dodatne ugodnosti
+  //           </h2>
 
-            </h2>
-            <h2 className="text-[22px]  block mt-2 font-bold text-center mobile:hidden">
-              Dodatne ugodnosti
-            </h2>
+  //           <h2 className="text-[22px] mobile:block hidden mobile:font-[20px] mt-2 font-bold text-center">
+  //             za prve cvetličarne
+  //           </h2>
 
-            <h2 className="text-[22px] mobile:block hidden mobile:font-[20px] mt-2 font-bold text-center">
-              za prve cvetličarne
-            </h2>
+  //           <p className="mt-6 leading-[20px]">
+  //             Poleg mesečnih Skrbnikov, digitalnih kartic sožalja, zahval in
+  //             vabil ter nekaterih novosti v nadaljevanju, pripada prvim
+  //             cvetličarnam še nekaj dodatnih ugodnosti.
+  //           </p>
 
-            <p className="mt-6 leading-[20px]">
-              Poleg mesečnih Skrbnikov, digitalnih kartic sožalja, zahval in vabil ter nekaterih novosti v nadaljevanju, pripada prvim cvetličarnam še nekaj dodatnih ugodnosti.
-            </p>
+  //           <section className="mt-10 text-[16px] space-y-6 leading-[1.6] mobile:w-full mobile:max-w-[480px] w-[720px]">
+  //             <div className="w-full bg-[#083545] relative h-12 flex items-center text-[#D4D4D4] text-[18px] pl-2">
+  //               <h3 className="font-medium mb-1">
+  //                 Dodatne ugodnosti za prve naročnike
+  //               </h3>
+  //             </div>
 
-            <section className="mt-10 text-[16px] space-y-6 leading-[1.6] mobile:w-full mobile:max-w-[480px] w-[720px]">
-              <div className="w-full bg-[#083545] relative h-12 flex items-center text-[#D4D4D4] text-[18px] pl-2">
-                <h3 className="font-medium mb-1">
-                  Dodatne ugodnosti za prve naročnike
-                </h3>
-              </div>
+  //             <div>
+  //               <p className="font-light text-[16px]">
+  //                 Ne skrivamo, zvestobo nagrajujemo in prve partnerje še bolj.{" "}
+  //                 <br />
+  //                 <br />
+  //                 <div className="">
+  //                   <span className="font-light text-[16px]">
+  //                     Pridružene cvetličarne, ki poravnajo prvo letno pogodbo
+  //                   </span>{" "}
+  //                   <span className="text-[#EB1D1D] font-bold underline underline-offset-2 text-[16px]">
+  //                     do 18. novembra
+  //                   </span>
+  //                   <span className=""> prejmejo: </span>
+  //                 </div>
+  //               </p>
 
-              <div>
-                <p className="font-light text-[16px]">
-                  Ne skrivamo, zvestobo nagrajujemo in prve partnerje še bolj.{" "}
-                  <br />
-                  <br />
-                  <div className="">
-                    <span className="font-light text-[16px]">
-                      Pridružene cvetličarne, ki poravnajo prvo letno pogodbo
-                    </span>{" "}
-                    <span className="text-[#EB1D1D] font-bold underline underline-offset-2 text-[16px]">
-                      do 18. novembra
-                    </span>
+  //               <ul className="list-disc list-inside text-[16px] mt-3 space-y-[12px]">
+  //                 <li>
+  //                   <span className="text-[#0A85C2] font-bold">50% popust</span>{" "}
+  //                   <span className="">za drugo in vsako naslednjo </span>
+  //                   <span className="">cvetličarno. </span>
+  //                   <div className="text-[#6D778E] leading-[24px] text-[14px]">
+  //                     S polno ceno se obračuna cvetličarna v največji občini in
+  //                     za vse naslednje cvetličarne velja 50% popust na siceršnjo
+  //                     ceno. Enako velja za pojavljanje med lokalnimi
+  //                     cvetličarnami v drugih krajih (vnesete naslov svoje
+  //                     cvetličarne in izberete drugo občino, kjer naj se
+  //                     pojavlja). Ta promocija velja izključno za naše FB
+  //                     sledilce.
+  //                   </div>
+  //                 </li>
 
-                    <span className="" > prejmejo: </span>
-                  </div>
-                </p>
+  //                 <li>
+  //                   <span className="text-[#0A85C2] font-bold">
+  //                     Skupna FB promocija - cvetličarna tedna
+  //                   </span>{" "}
+  //                   <span className="">
+  //                     (predstavitev na našem FB profilu za večje{" "}
+  //                   </span>
+  //                   <span>partnerje </span>
+  //                   <span className="text-[#6D778E] leading-[24px] text-[14px] ">
+  //                     (in od januarja naprej vsem, ki bodo oddali naprej največ
+  //                     Skrbnikov, digitalnih kartic, vpisali osmrtnic oz drugače
+  //                     promovirali koristi portala osmrtnica.com.
+  //                   </span>
+  //                 </li>
 
-                <ul className="list-disc list-inside text-[16px] mt-3 space-y-[12px]">
-                  <li>
-                    <span className="text-[#0A85C2] font-bold">
-                      50% popust
-                    </span>{" "}
-                    <span className="">za drugo in vsako naslednjo </span>
-                    <span className="">cvetličarno. </span>
-                    <div className="text-[#6D778E] leading-[24px] text-[14px]">
-                      S polno ceno se obračuna cvetličarna v največji občini in za vse naslednje cvetličarne velja 50% popust na siceršnjo ceno. Enako velja za pojavljanje med lokalnimi cvetličarnami v drugih krajih (vnesete naslov svoje cvetličarne in izberete drugo občino, kjer naj se pojavlja). Ta promocija velja izključno za naše FB sledilce.
-                    </div>
-                  </li>
+  //                 <li className="leading-[24px]">
+  //                   prednost pri uvajanju nekaterih novih produktov
+  //                 </li>
+  //               </ul>
 
-                  <li>
-                    <span className="text-[#0A85C2] font-bold">
-                      Skupna FB promocija - cvetličarna tedna
-                    </span>{" "}
-                    <span className="">(predstavitev na našem FB profilu za večje </span>
-                    <span>partnerje </span>
-                    <span className="text-[#6D778E] leading-[24px] text-[14px] ">(in od januarja naprej vsem, ki bodo oddali naprej največ Skrbnikov, digitalnih kartic, vpisali osmrtnic oz drugače promovirali koristi portala osmrtnica.com.</span>
-                  </li>
+  //               <p className="font-light text-[16px] mt-12">
+  //                 <span className="font-bold underline">
+  //                   DODATNO, prva pridružena cvetličarna
+  //                 </span>{" "}
+  //                 v posamezni občini:
+  //               </p>
 
-                  <li className="leading-[24px]">
-                    prednost pri uvajanju nekaterih novih produktov
-                  </li>
-                </ul>
+  //               <ul className="list-disc list-inside text-[16px] mt-4 space-y-[12px]">
+  //                 <li>
+  //                   <span className="text-[#0A85C2] font-bold">
+  //                     3+3 mesece oglaševanja
+  //                   </span>{" "}
+  //                   brezplačno!
+  //                   <div className="text-[#6D778E] text-[14px] leading-[24px]">
+  //                     3 mesece brezplačnega oglaševanja na eni izmed strani:
+  //                     Osmrtnice, Pogrebi ali Cvetličarne, aktivnim sodelujočim
+  //                     na naši Facebook strani pa omogočamo še do 3 dodatne
+  //                     mesece oglaševanja. Druga pridružena cvetličarna v občini
+  //                     prejme 1+1 mesec brezplačno.
+  //                   </div>
+  //                 </li>
 
-                <p className="font-light text-[16px] mt-12">
-                  <span className="font-bold underline">
-                    DODATNO, prva pridružena cvetličarna
-                  </span>{" "}
-                  v posamezni občini:
-                </p>
+  //                 <li>
+  //                   <span className="text-[#0A85C2] font-bold">
+  //                     Garantirana enaka cena
+  //                   </span>{" "}
+  //                   <span>letne naročnine </span>
+  //                   <span className="text-[#0A85C2] font-bold">
+  //                     vse do leta 2030
+  //                   </span>
+  //                   <div className="">
+  //                     <span className="text-[#6D778E] text-[14px] leading-[24px]">
+  //                       (kot velja po uradnem ceniku letos jeseni. Pomeni, da
+  //                       četudi bi kdaj v naslednjih letih spremenili ceno
+  //                       naročnine, bo vaša cena ostala nespremenjena za isti
+  //                       paket vse do leta 2030). Velja za uradno ceno
+  //                       oglaševanja, ne za popuste, ki se spreminjajo).
+  //                     </span>
+  //                   </div>
+  //                 </li>
+  //               </ul>
 
-                <ul className="list-disc list-inside text-[16px] mt-4 space-y-[12px]">
-                  <li>
-                    <span className="text-[#0A85C2] font-bold">
-                      3+3 mesece oglaševanja
-                    </span>{" "}
-                    brezplačno!
-                    <div className="text-[#6D778E] text-[14px] leading-[24px]">
-                      3 mesece brezplačnega oglaševanja na eni izmed strani: Osmrtnice, Pogrebi ali Cvetličarne, aktivnim sodelujočim na naši Facebook strani pa omogočamo še do 3 dodatne mesece oglaševanja. Druga pridružena cvetličarna v občini prejme 1+1 mesec brezplačno.
-                    </div>
-                  </li>
+  //               <p className="mt-6 mb-6">Splača se biti med prvimi.</p>
+  //               <p className="text-[#6D778E] font-light mt-1 text-[14px] mb-10 leading-[24px]">
+  //                 Op. vse promocije veljajo samo v primeru letne naročnine.
+  //               </p>
+  //             </div>
+  //           </section>
 
-                  <li>
-                    <span className="text-[#0A85C2] font-bold">
-                      Garantirana enaka cena
-                    </span>{" "}
-                    <span>letne naročnine </span>
-                    <span className="text-[#0A85C2] font-bold">
-                      vse do leta 2030
-                    </span>
-                    <div className="">
-                      <span className="text-[#6D778E] text-[14px] leading-[24px]">
-                        (kot velja po uradnem ceniku letos jeseni. Pomeni, da četudi bi kdaj v naslednjih letih spremenili ceno naročnine, bo vaša cena ostala nespremenjena za isti paket vse do leta 2030). Velja za uradno ceno oglaševanja, ne za popuste, ki se spreminjajo).
-                      </span>
-                    </div>
-                  </li>
-                </ul>
+  //           {/* <Link
+  //             href={"/podjetja"}
+  //             className="flex justify-end w-full mt-[50px] pb-[60px] mobile:hidden"
+  //           >
+  //             <button>
+  //               <Image
+  //                 src="/pridruzi-se-button.svg"
+  //                 alt="Arrow Right"
+  //                 width={250}
+  //                 height={60}
+  //               />
+  //             </button>
+  //           </Link>
+  //         </div > */}
 
-                <p className="mt-6 mb-6">Splača se biti med prvimi.</p>
-                <p className="text-[#6D778E] font-light mt-1 text-[14px] mb-10 leading-[24px]">
-                  Op. vse promocije veljajo samo v primeru letne naročnine.
-                </p>
-              </div>
-            </section>
-
-            {/* <Link
-              href={"/podjetja"}
-              className="flex justify-end w-full mt-[50px] pb-[60px] mobile:hidden"
-            >
-              <button>
-                <Image
-                  src="/pridruzi-se-button.svg"
-                  alt="Arrow Right"
-                  width={250}
-                  height={60}
-                />
-              </button>
-            </Link>
-          </div > */}
-
-            {/* set for mobile */}
-            <div className="w-full mt-2 pb-[60px] space-y-[12px]">
-              <p
-                className="text-[16px]"
-              >
-                <a className="text-[#0A85C2] underline" href="mailto:info@osmrtnica.com">Kontaktirajte nas za izdelavo ponudbe.</a>
-              </p>
-              <p className="text-[16px] leading-[24px]">
-                Pošljite nam svoje podatke s podatki cvetličarne oz cvetličarn z navedbo občine oz občin, za katere se zanimate in čas (mesečno oz letno) in poslali vam bomo ponudbo s povezavo za plačilo po spletu oz predračun za plačilo na TRR.
-              </p>
-
-            </div>
-            {/* <Link
-              href={"/cenik"}
-              className="w-[140px] h-[35px] flex items-center justify-center rounded-[2px] text-[14px] text-[#FFFFFF]"
-              style={{
-                background:
-                  "linear-gradient(180deg, #0D94E8 4.81%, #1860A3 100%)",
-                border: "2px solid #6D778E",
-              }}
-            >
-              Cenik / Naročilo
-            </Link> */}
-          </div >
-          <FooterForFaq2 />
-        </div >
-      </>
-    );
-  }
+  //           {/* set for mobile */}
+  //           <div className="w-full mt-2 pb-[60px] space-y-[12px]">
+  //             <p className="text-[16px]">
+  //               <a
+  //                 className="text-[#0A85C2] underline"
+  //                 href="mailto:info@osmrtnica.com"
+  //               >
+  //                 Kontaktirajte nas za izdelavo ponudbe.
+  //               </a>
+  //             </p>
+  //             <p className="text-[16px] leading-[24px]">
+  //               Pošljite nam svoje podatke s podatki cvetličarne oz cvetličarn z
+  //               navedbo občine oz občin, za katere se zanimate in čas (mesečno
+  //               oz letno) in poslali vam bomo ponudbo s povezavo za plačilo po
+  //               spletu oz predračun za plačilo na TRR.
+  //             </p>
+  //           </div>
+  //           {/* <Link
+  //             href={"/cenik"}
+  //             className="w-[140px] h-[35px] flex items-center justify-center rounded-[2px] text-[14px] text-[#FFFFFF]"
+  //             style={{
+  //               background:
+  //                 "linear-gradient(180deg, #0D94E8 4.81%, #1860A3 100%)",
+  //               border: "2px solid #6D778E",
+  //             }}
+  //           >
+  //             Cenik / Naročilo
+  //           </Link> */}
+  //         </div>
+  //         <FooterForFaq2 />
+  //       </div>
+  //     </>
+  //   );
+  // }
 }
