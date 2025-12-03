@@ -98,7 +98,7 @@ const ObituaryList = () => {
         currentPage="lokalni"
         forFooter={"memorypage"}
       >
-        <div className="flex flex-col mx-auto bg-[#F5F7F9] w-full">
+        <div className="flex flex-col mx-auto bg-[#F9EBD466] w-full">
           <Suspense fallback={<div>Loading...</div>}>
             <LokalniContent />
           </Suspense>
