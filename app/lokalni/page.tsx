@@ -58,7 +58,7 @@ const LokalniContent = () => {
         label={"LOKALNI PARTNERJI"}
         categories={categories}
       />
-      <div className="flex flex-col mx-auto justify-center items-center w-full ">
+      <div className="flex flex-col mx-auto justify-center items-center w-full">
         <NewsPartnersComponent screen={screen} />
         <PartnersServicesSection
           screen={screen}

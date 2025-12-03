@@ -171,7 +171,7 @@ export default function Oglasevalci() {
                   <p className="text-[#6D778E] font-light mt-1 text-[14px]">
                     Op. strani, kjer je mogoče oglaševanje so naslednje:
                   </p>
-                  <p className="text-[#6D778E] font-light mt-1 text-[14px]">
+                  <div className="text-[#6D778E] font-light mt-1 text-[14px]">
                     <ul className="flex flex-row gap-1 text-[#6D778E]">
                       <li className="underline underline-offset-2">
                         <Link href={"/osmrtnice"}>Osmrtnice</Link>
@@ -216,7 +216,7 @@ export default function Oglasevalci() {
                         </span>
                       </li>
                     </ul>
-                  </p>
+                  </div>
                 </div>
               </div>
             </section>
@@ -396,7 +396,7 @@ export default function Oglasevalci() {
                   <p className="text-[#6D778E] font-light mt-1 text-[14px]">
                     Op. strani, kjer je mogoče oglaševanje so naslednje:
                   </p>
-                  <p className="text-[#6D778E] font-light mt-1 text-[14px]">
+                  <div className="text-[#6D778E] font-light mt-1 text-[14px]">
                     <ul className="flex flex-row gap-1 text-[#6D778E] flex-wrap">
                       <li className="underline underline-offset-2">
                         <Link href={"/osmrtnice"}>Osmrtnice</Link>
@@ -441,7 +441,7 @@ export default function Oglasevalci() {
                         </span>
                       </li>
                     </ul>
-                  </p>
+                  </div>
                 </div>
               </div>
             </section>
