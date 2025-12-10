@@ -241,6 +241,12 @@ export default function ModalCemetery({
                             value={city}
                             onChange={handleCityChange}
                             isSearchable
+                            filterOption={(option, inputValue) => {
+                              if (!inputValue) return true;
+                              return option.label
+                                .toLowerCase()
+                                .startsWith(inputValue.toLowerCase());
+                            }}
                             styles={{
                               control: (base) => ({
                                 ...base,
@@ -248,30 +254,30 @@ export default function ModalCemetery({
                                 border: "none",
                                 boxShadow: "none",
                                 minHeight: "48px",
-                                fontSize: "12px",
+                                fontSize: "16px",
                               }),
                               placeholder: (base) => ({
                                 ...base,
                                 color: "#6D778E",
-                                fontSize: "12px",
+                                fontSize: "16px",
                               }),
                               singleValue: (base) => ({
                                 ...base,
                                 color: "#6D778E",
-                                fontSize: "12px",
+                                fontSize: "16px",
                               }),
                               input: (base) => ({
                                 ...base,
                                 color: "#6D778E",
-                                fontSize: "12px",
+                                fontSize: "16px",
                               }),
                               option: (base) => ({
                                 ...base,
-                                fontSize: "12px",
+                                fontSize: "16px",
                               }),
                               menu: (base) => ({
                                 ...base,
-                                fontSize: "12px",
+                                fontSize: "16px",
                               }),
                             }}
                           />
