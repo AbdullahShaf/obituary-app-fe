@@ -2,6 +2,8 @@ import React, { Suspense } from "react";
 import type { Metadata } from "next";
 import Layout from "../components/appcomponents/Layout";
 import LokalniContent from "./LokalniContent";
+import Breadcrumbs from "../components/appcomponents/Breadcrumbs";
+import { APP_BASE_URL } from "@/config/apiConfig";
 
 export const dynamic = "force-dynamic";
 
@@ -20,6 +22,25 @@ export async function generateMetadata({ searchParams }: { searchParams?: Promis
 }
 
 export default async function ObituaryList({ searchParams }: { searchParams?: Promise<{ city?: string | string[]; region?: string | string[] }> }) {
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Domov",
+        item: `${APP_BASE_URL}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Lokalni partnerji",
+        item: `${APP_BASE_URL}/lokalni`,
+      },
+    ],
+  };
+
   return (
     <Layout
       megaMenu={""}
@@ -29,6 +50,16 @@ export default async function ObituaryList({ searchParams }: { searchParams?: Pr
       forFooter={"memorypage"}
     >
       <div className="flex flex-col mx-auto bg-[#F9EBD466] w-full">
+        <Breadcrumbs
+          items={[
+            { label: "Domov", href: "/" },
+            { label: "Lokalni partnerji" },
+          ]}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        />
         <Suspense fallback={<div>Loading...</div>}>
           <LokalniContent />
         </Suspense>

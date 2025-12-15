@@ -15,6 +15,7 @@ const SlideOne = () => {
                 className="h-[761.1px]"
                 src="/mobile-cards/iPad Landscape.png"
                 alt="Prikaz žalne strani na tabličnem računalniku - Osmrtnica.com"
+                loading="lazy"
               />
             </div>
             <div className="text-container w-1/2 pl-[35px] pt-[179px]">
@@ -54,6 +55,7 @@ const SlideOne = () => {
                 className="h-[761.1px]"
                 src="/mobile-cards/iPad Landscape.png"
                 alt="Prikaz žalne strani na tabličnem računalniku - Osmrtnica.com"
+                loading="lazy"
               />
             </div>
             <div className="text-container w-1/2 pl-[35px] pt-[179px]">
@@ -102,6 +104,7 @@ const SlideOne = () => {
               className="h-[761.1px]"
               src="/mobile-cards/iPad Landscape.png"
               alt="iPad Landscape"
+              loading="lazy"
             />
           </div>
           <Link href={"/zalna-stran"}>
@@ -132,7 +135,7 @@ const SlideOne = () => {
             </p>
           </div>
           <div className="image-container flex justify-center">
-            <img src="/mobile-cards/iPad Landscape.png" alt="iPad Landscape" className=" h-[613px]  object-fill" />
+            <img src="/mobile-cards/iPad Landscape.png" alt="iPad Landscape" className=" h-[613px]  object-fill" loading="lazy" />
           </div >
           <Link href={"/zalna-stran"}>
             <h3>

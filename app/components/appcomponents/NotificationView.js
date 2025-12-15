@@ -81,8 +81,9 @@ const NotificationView = () => {
                       {isSelected && (
                         <img
                           src="/check_ico.png"
-                          alt="Facebook"
+                          alt=""
                           className="w-[10px] h-[10px]"
+                          loading="lazy"
                         />
                       )}
                     </div>
@@ -109,8 +110,9 @@ const NotificationView = () => {
                       {isSelectedEnkrat && (
                         <img
                           src="/check_ico.png"
-                          alt="Facebook"
+                          alt=""
                           className="w-[10px] h-[10px]"
+                          loading="lazy"
                         />
                       )}
                     </div>

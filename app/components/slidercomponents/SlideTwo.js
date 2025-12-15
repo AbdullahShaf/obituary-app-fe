@@ -56,6 +56,7 @@ const SlideTwo = () => {
               className="mx-[111px] object-cover h-full"
               src="/mobile-cards/slider-mobile.png"
               alt="Prikaz spominske strani na mobilni napravi - Osmrtnica.com"
+              loading="lazy"
             />
           </div>
         </div>
@@ -109,6 +110,7 @@ const SlideTwo = () => {
               className="mx-[111px]"
               src="/mobile-cards/slider-mobile.png"
               alt="Prikaz spominske strani na mobilni napravi - Osmrtnica.com"
+              loading="lazy"
             />
           </div>
         </div>
@@ -152,6 +154,7 @@ const SlideTwo = () => {
             className="mt-[33px] mx-auto"
             src="/mobile-cards/slider-mobile.png"
             alt="iPad Landscape"
+            loading="lazy"
           />
 
           <div className="btn-container text-center">
