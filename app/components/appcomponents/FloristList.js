@@ -117,6 +117,7 @@ const FloristList = () => {
     <div className="max-w-[1920px] w-full pb-[81px] tablet:pb-[55px] desktop:pb-[121px] tablet:w-full mobile:w-full mx-auto flex flex-col items-center desktop:bg-[#F5F7F9] mobile:bg-white tablet:bg-white">
       <div className="flex flex-col items-center w-full tablet:w-full mobile:w-full">
         <div className="w-full tablet:w-full mobile:w-full flex flex-col items-center">
+          <h2 className="sr-only">Lokalne cvetličarne po kraju</h2>
           {/* Filter Section */}
           <div className="flex flex-col tablet:flex-row desktop:flex-row gap-4 mt-[63px] mb-[40px] mobile:w-[311px] tablet:w-[612px] desktop:w-[1088px] tablet:mt-[63px] tablet:mb-[40px] desktop:mt-[80px] desktop:mb-[40px] tablet:justify-end desktop:justify-end">
             {/* Mobile Filter Row */}
@@ -298,9 +299,9 @@ const FloristlistCom = ({ item, index }) => {
           <div className="flex flex-1 flex-col w-full">
             <div className="flex justify-between h-[18px] tablet:h-7 desktop:h-7 w-full tablet:pr-[8px] desktop:pr-[10px]   ">
               <div className="flex items-center h-full">
-                <div className="font-variation-customOpt24 text-left desktop:text-[24px] tablet:text-[24px] mobile:text-[15px]  text-[#1E2125] leading-[28.13px]">
+                <h3 className="font-variation-customOpt24 text-left desktop:text-[24px] tablet:text-[24px] mobile:text-[15px]  text-[#1E2125] leading-[28.13px]">
                   {item?.shopName || item?.CompanyPage?.name || "Cvetličarna"}
-                </div>
+                </h3>
               </div>
             </div>
             <div className="flex items-center h-[18px] tablet:h-6 desktop:h-6 mt-[10px] tablet:mt-4 desktop:mt-4">

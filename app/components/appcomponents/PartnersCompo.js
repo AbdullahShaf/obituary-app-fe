@@ -13,9 +13,9 @@ const PartnersCompo = () => {
        mobile:w-[340px] "
         >
           {/*Header text*/}
-          <div className="flex text-[40px] text-[#083545] font-variation-customOpt40 mobile:text-[28px] mobile:font-variation-customOpt28 mobile:mt-[43px] mt-[65px] tablet:mt-[51px]">
-            Postani partner!
-          </div>
+          <h2 className="flex text-[40px] text-[#083545] font-variation-customOpt40 mobile:text-[28px] mobile:font-variation-customOpt28 mobile:mt-[43px] mt-[65px] tablet:mt-[51px]">
+            Postani partner
+          </h2>
 
           {/*Main content contianer*/}
           <div className="flex w-full h-[288px] tablet:h-[600px] mobile:h-[912px] mt-[23px] tablet:mt-[30px] mobile:mt-[47px] tablet:flex-col mobile:flex-col ">
@@ -105,6 +105,7 @@ const PartnersCompo = () => {
          mobile:bg-[#3C3E41] items-center justify-center text-[16px] text-[#1E2125] mobile:text-[#F6F6F6] 
          desktop:bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-lg font-variation-customOpt16 self-center"
           >
+            <h3 className="sr-only">Kontaktirajte nas</h3>
             Kontaktirajte nas
           </Link>
         </div>

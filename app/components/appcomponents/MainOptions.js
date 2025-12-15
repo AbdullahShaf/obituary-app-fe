@@ -111,9 +111,9 @@ export default function MainOptions() {
         tablet:w-[680px]
         mobile:pb-[63px] pb-[83px] mobile:mb-[62.76px] mobile:w-[310px] "
       >
-        <h1 className="text-[#1E2125] text-[28px] tablet:text-[32px] desktop:text-[40px] font-regular text-center mb-3 tablet:mb-7 desktop:mb-7">
-          Ponekod vam podarijo virtualno svečko
-        </h1>
+        <h2 className="text-[#1E2125] text-[28px] tablet:text-[32px] desktop:text-[40px] font-regular text-center mb-3 tablet:mb-7 desktop:mb-7">
+          Brezplačne ugodnosti
+        </h2>
         <p className="text-[#3C3E41] text-center text-[16px] tablet:text-2xl desktop:text-2xl font-light mb-10 tablet:mb-[68px] desktop:mb-[86px]">Pri nas dobite več</p>
         
         <div className="flex gap-[130px] mobile:flex-col tablet:gap-[80px] mobile:gap-[40px] justify-center items-center">

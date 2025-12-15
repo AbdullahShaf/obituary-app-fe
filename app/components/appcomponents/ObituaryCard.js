@@ -116,12 +116,12 @@ const ObituaryCard = ({
              desktop:pt-[4px] tablet:pr-[2px] desktop:pr-[2px] "
             >
               <div className="flex flex-1 flex-col">
-                <div
+                <h3
                   className="font-variation-customOpt24 text-left desktop:text-[24px]
                    tablet:text-[24px] mobile:text-[16px]  text-[#1E2125] leading-[28.13px]"
                 >
                   {data.name} {data.sirName}
-                </div>
+                </h3>
                 <p
                   className="block font-variation-customOpt14 tablet:font-variation-customOpt16 
                   desktop:font-variation-customOpt16 text-left desktop:mt-[16px] tablet:mt-[16px]  

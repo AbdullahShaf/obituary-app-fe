@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
 
 const RegisterComp = () => {
   return (
@@ -13,10 +14,12 @@ const RegisterComp = () => {
             {/*1st coloum container*/}
             <div className="flex h-[200px]">
               <div className="w-[295.42px] h-[200px] flex-col items-center ">
-                <img
+                <Image
                   src="/image_registration_desktop.png"
+                  width={64}
+                  height={64}
                   className="w-[64px] h-[64px] mx-auto"
-                ></img>
+                ></Image>
                 <div className="text-[20px] text-[#1E2125] font-variation-customOpt20wght400 text-center font-semibold mt-3">
                   Registrirajte se
                 </div>
@@ -27,10 +30,12 @@ const RegisterComp = () => {
               </div>
 
               <div className="w-[295.42px] h-[200px] flex-col items-center ml-6">
-                <img
+                <Image
                   src="/image_posting.png"
+                  width={64}
+                  height={64}
                   className="w-[64px] h-[64px] mx-auto"
-                ></img>
+                ></Image>
                 <div className="text-[20px] text-[#1E2125] font-variation-customOpt20wght400 text-center font-semibold mt-3">
                   Objava v 48 urah
                 </div>
@@ -44,10 +49,12 @@ const RegisterComp = () => {
             {/*2nd coloum container*/}
             <div className="flex h-[200px] mt-6">
               <div className="w-[295.42px] h-[200px] flex-col items-center ">
-                <img
+                <Image
                   src="/image_tablet_flexibility.png"
+                  width={64}
+                  height={64}
                   className="w-[64px] h-[64px] mx-auto"
-                ></img>
+                ></Image>
                 <div className="text-[20px] text-[#1E2125] font-variation-customOpt20wght400 text-center font-semibold mt-3">
                   Fleksibilnost
                 </div>
@@ -58,10 +65,12 @@ const RegisterComp = () => {
               </div>
 
               <div className="flex w-[295.42px] h-[200px] flex-col items-center ml-6">
-                <img
+                <Image
                   src="/image_all_devices.png"
+                  width={64}
+                  height={64}
                   className="w-[64px] h-[64px]"
-                ></img>
+                ></Image>
                 <div className="text-[20px] text-[#1E2125] font-variation-customOpt20wght400 text-center font-semibold mt-3">
                   Prilagojeno vsem napravam
                 </div>
@@ -75,10 +84,12 @@ const RegisterComp = () => {
 
           {/*C1 container for desktop*/}
           <div className="w-[295.42px] h-[200px] flex-col items-center flex tablet:hidden mobile:w-full mobile:max-w-[480px] mobile:px-2">
-            <img
+            <Image
               src="/image_registration_desktop.png"
+              width={64}
+              height={64}
               className="w-[64px] h-[64px]"
-            ></img>
+            ></Image>
             <div className="text-[20px] text-[#1E2125] font-variation-customOpt20wght400 font-semibold mt-[13px]">
               Registrirajte se
             </div>
@@ -90,7 +101,7 @@ const RegisterComp = () => {
 
           {/*C2 container for desktop*/}
           <div className="w-[295.42px] h-[200px] flex-col items-center flex desktop:ml-16 tablet:hidden mobile:mt-6 mobile:w-full mobile:max-w-[480px] mobile:px-2">
-            <img src="/image_posting.png" className="w-[64px] h-[64px]"></img>
+            <Image src="/image_posting.png" width={64} height={64} className="w-[64px] h-[64px]"></Image>
             <div className="text-[20px] text-[#1E2125] font-variation-customOpt20wght400 font-semibold mt-[13px]">
               Objava v 48 urah
             </div>
@@ -102,14 +113,18 @@ const RegisterComp = () => {
 
           {/*C3 container for desktop*/}
           <div className="w-[295.42px] h-[200px] flex-col items-center flex desktop:ml-16 tablet:hidden mobile:mt-6 mobile:w-full mobile:max-w-[480px] mobile:px-2">
-            <img
+            <Image
               src="/image_ flexibility.png"
+              width={64}
+              height={64}
               className="w-[64px] h-[64px] hidden desktop:flex"
-            ></img>
-            <img
+            ></Image>
+            <Image
               src="/image_tablet_flexibility.png"
+              width={64}
+              height={64}
               className="w-[64px] h-[64px] mx-auto hidden mobile:flex"
-            ></img>
+            ></Image>
             <div className="text-[20px] text-[#1E2125] font-variation-customOpt20wght400 font-semibold mt-[13px]">
               Fleksibilnost
             </div>

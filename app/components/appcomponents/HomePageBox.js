@@ -15,7 +15,7 @@ const HomePageBox = () => {
       <div className="bg-[#F0F4F7] min-w-[1281px] h-auto">
         <div className="flex justify-center">
           <div className="image-container my-[125px] mr-[69px]">
-            <img src="/mobile-cards/mobile-export.png" alt="Mobilni telefon z aplikacijo Osmrtnica.com za lokalne informacije" />
+            <img src="/mobile-cards/mobile-export.png" alt="Digitalne kartice prilagojene mobilnemu telefonu za pošiljanje naprej" />
           </div>
           <div className="text-container my-[125px] w-[495px]">
             <span className="text-[#3090D5] text-[24px]">Priročno</span>
@@ -32,9 +32,11 @@ const HomePageBox = () => {
             <p className="text-[#414141] leading-6 text-[16px] mt-[16px] mb-[45px] flex items-center gap-2">
               Poišči lokacijsko ikonico
               <span>
-                <img
+                <Image
                   src="/mobile-cards/loc-icon.png"
                   alt=""
+                  width={24}
+                  height={24}
                   className="w-[24px] h-[24px] inline-block"
                 />
               </span>
@@ -42,9 +44,11 @@ const HomePageBox = () => {
             </p>
 
             <Link href={"/registracija"}>
+            <h3>
             <button className="shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] text-[#414141] rounded-[8px] px-[25px] py-[12px] mt-[24px] w-[113px]">
               Prijavi se
             </button>
+            </h3>
             </Link>
           </div>
         </div>
@@ -58,7 +62,7 @@ const HomePageBox = () => {
       <div className="bg-[#F0F4F7] w-[1280px] h-auto">
         <div className="flex justify-center">
           <div className="image-container my-[125px] mr-[69px]">
-            <img src="/mobile-cards/mobile-export.png" alt="Mobilni telefon z aplikacijo Osmrtnica.com za lokalne informacije" />
+            <img src="/mobile-cards/mobile-export.png" alt="Digitalne kartice prilagojene mobilnemu telefonu za pošiljanje naprej" />
           </div>
           <div className="text-container my-[125px] w-[495px]">
             <span className="text-[#3090D5] text-[24px]">Priročno</span>
@@ -75,9 +79,11 @@ const HomePageBox = () => {
             <p className="text-[#414141] leading-6 text-[16px] mt-[16px] mb-[45px] flex items-center gap-2">
               Poišči lokacijsko ikonico
               <span>
-                <img
+                <Image
                   src="/mobile-cards/loc-icon.png"
                   alt=""
+                  width={24}
+                  height={24}
                   className="w-[24px] h-[24px] inline-block"
                 />
               </span>
@@ -85,9 +91,11 @@ const HomePageBox = () => {
             </p>
 
             <Link href={"/registracija"}>
+            <h3>
             <button className="shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] text-[#414141] rounded-[8px] px-[25px] py-[12px] mt-[24px] w-[113px]">
               Prijavi se
             </button>
+            </h3>
             </Link>
           </div>
         </div>
@@ -114,7 +122,7 @@ const HomePageBox = () => {
             </p>
           </div>
           <div className="image-container mt-[38px]">
-            <img src="/mobile-cards/mobile-export.png" alt="Mobilni telefon z aplikacijo Osmrtnica.com za lokalne informacije" />
+            <img src="/mobile-cards/mobile-export.png" alt="Digitalne kartice prilagojene mobilnemu telefonu za pošiljanje naprej" />
           </div>
 
           <p className="text-[#414141] flex items-center gap-2 mt-[20px]">
@@ -149,10 +157,12 @@ const HomePageBox = () => {
             </p>
           </div>
           <div className="image-container mt-[32px] mx-auto">
-            <img
+            <Image
               className="w-[350px] h-[350px]"
               src="/mobile-cards/mobile-export.png"
-              alt="Mobilni telefon z aplikacijo Osmrtnica.com za lokalne informacije"
+              alt="Digitalne kartice prilagojene mobilnemu telefonu za pošiljanje naprej"
+              width={350}
+              height={350}
             />
           </div>
 

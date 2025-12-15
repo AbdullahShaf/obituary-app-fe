@@ -8,7 +8,7 @@ export default function AdminBenefits() {
   return (
     <div className="bg-[#F9EBD466]">
       <div className="relative max-w-[1029px] tablet:max-w-[640px] py-[125px] tablet:py-[95px] px-[10px] w-full mx-auto">
-        <h1 className="text-center text-[40px] font-[400] text-[#3C3E41] leading-[32px] mobile:text-[28px] mobile:leading-[40px]">Prednosti Skrbnika</h1>
+        <h2 className="text-center text-[40px] font-[400] text-[#3C3E41] leading-[32px] mobile:text-[28px] mobile:leading-[40px]">Prednosti Skrbnika</h2>
         <div className="space-y-[125px] mobile:hidden tablet:space-y-[60px] mobile:space-y-[60px] mt-[100px] tablet:mt-[55px] mobile:mt-[55px]">
           <div className="flex gap-[100px] items-center">
             <Image src="/admin_benifits_1.png" alt="admin-benefit-1" className="w-[281px] shrink-0 tablet:hidden mobile:hidden" width={281} height={221} />
@@ -65,8 +65,7 @@ export default function AdminBenefits() {
           {activeIndex === 0 && <div className="space-y-[16px]">
             <h3 className="text-[20px] font-[600] text-[#3C3E41] leading-[28px]">
             1. <br />
-            Omogoči dodatne možnosti <br />
-            sodelovanja VSEM bližnjim
+            Omogoči številne dodatne možnosti VSEM bližnjim
             </h3>
             <p className="text-[15px] font-[400] text-[#3C3E41] leading-[22px]">
             Skrbnik prevzame skrb za objavljenimi vsebinami vseh in s tem omogoči družini in vsem bližnjim dodajanje vsebin osebne narave. <br />

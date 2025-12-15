@@ -243,6 +243,7 @@ const ObituaryListComponent = ({ city }) => {
       <div className="flex flex-col items-center w-full tablet:w-full mobile:w-full">
         {/* DESKTOP VERSION */}
         <div className={`w-full hidden desktop:flex tablet:w-full mobile:w-full flex-col ${pathname?.includes('/u/') ? '' : 'items-center'}`}>
+          <h2 className="sr-only">Search buttons for searching pogrebi</h2>
           <div className={`w-[777px] tablet:w-[600px] h-[48px] flex flex-row gap-4 ${pathname?.includes('/u/') ? '' : 'mt-[69.07px] mb-[23.93px]'}`}>
             {/* Search Input */}
             <div className="flex relative w-[227px] h-[48px] justify-center items-center">

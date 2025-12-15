@@ -336,6 +336,7 @@ const Registration = () => {
 
           {activeDiv === "login" && (
             <div className="w-[429px] mobile:w-[297px] h-[48px] mt-[20px] mx-auto shadow-custom-light-dark-with-white">
+              <h3>
               <button
                 type="button"
                 onClick={handleLogin}
@@ -343,6 +344,7 @@ const Registration = () => {
               >
                 Prijavi se
               </button>
+              </h3>
             </div>
           )}
 

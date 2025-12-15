@@ -9,9 +9,9 @@ const AdministratorCompo = () => {
         <div className="flex w-[1088px] h-[487px] tablet:w-[618px] tablet:h-[982px] mobile:h-[993px]  flex-col">
           {/*Header container*/}
           <div className="flex mx-auto h-[90px] flex-col">
-            <h className="text-[40px] text-[#1E2125] font-variation-customOpt40 mobile:text-[28px] mobile:font-variation-customOpt28 text-center">
+            <h2 className="text-[40px] text-[#1E2125] font-variation-customOpt40 mobile:text-[28px] mobile:font-variation-customOpt28 text-center">
               Cenik za Skrbnika
-            </h>
+            </h2>
           </div>
 
           {/*Three container*/}

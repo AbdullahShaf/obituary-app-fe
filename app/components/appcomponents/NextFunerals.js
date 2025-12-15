@@ -48,7 +48,7 @@ const NextFunerals = () => {
                 Pogrebi v naslednjih dneh
               </h2>
               <h2 className=" mobile:flex hidden text-[28px] font-normal text-[#414141]  leading-[33px]">
-                Pogrebi
+                Pogrebi v naslednjih dneh
               </h2>
 
               <div className="w-full h-[48px] hidden desktop:flex relative z-[60]">

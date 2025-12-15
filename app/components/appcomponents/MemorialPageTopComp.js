@@ -483,9 +483,9 @@ const MemorialPageTopComp = ({
                   }}
                 >
                   <div className="flex items-center h-[39px] ">
-                    <div className="text-[20px] text-[#1E2125] font-variation-customOpt20 font-normal">
+                    <h2 className="text-[20px] text-[#1E2125] font-variation-customOpt20 font-normal">
                       Osmrtnica
-                    </div>
+                    </h2>
                   </div>
                   <div className="bg-[#D4D4D4] h-[1px] w-[100%] my-4 " />
                   {/* <div className="flex h-[79px] desktop:h-[71px] bg-yellow-400"> */}
@@ -597,9 +597,9 @@ const MemorialPageTopComp = ({
                       }}
                     >
                       <div className="flex  h-[38px] items-center">
-                        <div className="text-[20px] text-[#1E2125] font-variation-customOpt20 font-normal  ">
+                        <h2 className="text-[20px] text-[#1E2125] font-variation-customOpt20 font-normal  ">
                           Dogodki
-                        </div>
+                        </h2>
                       </div>
                       <div className="bg-[#D4D4D4] h-[1px] w-[100%] my-4 " />
                       {[
@@ -854,9 +854,9 @@ const MemorialPageTopComp = ({
                     className="flex flex-col tablet:flex-row desktop:flex-row tablet:justify-between 
                   desktop:justify-between h-[39px] "
                   >
-                    <div className="text-[20px] text-[#1E2125] font-variation-customOpt20 font-normal desktop:mt-[2px] ">
+                    <h2 className="text-[20px] text-[#1E2125] font-variation-customOpt20 font-normal desktop:mt-[2px] ">
                       Prižgi svečko v spomin
-                    </div>
+                    </h2>
                     {/* <div className="hidden  tablet:flex desktop:flex text-[12px] text-[#1E2125] font-normal mt-[10px]">
                       Skupno ta teden: {data?.currentWeekVisits}
                     </div> */}
@@ -948,9 +948,9 @@ const MemorialPageTopComp = ({
                   }}
                 >
                   <div className="flex items-center  h-[39px]">
-                    <div className="text-[20px] text-[#1E2125] font-variation-customOpt20 font-normal  ">
+                    <h2 className="text-[20px] text-[#1E2125] font-variation-customOpt20 font-normal  ">
                       Povabi družino in prijatelje
-                    </div>
+                    </h2>
                   </div>
                   <div className="bg-[#D4D4D4] h-[1px] w-[100%] my-4 " />
                   <div
@@ -1223,9 +1223,9 @@ const MemorialPageTopComp = ({
           <div className="flex flex-col w-full items-center">
             <div className="flex flex-col w-full items-center mt-[100px] ">
               <div className="flex items-center justify-center h-[33px] tablet:h-[47px] desktop:h-[47px] relative mobile:mb-[16px]">
-                <div className="text-[#1E2125] text-[28px] tablet:text-[40px] desktop:text-[40px] font-variation-customOpt28 tablet:font-variation-customOpt40 desktop:font-variation-customOpt40 font-normal">
+                <h2 className="text-[#1E2125] text-[28px] tablet:text-[40px] desktop:text-[40px] font-variation-customOpt28 tablet:font-variation-customOpt40 desktop:font-variation-customOpt40 font-normal">
                   Posvetilo
-                </div>
+                </h2>
                 {/* <div className="text-[#0A85C2] text-[24px] font-[400] absolute top-[-3px] right-[-38px]">
                   22
                 </div> */}
@@ -1271,9 +1271,9 @@ const MemorialPageTopComp = ({
         <div className="w-full pb-[150px]">
           <div className="flex flex-col w-full items-center">
             <div className="flex items-center justify-center h-[33px] tablet:h-[47px] desktop:h-[47px] relative">
-              <div className="text-[#1E2125] text-[28px] tablet:text-[40px] desktop:text-[40px] font-variation-customOpt28 tablet:font-variation-customOpt40 desktop:font-variation-customOpt40 font-normal">
+              <h2 className="text-[#1E2125] text-[28px] tablet:text-[40px] desktop:text-[40px] font-variation-customOpt28 tablet:font-variation-customOpt40 desktop:font-variation-customOpt40 font-normal">
                 Nepozabni trenutki
-              </div>
+              </h2>
               {/* <div className="text-[#0A85C2] text-[24px] font-[400] absolute top-[-3px] right-[-38px]">
                 22
               </div> */}
@@ -1367,9 +1367,9 @@ const MemorialPageTopComp = ({
 
       <div className="w-[1024px] tablet:w-[678.78px]   mobile:w-[341px] h-auto  flex flex-col items-center ">
         <div className="flex flex-row h-[47px] items-center relative">
-          <div className="font-variation-customOpt40 text-[40px] leading-[46.88px] mr-[8px] mobile:text-[28px] mobile:leading-[32.9px] mobile:font-variation-customOpt28 text-[#1E2125] ">
+          <h2 className="font-variation-customOpt40 text-[40px] leading-[46.88px] mr-[8px] mobile:text-[28px] mobile:leading-[32.9px] mobile:font-variation-customOpt28 text-[#1E2125] ">
             Sožalja
-          </div>
+          </h2>
           {/* <div className="text-[#0A85C2] text-[24px] font-[400] absolute top-[-3px] right-[-29px]">
             22
           </div> */}

@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useBreakpoint } from "../../hooks/useBreakpoint";
 
 const SlideTwo = () => {
@@ -42,9 +43,11 @@ const SlideTwo = () => {
             </div>
             <div className="btn-container ">
               <Link href={"/spominska"}>
+              <h3>
               <button className="px-[25px] py-[12px] w-[155px] rounded-[8px] mt-[47px] shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
                 Več o Skrbniku
               </button>
+              </h3>
               </Link>
             </div>
           </div>
@@ -93,9 +96,11 @@ const SlideTwo = () => {
             </div>
             <div className="btn-container px-[89px]">
               <Link href={"/spominska"}>
+              <h3>
               <button className="px-[25px] py-[12px] w-[155px] rounded-[8px] mt-[47px] shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
                 Več o Skrbniku
               </button>
+              </h3>
               </Link>
             </div>
           </div>
@@ -151,9 +156,11 @@ const SlideTwo = () => {
 
           <div className="btn-container text-center">
             <Link href={"/spominska"}>
+            <h3>
             <button className="px-[25px] py-[12px] rounded-[8px] mt-[44px] shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
               Več o Skrbniku
             </button>
+            </h3>
             </Link>
           </div>
         </div>
@@ -177,17 +184,21 @@ const SlideTwo = () => {
 
           </p>
 
-          <img
+          <Image
             className="mt-[33px] mx-auto w-[150px] h-[300px]"
             src="/mobile-cards/slider-mobile.png"
             alt="iPad Landscape"
+            width={150}
+            height={300}
           />
 
           <div className="btn-container text-center mt-[22px]">
             <Link href={"/spominska"}>
+            <h3>
             <button className="px-[25px] py-[12px] rounded-[8px] shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
               Več o Skrbniku
             </button>
+            </h3>
             </Link>
           </div>
 

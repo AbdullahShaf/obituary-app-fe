@@ -74,7 +74,7 @@ const SponsorComponent = ({ text = "", region, city }) => {
                 const logoContent = (
                   <img
                     src={logoUrl}
-                    alt={`Logotip sponzorja ${item?.name || ''} - Osmrtnica.com`}
+                    alt={`Partner – ${item?.name || ''}${item?.city ? `, ${item.city}` : ''}`}
                     className="max-w-[100%]"
                   />
                 );

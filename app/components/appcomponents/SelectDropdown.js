@@ -2,6 +2,7 @@
 import Select from "react-select";
 
 export const SelectDropdown = ({
+  heading,
   label,
   isFromNotification,
   isFromFlower,
@@ -96,6 +97,11 @@ export const SelectDropdown = ({
   };
   return (
     <div className={`dropdown ${getContainerClass()}`}>
+      {heading && (
+      <h3 className="sr-only">
+        {heading}
+      </h3>
+    )}
       <Select
         options={options}
         isDisabled={isDisabled}

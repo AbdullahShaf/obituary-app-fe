@@ -361,6 +361,7 @@ export default function HomeContent(props) {
                 isFromObituary={false}
               /> */}
               <SelectDropdown
+                heading={"Išči po regiji"}
                 label={"Išči po regiji"}
                 isFromNotification={false}
                 isFromFlower={false}
@@ -381,6 +382,7 @@ export default function HomeContent(props) {
                 isFromFlowerGreenBgTablet={false}
               /> */}
               <SelectDropdown
+                heading={"Išči po kraju"}
                 data={cityOptions}
                 label={"Išči po kraju"}
                 isFromNotification={false}
@@ -476,7 +478,7 @@ export default function HomeContent(props) {
           <div className="relative flex max-w-[1280px] mx-auto justify-center overflow-visible dekstop:h-[284px] tablet:h-[284px] mobile:h-[235px]">
             <img
               src="/viola_ozadje.avif"
-              alt="Ozadje z vijolicami za sekcijo lokalnih cvetličarn"
+              alt="Cvetličarne po občinah"
               className="h-[284px] w-[1280px] object-cover object-center mobile:h-[235px]"
             />
             <div className="absolute flex flex-col items-center self-center desktop:h-[143px] desktop:w-[476px] desktop:right-[140px] tablet:h-[127px] tablet:w-[302px] tablet:left-1/2 mobile:right-[15px] mobile:h-[113px] mobile:w-[299px]">

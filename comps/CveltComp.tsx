@@ -25,7 +25,7 @@ const CveltComp = () => {
       isMegaMenuVisible={false}
     >
       <div className="flex flex-col mx-auto bg-[#F5F7F9] border-b-[1px] border-[#D4D4D4] w-full">
-        <ObituaryListBanner image={"/roza_ozadje.avif"} label={"Cvetličarne"} />
+        <ObituaryListBanner image={"/roza_ozadje.avif"} label={"Lokalne cvetličarne"} />
         <FloristList />
         <LocalFloristCompo />
 
