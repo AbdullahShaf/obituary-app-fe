@@ -235,9 +235,9 @@ const SanctifiedComp = ({ set_Id, setModal, dedications }) => {
              "
       >
         <div className="flex mobile:h-[33px] h-[47px] items-center">
-          <h className=" mobile:text-[28px] text-[40px] text-[#1E2125] font-variation-customOpt40 font-normal ">
+          <h2 className=" mobile:text-[28px] text-[40px] text-[#1E2125] font-variation-customOpt40 font-normal ">
             Posvetilo
-          </h>
+          </h2>
         </div>
         <div className="flex mt-4 mobile:h-[48px] h-6 items-center mobile:px-[20px]">
           <p className="text-[16px] text-[#414141] font-variation-customOpt16 text-center font-normal leading-[24px] ">
