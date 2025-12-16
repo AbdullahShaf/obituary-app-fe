@@ -8,7 +8,7 @@ export default function Cemeteries() {
         <div className="justify-end hidden tabletUserAcc:flex mobileUserAcc:flex tabletUserAcc:mt-[26px] mobileUserAcc:mt-[24px] tabletUserAcc:mr-[46px] mobileUserAcc:mr-[46px]">
           <div className="flex gap-[16px]">
             <div className="w-[30px] shrink-0 inline-flex items-center justify-end">
-              <Image src="/plus_icon_blue.png" alt="spominske" width={24} height={24} className="h-[24px] w-[24px]" />
+              <Image src="/plus_icon_blue.png" alt="Dodaj novo pokopališče" width={24} height={24} className="h-[24px] w-[24px]" />
             </div>
             <span className="text-[#0A85C2] text-[16px] uppercase underline">dodaj pokopališče</span>
           </div>
@@ -47,7 +47,7 @@ export default function Cemeteries() {
                       <span className="text-[#0A85C2] underline text-[16px]">
                       Dopolni
                       </span>
-                      <Image src="/grey_left.png" alt="spominske" width={24} height={24} className="h-[24px] w-[24px]" />
+                      <Image src="/grey_left.png" alt="Odpri podrobnosti" width={24} height={24} className="h-[24px] w-[24px]" />
                     </div>
                   </div>
                   <span className="text-[16px] text-[#1E2125] font-medium">
@@ -60,7 +60,7 @@ export default function Cemeteries() {
           <div className="flex flex-col items-end gap-[42px] tabletUserAcc:gap-[24px] mobileUserAcc:gap-[24px] tabletUserAcc:mr-[67px] mobileUserAcc:mr-[67px]">
             <div className="flex gap-[16px] tabletUserAcc:hidden mobileUserAcc:hidden">
               <div className="w-[30px] shrink-0 inline-flex items-center justify-end">
-                <Image src="/plus_icon_blue.png" alt="spominske" width={24} height={24} className="h-[24px] w-[24px]" />
+                <Image src="/plus_icon_blue.png" alt="Dodaj novo pokopališče" width={24} height={24} className="h-[24px] w-[24px]" />
               </div>
               <span className="text-[#0A85C2] text-[16px] uppercase underline">dodaj pokopališče</span>
             </div>
@@ -70,7 +70,7 @@ export default function Cemeteries() {
             </div>
             <div className="flex gap-[16px]">
               <div className="w-[30px] shrink-0 inline-flex items-center justify-end">
-                <Image src="/plus_icon_blue.png" alt="spominske" width={24} height={24} className="h-[24px] w-[24px]" />
+                <Image src="/plus_icon_blue.png" alt="Pomoč" width={24} height={24} className="h-[24px] w-[24px]" />
               </div>
               <span className="text-[#0A85C2] text-[16px] uppercase underline">POMOČ</span>
             </div>

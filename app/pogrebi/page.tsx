@@ -8,7 +8,6 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata({ searchParams }: { searchParams?: Promise<{ city?: string | string[]; region?: string | string[] }> }): Promise<Metadata> {
   const resolvedSearchParams = await searchParams;
   const city = typeof resolvedSearchParams?.city === 'string' ? resolvedSearchParams.city : Array.isArray(resolvedSearchParams?.city) ? resolvedSearchParams.city[0] : "";
-  const cityText = city ? ` v ${city}` : "";
   
   return {
     title: city ? `Pogrebi v ${city} – Pregled pogrebov po dnevih` : "Pogrebi – Pregled pogrebov po dnevih",

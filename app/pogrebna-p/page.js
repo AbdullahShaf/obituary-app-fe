@@ -9,7 +9,6 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata({ searchParams }) {
   const resolvedSearchParams = await searchParams;
   const region = typeof resolvedSearchParams?.region === 'string' ? resolvedSearchParams.region : Array.isArray(resolvedSearchParams?.region) ? resolvedSearchParams.region[0] : "";
-  const regionText = region ? ` v ${region} regiji` : "";
   
   return {
     title: region ? `Pogrebna podjetja v ${region} regiji – Seznam podjetij | Osmrtnica.com` : "Pogrebna podjetja – Seznam podjetij | Osmrtnica.com",
