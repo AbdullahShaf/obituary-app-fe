@@ -43,12 +43,11 @@ const HomePageBox = () => {
               na vrhu strani.
             </p>
 
+            <h3 className="sr-only">Prijavi se</h3>
             <Link href={"/registracija"}>
-              <h3>
-                <button className="shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] text-[#414141] rounded-[8px] px-[25px] py-[12px] mt-[24px] w-[113px]">
-                  Prijavi se
-                </button>
-              </h3>
+              <button className="shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] text-[#414141] rounded-[8px] px-[25px] py-[12px] mt-[24px] w-[113px]">
+                Prijavi se
+              </button>
             </Link>
           </div>
         </div>
@@ -90,12 +89,11 @@ const HomePageBox = () => {
               na vrhu strani.
             </p>
 
+            <h3 className="sr-only">Prijavi se</h3>
             <Link href={"/registracija"}>
-              <h3>
-                <button className="shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] text-[#414141] rounded-[8px] px-[25px] py-[12px] mt-[24px] w-[113px]">
-                  Prijavi se
-                </button>
-              </h3>
+              <button className="shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] text-[#414141] rounded-[8px] px-[25px] py-[12px] mt-[24px] w-[113px]">
+                Prijavi se
+              </button>
             </Link>
           </div>
         </div>

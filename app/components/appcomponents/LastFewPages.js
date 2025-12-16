@@ -91,7 +91,7 @@ const LastFewPages = () => {
               className="flex h-[48px] rounded-3xl shadow-custom-light-dark bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] justify-center items-center w-[48px]"
             >
               <Image
-                src="img_back_mob.png"
+                src="/img_back_mob.png"
                 alt="Back"
                 width={8}
                 height={14}
@@ -103,7 +103,7 @@ const LastFewPages = () => {
               className="flex h-[48px] rounded-3xl shadow-custom-light-dark bg-gradient-to-r from-[#E3E8EC] to-[#FFFFFF] justify-center items-center w-[48px]"
             >
               <Image
-                src="img_forward_mob.png"
+                src="/img_forward_mob.png"
                 alt="Forward"
                 width={8}
                 height={14}

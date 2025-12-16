@@ -135,8 +135,8 @@ const MemoryPageContent = ({ params, obituaryDataFromServer }) => {
   };
 
   const fullName =
-    obituary?.name && obituary?.sirname
-      ? `${obituary.name} ${obituary.sirname}`
+    obituary?.name && obituary?.sirName
+      ? `${obituary.name} ${obituary.sirName}`
       : obituary?.name || "";
 
   const breadcrumbJsonLd = {

@@ -10,13 +10,13 @@ export async function generateMetadata({ params }) {
   const obituary = response?.obituary || {};
 
   const nameForTitle =
-    obituary?.name && obituary?.sirname
-      ? `${obituary.name} ${obituary.sirname}`
+    obituary?.name && obituary?.sirName
+      ? `${obituary.name} ${obituary.sirName}`
       : obituary?.name
       ? `${obituary.name}`
       : null;
 
-  const lastName = obituary?.sirname || "";
+  const lastName = obituary?.sirName || "";
   const fullName = obituary?.name && lastName ? `${obituary.name} ${lastName}` : obituary?.name || "";
   const titleText = fullName ? `${fullName} – žalna stran` : "Žalna stran";
   const descriptionText = fullName 

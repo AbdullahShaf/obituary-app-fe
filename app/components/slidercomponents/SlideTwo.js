@@ -7,7 +7,7 @@ const SlideTwo = () => {
   const breakpoint = useBreakpoint();
   console.log(breakpoint)
 
-  
+
 
   // === Desktop Layout ===
   if (breakpoint === "desktop") {
@@ -42,12 +42,11 @@ const SlideTwo = () => {
               </p>
             </div>
             <div className="btn-container ">
+              <h3 className="sr-only">Več o Skrbniku</h3>
               <Link href={"/spominska"}>
-              <h3>
-              <button className="px-[25px] py-[12px] w-[155px] rounded-[8px] mt-[47px] shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
-                Več o Skrbniku
-              </button>
-              </h3>
+                <button className="px-[25px] py-[12px] w-[155px] rounded-[8px] mt-[47px] shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
+                  Več o Skrbniku
+                </button>
               </Link>
             </div>
           </div>
@@ -96,12 +95,11 @@ const SlideTwo = () => {
               </p>
             </div>
             <div className="btn-container px-[89px]">
+              <h3 className="sr-only">Več o Skrbniku</h3>
               <Link href={"/spominska"}>
-              <h3>
-              <button className="px-[25px] py-[12px] w-[155px] rounded-[8px] mt-[47px] shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
-                Več o Skrbniku
-              </button>
-              </h3>
+                <button className="px-[25px] py-[12px] w-[155px] rounded-[8px] mt-[47px] shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
+                  Več o Skrbniku
+                </button>
               </Link>
             </div>
           </div>
@@ -158,12 +156,11 @@ const SlideTwo = () => {
           />
 
           <div className="btn-container text-center">
+            <h3 className="sr-only">Več o Skrbniku</h3>
             <Link href={"/spominska"}>
-            <h3>
-            <button className="px-[25px] py-[12px] rounded-[8px] mt-[44px] shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
-              Več o Skrbniku
-            </button>
-            </h3>
+              <button className="px-[25px] py-[12px] rounded-[8px] mt-[44px] shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
+                Več o Skrbniku
+              </button>
             </Link>
           </div>
         </div>
@@ -182,8 +179,8 @@ const SlideTwo = () => {
             <span className="text-[#de222e] font-medium">s skrbnikom</span>
           </h2>
           <p className="text-[#414141] text-[16px] mt-[16px] leading-6 mobile:text-left">
-            Nadgradnja osnovne žalne strani, kjer pokojnemu bližnji prevzame skrb nad objavljenimi vsebinami vseh ostalih in s tem omogoči izdelavo prave spominske strani, na katero se bodo bližnji radi vračali in jo dopolnjevali tudi kasneje. 
-            Upravljanje je enostavno; vsak je lahko Skrbnik. 
+            Nadgradnja osnovne žalne strani, kjer pokojnemu bližnji prevzame skrb nad objavljenimi vsebinami vseh ostalih in s tem omogoči izdelavo prave spominske strani, na katero se bodo bližnji radi vračali in jo dopolnjevali tudi kasneje.
+            Upravljanje je enostavno; vsak je lahko Skrbnik.
 
           </p>
 
@@ -196,12 +193,11 @@ const SlideTwo = () => {
           />
 
           <div className="btn-container text-center mt-[22px]">
+            <h3 className="sr-only">Več o Skrbniku</h3>
             <Link href={"/spominska"}>
-            <h3>
-            <button className="px-[25px] py-[12px] rounded-[8px] shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
-              Več o Skrbniku
-            </button>
-            </h3>
+              <button className="px-[25px] py-[12px] rounded-[8px] shadow-custom-light-dark bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF]">
+                Več o Skrbniku
+              </button>
             </Link>
           </div>
 

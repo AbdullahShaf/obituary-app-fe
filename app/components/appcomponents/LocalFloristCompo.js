@@ -250,9 +250,9 @@ const LocalFloristCompo = () => {
                     </p>
                   </div>
                   <div className="w-full px-[10.08px] mt-6">
-                    <div className="text-[16px] leading-[24px]  text-[#1E2125] font-normal">
-                      Znanja in dolgoletne izkušnje
-                    </div>
+                    <h3 className="text-[16px] leading-[24px]  text-[#1E2125] font-normal">
+                      1. dolgoletne izkušnje
+                    </h3>
                     <div
                       className="tablet:hidden flex"
                       style={{
@@ -295,9 +295,9 @@ const LocalFloristCompo = () => {
                     </p>
                   </div>
                   <div className="w-full px-[10.08px] mt-6 mb-5 pb-1 pt-3 bg-[#ffffff50]">
-                    <div className="text-[16px] leading-[24px]  text-[#1E2125] font-normal">
-                      Obstojnost cvetja je praviloma večja{" "}
-                    </div>
+                    <h3 className="text-[16px] leading-[24px]  text-[#1E2125] font-normal">
+                      2. Velika obstojnost cvetja{" "}
+                    </h3>
                     <div
                       className="tablet:hidden flex"
                       style={{
@@ -339,9 +339,9 @@ const LocalFloristCompo = () => {
                     </p>
                   </div>
                   <div className="w-full px-[10.08px] mt-6">
-                    <div className="text-[16px] leading-[24px]  text-[#1E2125] font-normal">
-                      Cvetje prilagojeno vsaki priložnosti{" "}
-                    </div>
+                    <h3 className="text-[16px] leading-[24px]  text-[#1E2125] font-normal">
+                      3. za vsako priložnost{" "}
+                    </h3>
                     <div
                       className="tablet:hidden flex"
                       style={{
