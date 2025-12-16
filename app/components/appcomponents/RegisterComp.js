@@ -21,9 +21,9 @@ const RegisterComp = () => {
                   className="w-[64px] h-[64px] mx-auto"
                   alt="Ikona registracije"
                 ></Image>
-                <div className="text-[20px] text-[#1E2125] font-variation-customOpt20wght400 text-center font-semibold mt-3">
+                <h3 className="text-[20px] text-[#1E2125] font-variation-customOpt20wght400 text-center font-semibold mt-3">
                   Registrirajte se
-                </div>
+                </h3>
                 <div className="text-[16px] text-[#3C3E41] font-variation-customOpt16 text-center mt-[13px] leading-[27px]">
                   Poslali vam bomo dodatna pojasnila in z vnašanjem svojih
                   testov in slik lahko pričnete takoj.
@@ -38,9 +38,9 @@ const RegisterComp = () => {
                   className="w-[64px] h-[64px] mx-auto"
                   alt="Ikona objave"
                 ></Image>
-                <div className="text-[20px] text-[#1E2125] font-variation-customOpt20wght400 text-center font-semibold mt-3">
+                <h3 className="text-[20px] text-[#1E2125] font-variation-customOpt20wght400 text-center font-semibold mt-3">
                   Objava v 48 urah
-                </div>
+                </h3>
                 <div className="text-[16px] text-[#3C3E41] font-variation-customOpt16 text-center mt-[13px] leading-[27px]">
                   Ko potrdite vnos vseh podatkov, bomo vašo stran pripravili in
                   najkasneje v dveh dneh tudi objavili.
@@ -58,9 +58,9 @@ const RegisterComp = () => {
                   className="w-[64px] h-[64px] mx-auto"
                   alt="Ikona fleksibilnosti"
                 ></Image>
-                <div className="text-[20px] text-[#1E2125] font-variation-customOpt20wght400 text-center font-semibold mt-3">
+                <h3 className="text-[20px] text-[#1E2125] font-variation-customOpt20wght400 text-center font-semibold mt-3">
                   Fleksibilnost
-                </div>
+                </h3>
                 <div className="text-[16px] text-[#3C3E41] font-variation-customOpt16 text-center mt-[13px] leading-[27px]">
                   Vsebino lahko kadarkoli spreminjate glede na potrebe,
                   praznike, posebne promocije. Naj vaša stran živi!
@@ -75,9 +75,9 @@ const RegisterComp = () => {
                   className="w-[64px] h-[64px]"
                   alt="Ikona prilagojenosti vsem napravam"
                 ></Image>
-                <div className="text-[20px] text-[#1E2125] font-variation-customOpt20wght400 text-center font-semibold mt-3">
+                <h3 className="text-[20px] text-[#1E2125] font-variation-customOpt20wght400 text-center font-semibold mt-3">
                   Prilagojeno vsem napravam
-                </div>
+                </h3>
                 <div className="text-[18px] text-[#3C3E41] font-variation-customOpt18 text-center mt-[13px] leading-[27px] ">
                   Vaša spletna stran bo profesionalnega videza na računalniku,
                   tablici in telefonu.
@@ -95,9 +95,9 @@ const RegisterComp = () => {
               className="w-[64px] h-[64px]"
               alt="Ikona registracije"
             ></Image>
-            <div className="text-[20px] text-[#1E2125] font-variation-customOpt20wght400 font-semibold mt-[13px]">
+            <h3 className="text-[20px] text-[#1E2125] font-variation-customOpt20wght400 font-semibold mt-[13px]">
               Registrirajte se
-            </div>
+            </h3>
             <div className="text-[16px] text-[#3C3E41] font-variation-customOpt16 text-center mt-[13px] leading-[27px]">
               Poslali vam bomo dodatna pojasnila in z vnašanjem svojih testov in
               slik lahko pričnete takoj.
@@ -107,9 +107,9 @@ const RegisterComp = () => {
           {/*C2 container for desktop*/}
           <div className="w-[295.42px] h-[200px] flex-col items-center flex desktop:ml-16 tablet:hidden mobile:mt-6 mobile:w-full mobile:max-w-[480px] mobile:px-2">
             <Image src="/image_posting.png" width={64} height={64} className="w-[64px] h-[64px]" alt="Ikona objave"></Image>
-            <div className="text-[20px] text-[#1E2125] font-variation-customOpt20wght400 font-semibold mt-[13px]">
+            <h3 className="text-[20px] text-[#1E2125] font-variation-customOpt20wght400 font-semibold mt-[13px]">
               Objava v 48 urah
-            </div>
+            </h3>
             <div className="text-[16px] text-[#3C3E41] font-variation-customOpt16 text-center mt-[13px] leading-[27px]">
               Ko potrdite vnos vseh podatkov, bomo vašo stran pripravili in
               najkasneje v dveh dneh tudi objavili.
@@ -132,9 +132,9 @@ const RegisterComp = () => {
               className="w-[64px] h-[64px] mx-auto hidden mobile:flex"
               alt="Ikona fleksibilnosti"
             ></Image>
-            <div className="text-[20px] text-[#1E2125] font-variation-customOpt20wght400 font-semibold mt-[13px]">
+            <h3 className="text-[20px] text-[#1E2125] font-variation-customOpt20wght400 font-semibold mt-[13px]">
               Fleksibilnost
-            </div>
+            </h3>
             <div className="text-[16px] text-[#3C3E41] font-variation-customOpt16 text-center mt-[13px] leading-[27px]">
               Vsebino lahko kadarkoli spreminjate glede na potrebe, praznike,
               posebne promocije. Naj vaša stran živi!
