@@ -280,9 +280,9 @@ export default function WallGallery3D({ photos = [] }) {
                   <Image
                     src={item.src}
                     alt={item.alt}
-                    width={isPortrait ? 160 : 360}
-                    height={240}
-                    sizes="(max-width: 768px) 90vw, (max-width: 480px) 90vw, 360px"
+                    width={isPortrait ? 225 : 400}
+                    height={300}
+                    sizes="(max-width: 768px) 90vw, (max-width: 480px) 90vw, 400px"
                     className="wg-img"
                     loading="lazy"
                     onLoadingComplete={(img) => {
@@ -391,14 +391,14 @@ export default function WallGallery3D({ photos = [] }) {
           border-radius: 0;
         }
         .wg-photo-landscape {
-          width: 360px;
-          height: 240px;
-          aspect-ratio: 3 / 2;
+          width: 400px;
+          height: 300px;
+          aspect-ratio: 4 / 3;
         }
         .wg-photo-portrait {
-          width: 160px;
-          height: 240px;
-          aspect-ratio: 2 / 3;
+          width: 225px;
+          height: 300px;
+          aspect-ratio: 3 / 4;
         }
         .wg-img-wrap {
           position: relative;
@@ -459,14 +459,14 @@ export default function WallGallery3D({ photos = [] }) {
             font-size: 26px;
           }
           .wg-photo-landscape {
-            width: 270px;
-            height: 180px;
-            aspect-ratio: 3 / 2;
+            width: 300px;
+            height: 225px;
+            aspect-ratio: 4 / 3;
           }
           .wg-photo-portrait {
-            width: 120px;
-            height: 180px;
-            aspect-ratio: 2 / 3;
+            width: 170px;
+            height: 225px;
+            aspect-ratio: 3 / 4;
           }
           .wg-track {
             gap: 6px;
@@ -480,13 +480,13 @@ export default function WallGallery3D({ photos = [] }) {
         @media (max-width: 480px) {
           .wg-photo-landscape {
             width: 240px;
-            height: 160px;
-            aspect-ratio: 3 / 2;
+            height: 180px;
+            aspect-ratio: 4 / 3;
           }
           .wg-photo-portrait {
-            width: 107px;
-            height: 160px;
-            aspect-ratio: 2 / 3;
+            width: 135px;
+            height: 180px;
+            aspect-ratio: 3 / 4;
           }
           .wg-photo {
             border-width: 0.5px;
