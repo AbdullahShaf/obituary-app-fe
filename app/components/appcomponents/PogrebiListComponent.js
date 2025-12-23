@@ -1,48 +1,67 @@
 "use client";
-import React, { useEffect, useState, Suspense } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import Dropdown from "@/app/components/appcomponents/Dropdown";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
-import ObituaryCard from "@/app/components/appcomponents/ObituaryCard";
-import imgPrevious from "@/public/previous_img.png";
-import imgNext from "@/public/next_img.png";
-import Image from "next/image";
+
 import { toast } from "react-hot-toast";
-import obituaryService from "@/services/obituary-service";
-import regionsAndCities from "@/utils/regionAndCities";
+import React, { Suspense, useEffect, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
 import { SelectDropdown } from "./SelectDropdown";
-import { set } from "date-fns";
-import { cityToSlug, slugToCity } from "@/utils/citySlug";
+import regionsAndCities from "@/utils/regionAndCities";
+import obituaryService from "@/services/obituary-service";
+import { cityToSlug, slugToCity, findCityFromSlug } from "@/utils/citySlug";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 
 const ObituaryListComponent = ({ city }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  // Initialize state from URL params or prop
   const [selectedCity, setSelectedCity] = useState(
     searchParams.get("city") || city || "Celje"
   );
   const [selectedRegion, setSelectedRegion] = useState(
     searchParams.get("region") || null
   );
-  
-  // Update city when route changes (for dynamic routes like /pogrebi/ljubljana)
+
   useEffect(() => {
     if (pathname?.startsWith('/pogrebi/') && pathname !== '/pogrebi') {
-      const citySlug = pathname.split('/pogrebi/')[1];
-      if (citySlug) {
-        const cityFromRoute = slugToCity(citySlug);
-        if (cityFromRoute) {
-          setSelectedCity(cityFromRoute);
+      if (city) {
+        setSelectedCity(city);
+      } else {
+        const citySlug = pathname.split('/pogrebi/')[1];
+        if (citySlug) {
+
+          const cityFromRoute = findCityFromSlug(citySlug);
+          if (cityFromRoute) {
+            setSelectedCity(cityFromRoute);
+
+            const region = Object.keys(regionsAndCities).find((region) =>
+              regionsAndCities[region].includes(cityFromRoute)
+            );
+            if (region) {
+              setSelectedRegion(region);
+            }
+          }
         }
       }
     } else if (pathname === '/pogrebi') {
-      // Reset to default when on main page
       const cityFromQuery = searchParams.get("city");
-      setSelectedCity(cityFromQuery || city || "Celje");
+      if (cityFromQuery) {
+        const citySlug = cityToSlug(cityFromQuery);
+        if (citySlug) {
+          router.push(`/pogrebi/${citySlug}`);
+        }
+      } else if (city) {
+        setSelectedCity(city);
+      } else {
+        setSelectedCity("Celje");
+        const defaultCitySlug = cityToSlug("Celje");
+        if (defaultCitySlug) {
+          router.push(`/pogrebi/${defaultCitySlug}`);
+        }
+      }
     }
   }, [pathname, searchParams, city]);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [obituaries, setObituaries] = useState([]);
   const defaultCities = Object.values(regionsAndCities)
@@ -51,7 +70,7 @@ const ObituaryListComponent = ({ city }) => {
   const [allCities, setAllCities] = useState(defaultCities);
   const [suggestion, setSuggestion] = useState([]);
   const suggestionComponentRef = React.useRef(null);
-  
+
   const quickSelectCities = [
     "Ljubljana",
     "Maribor",
@@ -63,8 +82,7 @@ const ObituaryListComponent = ({ city }) => {
     "Velenje",
     "Nova Gorica",
   ];
-  
-  // Dropdown options
+
   const allRegionsOption = {
     place: "- Pokaži vse regije -",
     id: "allRegions",
@@ -75,7 +93,6 @@ const ObituaryListComponent = ({ city }) => {
     id: "allCities",
   };
 
-  // Region options
   const regionOptions = [
     allRegionsOption,
     ...Object.keys(regionsAndCities).map((region) => ({
@@ -113,7 +130,6 @@ const ObituaryListComponent = ({ city }) => {
     })),
   ];
 
-  // Update URL with query parameters
   const updateURL = (city, region, search) => {
     const params = new URLSearchParams(window.location.search);
     if (city && city !== "allCities" && city !== "- Pokaži vse občine -") {
@@ -144,31 +160,30 @@ const ObituaryListComponent = ({ city }) => {
     router.replace(newURL, { scroll: false });
   };
 
-  // Handle region selection
   const handleRegionSelect = (item) => {
     if (item.id === "allRegions" || item.place === "- Pokaži vse regije -") {
       setSelectedRegion(null);
-      updateURL("", null, searchTerm); // selectedCity
+      updateURL("", null, searchTerm);
     } else {
       setSelectedRegion(item.place);
-      updateURL("", item.place, searchTerm); // selectedCity
+      updateURL("", item.place, searchTerm);
     }
   };
 
-  // Handle city selection
   const handleCitySelect = (item) => {
-    console.log("sssss", item);
 
     if (item.id === "allCities" || item.place === "- Pokaži vse občine -") {
       setSelectedCity(null);
-      updateURL(null, selectedRegion, searchTerm);
+      router.push("/pogrebi");
     } else {
       setSelectedCity(item.place);
-      updateURL(item.place, selectedRegion, searchTerm);
+      const citySlug = cityToSlug(item.place);
+      if (citySlug) {
+        router.push(`/pogrebi/${citySlug}`);
+      }
     }
   };
 
-  // Handle search input change
   const handleSearchChange = (e) => {
     const value = e.target.value;
     if (value && value.length > 0) {
@@ -196,18 +211,16 @@ const ObituaryListComponent = ({ city }) => {
       setSuggestion([]);
     }
     setSearchTerm(value);
-    // updateURL(selectedCity, selectedRegion, value);
   };
 
-  // Handle quick selection (for the quick select buttons)
   const handleQuickSelect = (cityName) => {
     const citySlug = cityToSlug(cityName);
     if (citySlug) {
+      setSelectedCity(cityName);
       router.push(`/pogrebi/${citySlug}`);
     }
   };
 
-  // Handle search/filter
   const handleSearch = () => {
     if (selectedCity && selectedCity.length > 0) {
       updateURL(selectedCity, selectedRegion, searchTerm);
@@ -218,13 +231,13 @@ const ObituaryListComponent = ({ city }) => {
     fetchObituary();
   };
 
-  // Set default city in URL if none is specified
-  useEffect(() => {
-    if (!searchParams.get("city") && !city && !selectedRegion) {
-      updateURL("Celje", selectedRegion, searchTerm);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedRegion]);
+  // Removed: Set default city in URL if none is specified
+  // This is now handled in the pathname useEffect above to use path parameters instead of query parameters
+  // useEffect(() => {
+  //   if (!searchParams.get("city") && !city && !selectedRegion) {
+  //     updateURL("Celje", selectedRegion, searchTerm);
+  //   }
+  // }, [selectedRegion]);
 
   // Fetch obituaries when filters change
   useEffect(() => {
@@ -520,17 +533,13 @@ const ObituaryListComponent = ({ city }) => {
 
         {/* Quick Selection - City Tabs */}
         {!pathname?.includes('/u/') && (
-          <div className="flex flex-col desktop:flex-row tablet:flex-row mobile:flex-col items-center desktop:justify-center tablet:justify-center mobile:justify-start desktop:mt-[48px] tablet:mt-[48px] mobile:mt-[32px] desktop:mb-[48px] tablet:mb-[48px] mobile:mb-[32px]">
-            <div className="flex desktop:hidden items-center mr-[24px] tablet:mr-[18px] whitespace-nowrap h-7">
-              <h2 className="text-[24px] font-[400px] leading-[28.13px] text-[#1E2125]">
-                Hitri izbor
-              </h2>
-              <div className="hidden tablet:flex desktop:hidden text-[24px] text-[#1E2125]">
-                :
-              </div>
-            </div>
-            <div className="flex mobile:w-[330px] tablet:w-[480px] desktop:mt-4">
-              <ul className="flex flex-row list-none flex-wrap mobile:ml-[0px]">
+          <div className="flex flex-col desktop:flex-col tablet:flex-row mobile:flex-col desktop:items-start items-center desktop:justify-center tablet:justify-center mobile:justify-start desktop:mt-[48px] tablet:mt-[48px] mobile:mt-[32px] desktop:mb-[48px] tablet:mb-[48px] mobile:mb-[32px]">
+            <h2 className="flex text-[32px] mobile:text-[24px] tablet:text-[24px] font-[400px] leading-[28.13px] text-[#1E2125] whitespace-nowrap mobile:h-7 tablet:h-7 desktop:h-auto mobile:mr-[24px] tablet:mr-[18px] desktop:mr-0 desktop:mb-4">
+              Hitri izbor
+              <span className="hidden tablet:inline desktop:hidden text-[24px] text-[#1E2125] ml-0">:</span>
+            </h2>
+            <div className="flex mobile:w-[330px] tablet:w-[480px] desktop:mt-0">
+              <ul className="flex flex-row list-none flex-wrap mobile:ml-[0px] desktop:justify-center">
                 {quickSelectCities.map((cityName, index) => (
                   <li
                     key={cityName}
