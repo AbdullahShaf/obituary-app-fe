@@ -1,4 +1,6 @@
 import Image from "next/image";
+import dynamic from "next/dynamic";
+const Gallery3D = dynamic(() => import("./WallGallery3D"), { ssr: false });
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
@@ -66,6 +68,7 @@ const MemorialPageTopComp = ({
     }
   }, [data]);
 
+
   const toggleText = () => {
     setShowFullObituaryText((prev) => !prev);
   };
@@ -119,6 +122,22 @@ const MemorialPageTopComp = ({
 
     // Otherwise, show full date
     return format(date, "dd.MM.yyyy");
+  };
+
+  const formatDateForDatetime = (dateString) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    
+    // If date is 31st December → return only year
+    if (day === 31 && month === 12) {
+      return `${year}`;
+    }
+    
+    // Otherwise, return full ISO date
+    return format(date, "yyyy-MM-dd");
   };
 
   const formattedBirthDate = formatObituaryDate(data?.birthDate);
@@ -319,22 +338,18 @@ const MemorialPageTopComp = ({
                         </h1>
                       )}
                     </div>
-                    <div className="flex items-center justify-center mt-[14px] h-[21px] tablet:h-[23px] desktop:h-[20px] ">
-                      <div className="text-[#1E2125] text-[18px] tablet:text-[20px] desktop:text-[20px] font-variation-customOpt18 tablet:font-variation-customOpt20 desktop:font-variation-customOpt20 font-normal">
-                        {data?.birthDate?.includes("1025") ? (
-                          <>{formattedDeathDate}</>
-                        ) : (
-                          <>
-                            {formattedBirthDate} - {formattedDeathDate}
-                          </>
-                        )}
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-center mt-[14px] h-[21px] tablet:h-[23px] desktop:h-[20px] ">
-                      <div className="text-[#414141] text-[18px] tablet:text-[20] desktop:text-[20px] font-variation-customOpt18 tablet:font-variation-customOpt20 desktop:font-variation-customOpt20 font-normal">
-                        {data?.location ? formatTitleCase(data?.location) : ""}
-                      </div>
-                    </div>
+                    <p className="flex items-center justify-center mt-[14px] h-[21px] tablet:h-[23px] desktop:h-[20px] text-[#1E2125] text-[18px] tablet:text-[20px] desktop:text-[20px] font-variation-customOpt18 tablet:font-variation-customOpt20 desktop:font-variation-customOpt20 font-normal">
+                      {data?.birthDate?.includes("1025") ? (
+                        <time datetime={formatDateForDatetime(data?.deathDate)}>{formattedDeathDate}</time>
+                      ) : (
+                        <>
+                          <time datetime={formatDateForDatetime(data?.birthDate)}>{formattedBirthDate}</time> - <time datetime={formatDateForDatetime(data?.deathDate)}>{formattedDeathDate}</time>
+                        </>
+                      )}
+                    </p>
+                    <p className="flex items-center justify-center mt-[14px] h-[21px] tablet:h-[23px] desktop:h-[20px] text-[#414141] text-[18px] tablet:text-[20] desktop:text-[20px] font-variation-customOpt18 tablet:font-variation-customOpt20 desktop:font-variation-customOpt20 font-normal">
+                      {data?.location ? formatTitleCase(data?.location) : ""}
+                    </p>
                     <div className="flex flex-col w-[100%] mt-[40px] tablet:[31px] desktop:mt-[30px] h-auto ">
                       <p className="text-[24px] text-[#414141] font-normal font-greatVibes text-center mb-[72px]">
                         {data?.verse
@@ -854,9 +869,9 @@ const MemorialPageTopComp = ({
                     className="flex flex-col tablet:flex-row desktop:flex-row tablet:justify-between 
                   desktop:justify-between h-[39px] "
                   >
-                    <h2 className="text-[20px] text-[#1E2125] font-variation-customOpt20 font-normal desktop:mt-[2px] ">
+                    <div className="text-[20px] text-[#1E2125] font-variation-customOpt20 font-normal desktop:mt-[2px] ">
                       Prižgi svečko v spomin
-                    </h2>
+                    </div>
                     {/* <div className="hidden  tablet:flex desktop:flex text-[12px] text-[#1E2125] font-normal mt-[10px]">
                       Skupno ta teden: {data?.currentWeekVisits}
                     </div> */}
@@ -948,9 +963,9 @@ const MemorialPageTopComp = ({
                   }}
                 >
                   <div className="flex items-center  h-[39px]">
-                    <h2 className="text-[20px] text-[#1E2125] font-variation-customOpt20 font-normal  ">
+                    <div className="text-[20px] text-[#1E2125] font-variation-customOpt20 font-normal  ">
                       Povabi družino in prijatelje
-                    </h2>
+                    </div>
                   </div>
                   <div className="bg-[#D4D4D4] h-[1px] w-[100%] my-4 " />
                   <div
@@ -1144,9 +1159,9 @@ const MemorialPageTopComp = ({
 
           <div className="flex flex-col w-full items-center mt-[40px] tablet:mt-[60px] desktop:mt-[70px] ">
             <div className="flex items-center justify-center h-[33px] tablet:h-[47px] desktop:h-[47px] relative">
-              <div className="text-[#1E2125] text-[28px] tablet:text-[40px] desktop:text-[40px] font-variation-customOpt28 tablet:font-variation-customOpt40 desktop:font-variation-customOpt40 font-normal">
+              <h2 className="text-[#1E2125] text-[28px] tablet:text-[40px] desktop:text-[40px] font-variation-customOpt28 tablet:font-variation-customOpt40 desktop:font-variation-customOpt40 font-normal">
                 Žalna knjiga
-              </div>
+              </h2>
               {/* <div className="text-[#0A85C2] text-[24px] font-[400] absolute top-[-3px] right-[-38px] text-end">
                 22
               </div> */}
@@ -1278,9 +1293,8 @@ const MemorialPageTopComp = ({
                 22
               </div> */}
             </div>
-
             <button
-              className="flex cursor-pointer self-center tablet:self-start desktop:self-start items-center justify-center flex-col gap-[2px] border-2 rounded-[4px] border-[#FFFFFF] w-[165px] h-[60px] bg-gradient-to-br from-[#FFFFFF] to-[#FFFFFF30] z-20 mx-auto mt-[47px] tablet:hidden mobile:hidden mb-[30px]"
+              className="flex cursor-pointer self-center tablet:self-start desktop:self-start items-center justify-center flex-col gap-[2px] border-2 rounded-[4px] border-[#FFFFFF] w-[165px] h-[60px] bg-gradient-to-br from-[#FFFFFF] to-[#FFFFFF30] z-20 mx-auto mt-[40px] tablet:mt-[40px] desktop:mt-[40px] tablet:hidden mobile:hidden mb-[40px]"
               style={{
                 boxShadow: "3px 3px 18px 0px #00000040",
               }}
@@ -1300,12 +1314,17 @@ const MemorialPageTopComp = ({
                 Dodaj sliko
               </p>
             </button>
+
+            <div className="mt-[40px] tablet:mt-[40px] desktop:mt-[40px] w-full">
+              <Gallery3D photos={data?.Photos || []} />
+            </div>
+
             <button
               onClick={() => {
                 set_Id("6");
                 openCandleModal();
               }}
-              className="flex gap-[8px] items-center justify-end w-[1024px] tablet:w-[610px] mobile:w-[321px] text-end desktop:hidden text-[#414141] text-[14px] font-[400] mt-3 mb-[20px]"
+              className="flex gap-[8px] items-center justify-end w-[1024px] tablet:w-[610px] mobile:w-[321px] text-end desktop:hidden text-[#414141] text-[14px] font-[400] mt-[40px] mb-[12px]"
             >
               <Image
                 src={"/memory_page_plus_icon.png"}
@@ -1316,51 +1335,6 @@ const MemorialPageTopComp = ({
               />
               Dodaj Sliko
             </button>
-
-            <div className="w-full  space-y-[30px] px-[15px] mobile:space-y-[14px]">
-              <div className="hidden desktop:flex overflow-x-auto scrollbar-hide gap-[25px] w-[1024px]  flex-nowrap tablet:w-[800px] mobile:w-[406px] mobile:h-[125px] mx-auto mobile:gap-[14px]">
-                {data?.Photos?.length > 0 &&
-                  data?.Photos.map((item, index) => (
-                    <div
-                      key={index}
-                      className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0"
-                      style={{
-                        boxShadow:
-                          "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
-                      }}
-                    >
-                      <Image
-                        src={item.fileUrl}
-                        alt={data?.name && data?.sirName ? `Fotografija spomina za ${data.name} ${data.sirName}` : "Fotografija spomina"}
-                        width={200}
-                        height={200}
-                        className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
-                      />
-                    </div>
-                  ))}
-              </div>
-              <div className="hidden overflow-x-auto scrollbar-hide tablet:flex mobile:flex gap-[25px] w-[1024px] mobile:h-[125px] tablet:w-[800px] mobile:w-[406px] mobile:gap-[14px] mx-auto">
-                {data?.Photos?.length > 0 &&
-                  data?.Photos.map((item, index) => (
-                    <div
-                      key={index}
-                      className="p-[4px] bg-gradient-to-br from-[#E3E8EC] to-[#FFFFFF] rounded-[10px] shrink-0"
-                      style={{
-                        boxShadow:
-                          "-5px -5px 10px 0px #FFFFFF80, 5px 5px 10px 0px #C2C2C280, -1px -1px 2px 0px #FFFFFF",
-                      }}
-                    >
-                      <Image
-                        src={item.fileUrl}
-                        alt={data?.name && data?.sirName ? `Fotografija spomina za ${data.name} ${data.sirName}` : "Fotografija spomina"}
-                        width={200}
-                        height={200}
-                        className="w-[175px] mobile:w-[125px] mobile:h-[125px] h-[175px] rounded-[8px] object-cover object-center"
-                      />
-                    </div>
-                  ))}
-              </div>
-            </div>
           </div>
         </div>
       )}
@@ -1706,14 +1680,14 @@ const ContentSlider = ({ data }) => {
         />
         <div className="w-[522px] h-auto mobile:w-[255px] relative mx-auto">
           <div className="flex justify-between items-center gap-[10px]">
-            <h3
+            <div
               className="text-[40px] mobile:text-[24px] font-greatVibes font-normal text-[#1E2125]"
               style={{
                 textShadow: "0px 1px 1px #000000, 0px 4px 4px #00000040",
               }}
             >
               {currentDedication?.title}
-            </h3>
+            </div>
             <div className="flex flex-col items-end justify-end gap-[7px] ">
               <p className="text-[14px] leading-[14px] font-variation-customOpt16 font-normal text-[#36556CE5]">
                 {currentDedication?.name}
