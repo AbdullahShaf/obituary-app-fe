@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-const Card1 = ({ data, cardRefs, index, cemetery }) => {
+const Card1 = ({ data, cardRefs, index, cemetery, localImage }) => {
   const formatObituaryDate = (timestamp) => {
     if (!timestamp) return "";
     const date = new Date(timestamp);
@@ -56,7 +56,11 @@ const Card1 = ({ data, cardRefs, index, cemetery }) => {
     >
       <div className="ml-[35px] mt-[63.35px]">
         <div className="w-[138px] bg-[#3b3b3b] rounded-t-full overflow-hidden border-[6px] border-[#3b3b3b] shadow-2xl flex items-start justify-center pt-1">
-          <img src={data?.image ?? '/user5.jpeg'} alt={data?.name && data?.sirName ? `Fotografija ${data.name} ${data.sirName}` : "Fotografija pokojnika"} className="w-auto max-h-[188px]" />
+          <img
+            src={localImage || data?.image || '/user5.jpeg'}
+            alt={data?.name && data?.sirName ? `Fotografija ${data.name} ${data.sirName}` : "Fotografija pokojnika"}
+            className="w-auto max-h-[188px]"
+          />
         </div>
 
         <br />
