@@ -176,17 +176,6 @@ const AddObituary = ({ set_Id, setModal }) => {
     };
   }, []);
 
-  // Around line 176-180
-useEffect(() => {
-  if (obituaryResponse?.id) {
-    // Add a small delay to ensure cards are rendered
-    const timer = setTimeout(() => {
-      handleUploadTemplateCards();
-    }, 100);
-    return () => clearTimeout(timer);
-  }
-}, [obituaryResponse]);
-
 useEffect(() => {
   if (obituaryResponse?.id) {
     const timer = setTimeout(() => {
