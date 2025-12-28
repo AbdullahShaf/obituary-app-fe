@@ -121,7 +121,7 @@ const AddObituary = ({ set_Id, setModal }) => {
       getCemeteries(selectedCity);
     }
   }, [selectedCity]);
-  
+
   const getCemeteries = async (query) => {
     try {
       // NEW: Try fetching from admin cemeteries endpoint first (new cemeteries table)
@@ -176,14 +176,14 @@ const AddObituary = ({ set_Id, setModal }) => {
     };
   }, []);
 
-useEffect(() => {
-  if (obituaryResponse?.id) {
-    const timer = setTimeout(() => {
-      handleUploadTemplateCards();
-    }, 100);
-    return () => clearTimeout(timer);
-  }
-}, [obituaryResponse]);
+  useEffect(() => {
+    if (obituaryResponse?.id) {
+      const timer = setTimeout(() => {
+        handleUploadTemplateCards();
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [obituaryResponse]);
 
   const handleRegionSelect = (item) => {
     setSelectedRegion(item);
@@ -309,59 +309,59 @@ useEffect(() => {
   const handleUploadTemplateCards = async () => {
     try {
       setLoading(true);
-  
+
       // Wait for cardRefs to be populated - check if all 5 cards are ready
       let attempts = 0;
       const maxAttempts = 50; // Increased attempts
       while (attempts < maxAttempts) {
         // Check if all 5 card refs are populated
-        if (cardRefs.current && 
-            cardRefs.current.length >= 5 && 
-            cardRefs.current[0] && 
-            cardRefs.current[1] && 
-            cardRefs.current[2] && 
-            cardRefs.current[3] && 
-            cardRefs.current[4]) {
+        if (cardRefs.current &&
+          cardRefs.current.length >= 5 &&
+          cardRefs.current[0] &&
+          cardRefs.current[1] &&
+          cardRefs.current[2] &&
+          cardRefs.current[3] &&
+          cardRefs.current[4]) {
           break;
         }
         await new Promise((resolve) => setTimeout(resolve, 100));
         attempts++;
       }
-  
+
       // Final check - ensure we have all refs
-      if (!obituaryResponse || 
-          !cardRefs.current || 
-          cardRefs.current.length < 5 ||
-          !cardRefs.current[0] || 
-          !cardRefs.current[1] || 
-          !cardRefs.current[2] || 
-          !cardRefs.current[3] || 
-          !cardRefs.current[4]) {
+      if (!obituaryResponse ||
+        !cardRefs.current ||
+        cardRefs.current.length < 5 ||
+        !cardRefs.current[0] ||
+        !cardRefs.current[1] ||
+        !cardRefs.current[2] ||
+        !cardRefs.current[3] ||
+        !cardRefs.current[4]) {
         console.error("Card refs not populated after waiting");
         toast.error("Napaka pri generiranju digitalnih kartic. Poskusite znova.");
         setLoading(false);
         return;
       }
-  
+
       // Filter out any null/undefined refs
       const validRefs = cardRefs.current.filter(ref => ref !== null && ref !== undefined);
-      
+
       if (validRefs.length < 5) {
         console.error(`Only ${validRefs.length} card refs available, expected 5`);
         toast.error("Napaka pri generiranju digitalnih kartic. Poskusite znova.");
         setLoading(false);
         return;
       }
-  
+
       const { images, pdfs } = await getCardsImageAndPdfsFiles(validRefs);
-      
+
       if (!images || images.length === 0 || !pdfs || pdfs.length === 0) {
         console.error("No images or PDFs generated");
         toast.error("Napaka pri generiranju digitalnih kartic. Poskusite znova.");
         setLoading(false);
         return;
       }
-  
+
       const formData = new FormData();
       images.forEach((image) => {
         formData.append(`cardImages`, image);
@@ -369,22 +369,22 @@ useEffect(() => {
       pdfs.forEach((pdf) => {
         formData.append(`cardPdfs`, pdf);
       });
-      
+
       const response = await obituaryService.uploadObituaryTemplateCards(
         obituaryResponse.id,
         formData
       );
-      
+
       if (response.error) {
         console.error("Upload error:", response.error);
         toast.error(response.error || "Napaka pri nalaganju digitalnih kartic.");
         setLoading(false);
         return;
       }
-      
+
       toast.success("Digitalne katerice so dodane");
       setLoading(false);
-      
+
       // Only navigate after successful upload
       router.push(`/m/${obituaryResponse.slugKey}`);
     } catch (error) {
@@ -579,7 +579,12 @@ useEffect(() => {
   return (
     <>
       {obituaryResponse?.id && (
-        <MobileCards cardRefs={cardRefs} data={obituaryResponse} cemetery={selectedCemeteryLabel} />
+        <MobileCards
+          cardRefs={cardRefs}
+          data={obituaryResponse}
+          cemetery={selectedCemeteryLabel}
+          localImage={uploadedImage}
+        />
       )}
       {loading && <BackDropLoader />}
       {/* Main Container for all the content and background */}
@@ -1898,8 +1903,8 @@ useEffect(() => {
                       {showMemoryIconTooltip && (
                         <div
                           className={`absolute top-1/2 -translate-y-1/2 z-20 w-max max-w-[260px] rounded-md bg-[#0A85C2] text-white text-[12px] leading-[16px] px-3 py-2 shadow-lg after:content-[''] after:absolute after:top-1/2 after:-translate-y-1/2 ${memoryIconTooltipSide === "right"
-                              ? "left-full ml-3 after:left-[-6px] after:border-y-[6px] after:border-y-transparent after:border-r-[6px] after:border-r-[#0A85C2]"
-                              : "right-full mr-3 after:right-[-6px] after:border-y-[6px] after:border-y-transparent after:border-l-[6px] after:border-l-[#0A85C2]"
+                            ? "left-full ml-3 after:left-[-6px] after:border-y-[6px] after:border-y-transparent after:border-r-[6px] after:border-r-[#0A85C2]"
+                            : "right-full mr-3 after:right-[-6px] after:border-y-[6px] after:border-y-transparent after:border-l-[6px] after:border-l-[#0A85C2]"
                             }`}
                           onClick={(e) => e.stopPropagation()}
                         >

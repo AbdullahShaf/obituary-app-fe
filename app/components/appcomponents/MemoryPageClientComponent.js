@@ -1,24 +1,23 @@
 "use client";
-import { Suspense, useEffect, useRef } from "react";
-import { useState } from "react";
+
+import Image from "next/image";
+import { APP_BASE_URL } from "@/config/apiConfig";
+import { Suspense, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+
+import imgUp from "@/public/ico_up.png";
+import { useAuth } from "@/hooks/useAuth";
+import obituaryService from "@/services/obituary-service";
 import Layout from "../../components/appcomponents/Layout";
+import { getTemplateCardImages } from "@/utils/commonUtils";
 import Breadcrumbs from "../../components/appcomponents/Breadcrumbs";
-import ObituaryPublished from "../../components/appcomponents/ObituaryPublished";
-import FlowerShops from "../../components/appcomponents/FlowerShops";
-import ShippingNotifications from "../../components/appcomponents/ShippingNotifications";
-import MemorialPageTopComp from "../../components/appcomponents/MemorialPageTopComp";
 import ModalLibrary from "../../components/appcomponents/ModalLibrary";
 import ImageFullView from "../../components/appcomponents/ImageFullView";
-import imgUp from "@/public/ico_up.png";
-import Image from "next/image";
-import obituaryService from "@/services/obituary-service";
-import { toast } from "react-hot-toast";
+import ObituaryPublished from "../../components/appcomponents/ObituaryPublished";
 import AnnouncementBlock from "../../components/appcomponents/AnnouncementBlock";
-import { FlowerShops2 } from "../../components/appcomponents/FlowerShops";
-import { useRouter, useSearchParams } from "next/navigation";
-import { getTemplateCardImages } from "@/utils/commonUtils";
-import { useAuth } from "@/hooks/useAuth";
-import { APP_BASE_URL } from "@/config/apiConfig";
+import MemorialPageTopComp from "../../components/appcomponents/MemorialPageTopComp";
+import FlowerShops, { FlowerShops2 } from "../../components/appcomponents/FlowerShops";
+import ShippingNotifications from "../../components/appcomponents/ShippingNotifications";
 
 const MemoryPageContent = ({ params, obituaryDataFromServer }) => {
   const { slugKey } = params;
@@ -34,7 +33,7 @@ const MemoryPageContent = ({ params, obituaryDataFromServer }) => {
   const [showShops, setShowShops] = useState(false);
   const [showImageView, setShowImageView] = useState(false);
   const [imageId, setImageId] = useState("0");
-  const [obituary, setObituary] = useState({});
+  const [obituary, setObituary] = useState(obituaryDataFromServer || {});
   const city = searchParams.get("city");
   const region = searchParams.get("region");
 
