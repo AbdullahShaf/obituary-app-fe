@@ -316,14 +316,12 @@ const AddObituary = ({ set_Id, setModal }) => {
         return;
       }
 
-      const allRefsReady = await waitForRefsReady(cardRefs);
-
+      const allRefsReady = await waitForRefsReady(cardRefs, 10000);
       if (!validateRefsAfterWaiting(allRefsReady, cardRefs, setLoading)) {
         return;
       }
 
       const validRefs = getValidRefs(cardRefs);
-
       if (!validateRefsCount(validRefs, setLoading)) {
         return;
       }
@@ -333,9 +331,7 @@ const AddObituary = ({ set_Id, setModal }) => {
         return;
       }
 
-      const { images, pdfs } = cardsResult;
-      const formData = createFormDataFromCards(images, pdfs);
-
+      const formData = createFormDataFromCards(cardsResult.images, cardsResult.pdfs);
       const uploadSuccess = await uploadCardsToServer(formData, obituaryResponse, obituaryService, setLoading);
       if (!uploadSuccess) {
         return;

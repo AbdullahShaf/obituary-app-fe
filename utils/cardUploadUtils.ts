@@ -13,24 +13,25 @@ export const getValidRefs = (cardRefs: React.MutableRefObject<any[]>) => {
   });
 };
 
-export const waitForRefsReady = async (cardRefs: React.MutableRefObject<any[]>) => {
-  let attempts = 0;
-  const maxAttempts = 50;
-  let allRefsReady = false;
+export const waitForRefsReady = async (
+  cardRefs: React.MutableRefObject<any[]>,
+  timeout = 10000
+): Promise<boolean> => {
+  const startTime = Date.now();
 
-  while (attempts < maxAttempts && !allRefsReady) {
-    if (cardRefs.current && Array.isArray(cardRefs.current) && cardRefs.current.length >= 5) {
+  return new Promise<boolean>((resolve) => {
+    const interval = setInterval(() => {
       const validRefs = getValidRefs(cardRefs);
-      if (validRefs.length >= 5) {
-        allRefsReady = true;
-        break;
-      }
-    }
-    await new Promise((resolve) => setTimeout(resolve, 100));
-    attempts++;
-  }
 
-  return allRefsReady;
+      if (validRefs.length >= 5) {
+        clearInterval(interval);
+        resolve(true);
+      } else if (Date.now() - startTime > timeout) {
+        clearInterval(interval);
+        resolve(false);
+      }
+    }, 100);
+  });
 };
 
 export const validateObituaryResponse = (obituaryResponse: any, setLoading: (loading: boolean) => void) => {
