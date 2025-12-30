@@ -309,9 +309,8 @@ const AddObituary = ({ set_Id, setModal }) => {
   };
 
   const handleUploadTemplateCards = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
-
       if (!validateObituaryResponse(obituaryResponse, setLoading)) {
         return;
       }
@@ -338,12 +337,12 @@ const AddObituary = ({ set_Id, setModal }) => {
       }
 
       toast.success("Digitalne katerice so dodane");
-      setLoading(false);
 
       router.push(`/m/${obituaryResponse.slugKey}`);
     } catch (error) {
       console.error("Error in handleUploadTemplateCards:", error);
       toast.error("Napaka pri generiranju digitalnih kartic. Poskusite znova.");
+    } finally {
       setLoading(false);
     }
   };

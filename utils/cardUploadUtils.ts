@@ -20,17 +20,39 @@ export const waitForRefsReady = async (
   const startTime = Date.now();
 
   return new Promise<boolean>((resolve) => {
-    const interval = setInterval(() => {
+    let timeoutId: NodeJS.Timeout | null = null;
+    let isResolved = false;
+
+    const cleanup = () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+      }
+    };
+
+    const checkRefs = () => {
+      if (isResolved) return;
+
       const validRefs = getValidRefs(cardRefs);
 
       if (validRefs.length >= 5) {
-        clearInterval(interval);
+        isResolved = true;
+        cleanup();
         resolve(true);
-      } else if (Date.now() - startTime > timeout) {
-        clearInterval(interval);
-        resolve(false);
+        return;
       }
-    }, 100);
+
+      if (Date.now() - startTime >= timeout) {
+        isResolved = true;
+        cleanup();
+        resolve(false);
+        return;
+      }
+
+      timeoutId = setTimeout(checkRefs, 100);
+    };
+
+    checkRefs();
   });
 };
 
