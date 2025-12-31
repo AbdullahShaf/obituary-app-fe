@@ -1,22 +1,33 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import Dropdown from "./Dropdown";
-import DropdownWithSearch from "./DropdownWithSearch";
-import { sl } from "date-fns/locale";
-import Image from "next/image";
-import DatePicker from "react-datepicker";
-import { getYear, getMonth } from "date-fns";
+
 import { toast } from "react-hot-toast";
-import obituaryService from "@/services/obituary-service";
-import cemetryService from "@/services/cemetry-service";
-import adminService from "@/services/admin-service";
-import ModalDropBox from "./ModalDropBox";
+import { useRouter } from "next/navigation";
+import { getYear, getMonth } from "date-fns";
+import React, { useEffect, useRef, useState } from "react";
+
+import Image from "next/image";
+import Dropdown from "./Dropdown";
+import { sl } from "date-fns/locale";
 import MobileCards from "./MobileCards";
-import { getCardsImageAndPdfsFiles } from "@/utils/downloadCards";
-import BackDropLoader from "../ui/backdrop-loader";
+import DatePicker from "react-datepicker";
+import ModalDropBox from "./ModalDropBox";
 import { useAuth } from "@/hooks/useAuth";
 import ModalCemetery from "./ModalCemetery";
+import BackDropLoader from "../ui/backdrop-loader";
+import adminService from "@/services/admin-service";
+import DropdownWithSearch from "./DropdownWithSearch";
+import cemetryService from "@/services/cemetry-service";
+import obituaryService from "@/services/obituary-service";
+import {
+  getValidRefs,
+  waitForRefsReady,
+  validateObituaryResponse,
+  validateRefsAfterWaiting,
+  validateRefsCount,
+  generateAndValidateCards,
+  createFormDataFromCards,
+  uploadCardsToServer,
+} from "@/utils/cardUploadUtils";
 
 const AddObituary = ({ set_Id, setModal }) => {
   const router = useRouter();
@@ -53,7 +64,6 @@ const AddObituary = ({ set_Id, setModal }) => {
   const cardRefs = useRef([]);
   const [birthMode, setBirthMode] = useState("full");
   const [showMemoryPageIcon, setShowMemoryPageIcon] = useState(false);
-  const [memoryPageMessage, setMemoryPageMessage] = useState("Svojci cvetje in sveče hvaležno odklanjajo.");
   const [showMemoryIconTooltip, setShowMemoryIconTooltip] = useState(false);
   const [memoryIconTooltipSide, setMemoryIconTooltipSide] = useState("right");
   const memoryIconButtonRef = useRef(null);
@@ -96,7 +106,6 @@ const AddObituary = ({ set_Id, setModal }) => {
   const [cemeteries, setCemeteries] = useState([]);
   const [showCemeteryModal, setShowCemeteryModal] = useState(false);
   useEffect(() => {
-    console.log(inputValueFuneralCemetery, "=================");
   }, [inputValueFuneralCemetery]);
   const funeralCemeteryOptions = [
     ...(cemeteries?.map((item) => ({
@@ -119,12 +128,11 @@ const AddObituary = ({ set_Id, setModal }) => {
       getCemeteries(selectedCity);
     }
   }, [selectedCity]);
+
   const getCemeteries = async (query) => {
     try {
-      // NEW: Try fetching from admin cemeteries endpoint first (new cemeteries table)
       const response = await adminService.getCemeteries();
       if (response && response.data) {
-        // Filter by city if provided
         let filteredCemeteries = response.data;
         if (query && query.trim() !== "") {
           filteredCemeteries = response.data.filter(
@@ -132,13 +140,12 @@ const AddObituary = ({ set_Id, setModal }) => {
           );
         }
         setCemeteries(filteredCemeteries || []);
-        return; // Success, exit early
+        return;
       }
     } catch (error) {
       // console.log("Error fetching cemeteries from admin:", error);
     }
-    
-    // FALLBACK: Use original service if admin service fails (preserves old functionality)
+
     try {
       let queryParams = {};
       if (query && query.trim() !== "") {
@@ -147,7 +154,6 @@ const AddObituary = ({ set_Id, setModal }) => {
       const response = await cemetryService.getCemeteries(queryParams);
       setCemeteries(response?.cemetries || []);
     } catch (fallbackError) {
-      // console.log("Error fetching cemeteries from user service:", fallbackError);
       setCemeteries([]);
     }
   };
@@ -175,7 +181,10 @@ const AddObituary = ({ set_Id, setModal }) => {
 
   useEffect(() => {
     if (obituaryResponse?.id) {
-      handleUploadTemplateCards();
+      const timer = setTimeout(() => {
+        handleUploadTemplateCards();
+      }, 100);
+      return () => clearTimeout(timer);
     }
   }, [obituaryResponse]);
 
@@ -251,7 +260,6 @@ const AddObituary = ({ set_Id, setModal }) => {
       }
     }
     setShowMemoryIconTooltip(true);
-    // Auto-hide after 3 seconds
     setTimeout(() => {
       setShowMemoryIconTooltip(false);
     }, 3000);
@@ -302,37 +310,43 @@ const AddObituary = ({ set_Id, setModal }) => {
 
   const handleUploadTemplateCards = async () => {
     setLoading(true);
+    try {
+      if (!validateObituaryResponse(obituaryResponse, setLoading)) {
+        return;
+      }
 
-    // Wait for cardRefs to be populated
-    let attempts = 0;
-    while (!cardRefs.current && attempts < 10) {
-      await new Promise((resolve) => setTimeout(resolve, 50));
-      attempts++;
+      const allRefsReady = await waitForRefsReady(cardRefs, 10000);
+      if (!validateRefsAfterWaiting(allRefsReady, cardRefs, setLoading)) {
+        return;
+      }
+
+      const validRefs = getValidRefs(cardRefs);
+      if (!validateRefsCount(validRefs, setLoading)) {
+        return;
+      }
+
+      const cardsResult = await generateAndValidateCards(validRefs, setLoading);
+      if (!cardsResult) {
+        return;
+      }
+
+      const formData = createFormDataFromCards(cardsResult.images, cardsResult.pdfs);
+      const uploadSuccess = await uploadCardsToServer(formData, obituaryResponse, obituaryService, setLoading);
+      if (!uploadSuccess) {
+        return;
+      }
+
+      toast.success("Digitalne katerice so dodane");
+
+      router.push(`/m/${obituaryResponse.slugKey}`);
+    } catch (error) {
+      console.error("Error in handleUploadTemplateCards:", error);
+      toast.error("Napaka pri generiranju digitalnih kartic. Poskusite znova.");
+    } finally {
+      setLoading(false);
     }
-    if (!obituaryResponse || !cardRefs.current) return;
-    const { images, pdfs } = await getCardsImageAndPdfsFiles(cardRefs.current);
-    const formData = new FormData();
-    images.forEach((image) => {
-      formData.append(`cardImages`, image);
-    });
-    pdfs.forEach((pdf) => {
-      formData.append(`cardPdfs`, pdf);
-    });
-    const response = await obituaryService.uploadObituaryTemplateCards(
-      obituaryResponse.id,
-      formData
-    );
-    if (response.error) {
-      // toast.error(response.error || "Failed to upload template cards.");
-      return;
-    }
-    toast.success("Digitalne katerice so dodane");
-    setLoading(false);
-    // Temporarily commented
-    router.push(`/m/${obituaryResponse.slugKey}`);
   };
 
-  // helper function: format date as YYYY-MM-DD without timezone shift
   const formatDate = (date) => {
     if (!date) return null;
     const year = date.getFullYear();
@@ -341,160 +355,148 @@ const AddObituary = ({ set_Id, setModal }) => {
     return `${year}-${month}-${day}`;
   };
 
-const handleSubmit = async () => {
-  const currentUser = isAuthenticated ? user : {};
+  const handleSubmit = async () => {
+    const currentUser = isAuthenticated ? user : {};
 
-  // Temporarily commented
-  if (!currentUser.createObituaryPermission) {
-    toast.error("Nimaš dovoljenja za objavo osmrtnic");
-    return;
-  }
-
-  if (!validateFields()) return;
-
-  try {
-    setLoading(true);
-
-    const formData = new FormData();
-
-    // ---- Birth date ----
-    let formattedBirthDate = null;
-    if (birthDate) {
-      if (birthMode === "year") {
-        formattedBirthDate = `${birthDate.getFullYear()}-12-31`;
-      } else {
-        formattedBirthDate = formatDate(birthDate);
-      }
-    }
-
-    // ---- Death date ----
-    let formattedDeathDate = null;
-    if (deathDate) {
-      if (deathMode === "year") {
-        formattedDeathDate = `${deathDate.getFullYear()}-12-31`;
-      } else {
-        formattedDeathDate = formatDate(deathDate);
-      }
-    }
-
-    // ---- Funeral timestamp ----
-    let formattedFuneralTimestamp = null;
-    if (
-      funeralDate &&
-      selectedFuneralHour !== null
-    ) {
-      const funeralMinute = selectedFuneralMinute !== null && selectedFuneralMinute !== undefined ? selectedFuneralMinute : 0;
-      formattedFuneralTimestamp = new Date(
-        funeralDate.getFullYear(),
-        funeralDate.getMonth(),
-        funeralDate.getDate(),
-        selectedFuneralHour,
-        funeralMinute
-      ).toISOString();
-    }
-
-    const fullName = `${inputValueName} ${inputValueSirName}`;
-    const obituaryText =
-      inputValueGender === "Male"
-        ? `Sporočamo žalostno vest, da nas je zapustil naš predragi ${fullName}. Vsi njegovi.`
-        : `Sporočamo žalostno vest, da nas je zapustila naša predraga ${fullName}. Vsi njeni.`;
-
-    // ---- Append data ----
-    formData.append("name", inputValueName);
-    formData.append("sirName", inputValueSirName);
-    formData.append("location", inputValueEnd);
-    formData.append("region", selectedRegion);
-    formData.append("city", selectedCity);
-    formData.append("gender", inputValueGender);
-    formData.append("birthDate", formattedBirthDate?formattedBirthDate:"");
-    formData.append("deathDate", formattedDeathDate);
-    formData.append("funeralLocation", selectedCity);
-
-    // Use new funeralCemeteryId field for new cemeteries table
-    // Keep old funeralCemetery for backward compatibility (old entries)
-    if (inputValueFuneralCemetery !== "pokopalisce") {
-      // Check if it's a number (ID from new cemeteries table) or old format
-      const cemeteryId = parseInt(inputValueFuneralCemetery);
-      if (!isNaN(cemeteryId)) {
-        formData.append("funeralCemeteryId", cemeteryId);
-      } else {
-        // Fallback to old field for backward compatibility
-        formData.append("funeralCemetery", inputValueFuneralCemetery);
-      }
-    }
-
-    if (formattedFuneralTimestamp) {
-      formData.append("funeralTimestamp", formattedFuneralTimestamp);
-    }
-
-    // Add refuseFlowersIcon flag to form data
-    formData.append("refuseFlowersIcon", showMemoryPageIcon ? "true" : "false");
-
-    formData.append("deathReportExists", isDeathReportConfirmed);
-    // Process events with default text - use defaults if fields are empty
-    const processedEvents = events
-      .filter(event => event.eventDate) // Only include events with a date
-      .map(event => ({
-        eventName: event.eventName || "Zadnje slovo",
-        eventLocation: event.eventLocation || "Poslovilna vežica",
-        eventDate: event.eventDate ? new Date(event.eventDate).toISOString() : null,
-        eventHour: event.eventHour !== null && event.eventHour !== undefined ? event.eventHour : null,
-        eventMinute: event.eventMinute !== null && event.eventMinute !== undefined ? event.eventMinute : (event.eventHour !== null ? 0 : null),
-      }));
-    formData.append("events", JSON.stringify(processedEvents));
-    formData.append("obituary", obituaryText);
-
-    if (uploadedPicture) {
-      formData.append("picture", uploadedPicture);
-    }
-    if (uploadedDeathReport) {
-      formData.append("deathReport", uploadedDeathReport);
-    }
-
-    // ---- API request ----
-    let response;
-    if (dataExists) {
-      response = await obituaryService.updateObituary(user.id, formData);
-      toast.success("Osmrtnica je bila posodobljena");
-    } else {
-      response = await obituaryService.createObituary(formData);
-      toast.success("Osmrtnica je bila uspešno dodana");
-    }
-
-    if (response.error) {
-      console.error("Obituary submission error:", response.error);
-      toast.error(response.error || "Prišlo je do napake. Poskusi znova.");
+    if (!currentUser.createObituaryPermission) {
+      toast.error("Nimaš dovoljenja za objavo osmrtnic");
       return;
     }
 
-    const responseDeathDate = new Date(response.deathDate);
-    const deathDateFormatted = `${responseDeathDate
-      .getDate()
-      .toString()
-      .padStart(2, "0")}${(responseDeathDate.getMonth() + 1)
-        .toString()
-        .padStart(2, "0")}${responseDeathDate
-          .getFullYear()
-          .toString()
-          .slice(2)}`;
+    if (!validateFields()) return;
 
-    // Add refuseFlowersIcon to response for memory page display
-    const responseWithIcon = {
-      ...response,
-      refuseFlowersIcon: showMemoryPageIcon,
-    };
-    setObituaryResponse(responseWithIcon);
-  } catch (error) {
-    console.error("Error creating obituary:", error);
-    console.error("Error response:", error?.response?.data);
-    toast.error(
-      error?.response?.data?.error ||
+    try {
+      setLoading(true);
+
+      const formData = new FormData();
+
+      let formattedBirthDate = null;
+      if (birthDate) {
+        if (birthMode === "year") {
+          formattedBirthDate = `${birthDate.getFullYear()}-12-31`;
+        } else {
+          formattedBirthDate = formatDate(birthDate);
+        }
+      }
+
+      let formattedDeathDate = null;
+      if (deathDate) {
+        if (deathMode === "year") {
+          formattedDeathDate = `${deathDate.getFullYear()}-12-31`;
+        } else {
+          formattedDeathDate = formatDate(deathDate);
+        }
+      }
+
+      let formattedFuneralTimestamp = null;
+      if (
+        funeralDate &&
+        selectedFuneralHour !== null
+      ) {
+        const funeralMinute = selectedFuneralMinute !== null && selectedFuneralMinute !== undefined ? selectedFuneralMinute : 0;
+        formattedFuneralTimestamp = new Date(
+          funeralDate.getFullYear(),
+          funeralDate.getMonth(),
+          funeralDate.getDate(),
+          selectedFuneralHour,
+          funeralMinute
+        ).toISOString();
+      }
+
+      const fullName = `${inputValueName} ${inputValueSirName}`;
+      const obituaryText =
+        inputValueGender === "Male"
+          ? `Sporočamo žalostno vest, da nas je zapustil naš predragi ${fullName}. Vsi njegovi.`
+          : `Sporočamo žalostno vest, da nas je zapustila naša predraga ${fullName}. Vsi njeni.`;
+
+      formData.append("name", inputValueName);
+      formData.append("sirName", inputValueSirName);
+      formData.append("location", inputValueEnd);
+      formData.append("region", selectedRegion);
+      formData.append("city", selectedCity);
+      formData.append("gender", inputValueGender);
+      formData.append("birthDate", formattedBirthDate ? formattedBirthDate : "");
+      formData.append("deathDate", formattedDeathDate);
+      formData.append("funeralLocation", selectedCity);
+
+      if (inputValueFuneralCemetery !== "pokopalisce") {
+        const cemeteryId = parseInt(inputValueFuneralCemetery);
+        if (!isNaN(cemeteryId)) {
+          formData.append("funeralCemeteryId", cemeteryId);
+        } else {
+          formData.append("funeralCemetery", inputValueFuneralCemetery);
+        }
+      }
+
+      if (formattedFuneralTimestamp) {
+        formData.append("funeralTimestamp", formattedFuneralTimestamp);
+      }
+
+      formData.append("refuseFlowersIcon", showMemoryPageIcon ? "true" : "false");
+
+      formData.append("deathReportExists", isDeathReportConfirmed);
+      const processedEvents = events
+        .filter(event => event.eventDate)
+        .map(event => ({
+          eventName: event.eventName || "Zadnje slovo",
+          eventLocation: event.eventLocation || "Poslovilna vežica",
+          eventDate: event.eventDate ? new Date(event.eventDate).toISOString() : null,
+          eventHour: event.eventHour !== null && event.eventHour !== undefined ? event.eventHour : null,
+          eventMinute: event.eventMinute !== null && event.eventMinute !== undefined ? event.eventMinute : (event.eventHour !== null ? 0 : null),
+        }));
+      formData.append("events", JSON.stringify(processedEvents));
+      formData.append("obituary", obituaryText);
+
+      if (uploadedPicture) {
+        formData.append("picture", uploadedPicture);
+      }
+      if (uploadedDeathReport) {
+        formData.append("deathReport", uploadedDeathReport);
+      }
+
+      let response;
+      if (dataExists) {
+        response = await obituaryService.updateObituary(user.id, formData);
+        toast.success("Osmrtnica je bila posodobljena");
+      } else {
+        response = await obituaryService.createObituary(formData);
+        toast.success("Osmrtnica je bila uspešno dodana");
+      }
+
+      if (response.error) {
+        console.error("Obituary submission error:", response.error);
+        toast.error(response.error || "Prišlo je do napake. Poskusi znova.");
+        setLoading(false);
+        return;
+      }
+
+      const responseDeathDate = new Date(response.deathDate);
+      const deathDateFormatted = `${responseDeathDate
+        .getDate()
+        .toString()
+        .padStart(2, "0")}${(responseDeathDate.getMonth() + 1)
+          .toString()
+          .padStart(2, "0")}${responseDeathDate
+            .getFullYear()
+            .toString()
+            .slice(2)}`;
+
+      const responseWithIcon = {
+        ...response,
+        refuseFlowersIcon: showMemoryPageIcon,
+      };
+      setObituaryResponse(responseWithIcon);
+    } catch (error) {
+      console.error("Error creating obituary:", error);
+      console.error("Error response:", error?.response?.data);
+      toast.error(
+        error?.response?.data?.error ||
         "Prišlo je do napake."
-    );
-  } finally {
-    setLoading(false);
-  }
-};
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
 
   const [startDecade, setStartDecade] = useState(1950);
@@ -505,8 +507,8 @@ const handleSubmit = async () => {
       birthDate.getMonth(),
       birthDate.getDate()
     );
-    setBirthDate(updatedDate); // Update year
-    setStartDecade(decadeStart); // Update the selected decade
+    setBirthDate(updatedDate);
+    setStartDecade(decadeStart);
   };
 
   const getDecadeRange = (startYear) => {
@@ -517,21 +519,23 @@ const handleSubmit = async () => {
   return (
     <>
       {obituaryResponse?.id && (
-        <MobileCards cardRefs={cardRefs} data={obituaryResponse} cemetery={selectedCemeteryLabel} />
+        <MobileCards
+          cardRefs={cardRefs}
+          data={obituaryResponse}
+          cemetery={selectedCemeteryLabel}
+          localImage={uploadedImage}
+        />
       )}
       {loading && <BackDropLoader />}
-      {/* Main Container for all the content and background */}
       <div
         className={`w-full min-h-screen pt-[98px] pb-[123px] bg-[url('/img_obituary_bg.avif')] mx-auto bg-center bg-cover flex flex-col`}
       >
-        {/* Container for top texts */}
         <div className=" mx-auto desktop:mt-[92.02px] mobile:mt-[72px] tablet:mt-[79px] h-auto">
           <div className="text-[40px] mobile:text-[32px] mobile:font-variation-customOpt32 font-normal font-variation-customOpt40 text-center leading-[44px] text-[#1E2125]">
             Dodaj osmrtnico
           </div>
         </div>
 
-        {/* Container for top three buttons */}
         <div className="mx-auto mt-[44px] flex flex-row gap-[6px] mobile:flex-wrap mobile:justify-center">
           <div
             className={`${activeDivtype === "KORAK 1"
@@ -576,7 +580,6 @@ const handleSubmit = async () => {
           </div>
         </div>
 
-        {/*Main Container for details */}
         <div
           className={`px-[50px] mx-auto desktop:max-w-[650px]  desktop:w-full tablet:max-w-[650px]  tablet:w-full ${activeDivtype === "KOREK 1"
             ? "pt-[61px] pb-[44px]"
@@ -586,12 +589,8 @@ const handleSubmit = async () => {
      mobile:px-[15px] mobile:min-w-[360px] mobile:mt-[39px] mobile:pb-[23px]
      `}
         >
-          {/* Inside main conatiner data of first button */}
           {activeDivtype === "KORAK 1" && (
             <div className="flex flex-col justify-start  mobile:max-w-[310px] mobile:w-full">
-              {/* {/ Container for text fields /} */}
-
-              {/* {/ First text field and title /} */}
               <div className="text-[#6D778E] mobile:text-[#414B5A] text-[16px] mobile:text-[14px] font-normal leading-[24px] font-variation-customOpt14">
                 IME
               </div>
@@ -604,7 +603,6 @@ const handleSubmit = async () => {
                 />
               </div>
 
-              {/* {/ Second text field and title /} */}
               <div className="text-[#6D778E] mobile:text-[#414B5A] text-[16px] mobile:text-[14px] mt-4 font-normal leading-[24px] font-variation-customOpt14">
                 PRIIMEK
               </div>
@@ -617,7 +615,6 @@ const handleSubmit = async () => {
                 />
               </div>
 
-              {/* {/ Third text field and title /} */}
               <div className="flex mobile:hidden text-[#6D778E] text-[16px] mt-4 font-normal leading-[24px] font-variation-customOpt14">
                 KRAJ{" "}
                 <span className="text-[#ACAAAA] text-[12px] font-variation-customOpt12 font-normal ml-1">
@@ -679,7 +676,7 @@ const handleSubmit = async () => {
                       name="gender"
                       value="Male"
                       className="hidden"
-                      onChange={handleGenderInput} // setGender updates the state for gender
+                      onChange={handleGenderInput}
                     />
                     <span className="w-5 h-5 flex items-center justify-center border-2 border-[#6D778E] rounded-full">
                       {inputValueGender === "Male" && (
@@ -699,7 +696,7 @@ const handleSubmit = async () => {
                       name="gender"
                       value="Female"
                       className="hidden"
-                      onChange={handleGenderInput} // setGender updates the state for gender
+                      onChange={handleGenderInput}
                     />
                     <span className="w-5 h-5 flex items-center justify-center border-2 border-[#6D778E] rounded-full">
                       {inputValueGender === "Female" && (
@@ -727,9 +724,7 @@ const handleSubmit = async () => {
                   lahko obveščeni o prihajajočih obletnicah.
                 </p>
               </div>
-              {/* DATUM ROJSTVA */}
               <div className="flex flex-col mt-2">
-                {/* Title + Toggle */}
                 <div className="flex items-center justify-start gap-x-4">
                   <div className="text-[#6D778E] mobile:text-[#414B5A] font-normal text-[14px] leading-[24px] font-variation-customOpt14">
                     DATUM ROJSTVA
@@ -756,10 +751,6 @@ const handleSubmit = async () => {
                   </div>
                 </div>
 
-                {/* Info text */}
-
-
-                {/* Date pickers */}
                 <div className="flex flex-row mobile:gap-x-[11px] gap-x-[32px] gap-y-[8px] flex-wrap mt-2">
                   {birthMode === "year" && (
                     <>
@@ -793,7 +784,7 @@ const handleSubmit = async () => {
 
                   {birthMode === "full" && (
                     <>
-                      {/* Day */}
+
                       <ModalDropBox
                         placeholder={`Dan`}
                         onClick={() => togglePicker("birthDay")}
@@ -815,7 +806,6 @@ const handleSubmit = async () => {
                         </div>
                       )}
 
-                      {/* Month */}
                       <ModalDropBox
                         placeholder={`Mesec`}
                         onClick={() => togglePicker("birthMonth")}
@@ -844,7 +834,6 @@ const handleSubmit = async () => {
                         </div>
                       )}
 
-                      {/* Year */}
                       <ModalDropBox
                         placeholder={`Leto`}
                         onClick={() => togglePicker("birthYear")}
@@ -879,9 +868,7 @@ const handleSubmit = async () => {
                 </div>
               </div>
 
-              {/* DAN SLOVESA */}
               <div className="flex flex-col mt-8">
-                {/* Title + Toggle */}
                 <div className="flex items-center justify-start gap-x-4">
 
                   <div className="text-[#6D778E] mobile:text-[#414B5A] font-normal text-[14px] leading-[24px] font-variation-customOpt14">
@@ -921,7 +908,6 @@ const handleSubmit = async () => {
                   </p>
                 </div> */}
 
-                {/* Date pickers */}
                 <div className="flex flex-row mobile:gap-x-[11px] gap-x-[32px] gap-y-[8px] flex-wrap mt-2">
                   {deathMode === "year" && (
                     <>
@@ -954,7 +940,6 @@ const handleSubmit = async () => {
 
                   {deathMode === "full" && (
                     <>
-                      {/* Day */}
                       <ModalDropBox
                         placeholder={`Dan`}
                         onClick={() => togglePicker("deathDay")}
@@ -977,7 +962,6 @@ const handleSubmit = async () => {
                         </div>
                       )}
 
-                      {/* Month */}
                       <ModalDropBox
                         placeholder={`Mesec`}
                         onClick={() => togglePicker("deathMonth")}
@@ -1298,8 +1282,8 @@ const handleSubmit = async () => {
                             .toString()
                             .padStart(2, "0")}`
                           : selectedFuneralHour !== null && selectedFuneralHour !== undefined
-                          ? "00"
-                          : "Min:"
+                            ? "00"
+                            : "Min:"
                       }
                     />
 
@@ -1569,8 +1553,8 @@ const handleSubmit = async () => {
                                   .toString()
                                   .padStart(2, "0")}`
                                 : event.eventHour !== null && event.eventHour !== undefined
-                                ? "00"
-                                : "Min:"
+                                  ? "00"
+                                  : "Min:"
                             }
                           />
 
@@ -1809,7 +1793,7 @@ const handleSubmit = async () => {
                           strokeLinecap="round"
                         />
                       </svg>
-                      <div 
+                      <div
                         className="relative w-6 h-6 border border-[#6D778E] rounded-sm flex items-center justify-center cursor-pointer"
                         onClick={() => {
                           handleToggleMemoryIcon();
@@ -1835,11 +1819,10 @@ const handleSubmit = async () => {
                       </div>
                       {showMemoryIconTooltip && (
                         <div
-                          className={`absolute top-1/2 -translate-y-1/2 z-20 w-max max-w-[260px] rounded-md bg-[#0A85C2] text-white text-[12px] leading-[16px] px-3 py-2 shadow-lg after:content-[''] after:absolute after:top-1/2 after:-translate-y-1/2 ${
-                            memoryIconTooltipSide === "right"
-                              ? "left-full ml-3 after:left-[-6px] after:border-y-[6px] after:border-y-transparent after:border-r-[6px] after:border-r-[#0A85C2]"
-                              : "right-full mr-3 after:right-[-6px] after:border-y-[6px] after:border-y-transparent after:border-l-[6px] after:border-l-[#0A85C2]"
-                          }`}
+                          className={`absolute top-1/2 -translate-y-1/2 z-20 w-max max-w-[260px] rounded-md bg-[#0A85C2] text-white text-[12px] leading-[16px] px-3 py-2 shadow-lg after:content-[''] after:absolute after:top-1/2 after:-translate-y-1/2 ${memoryIconTooltipSide === "right"
+                            ? "left-full ml-3 after:left-[-6px] after:border-y-[6px] after:border-y-transparent after:border-r-[6px] after:border-r-[#0A85C2]"
+                            : "right-full mr-3 after:right-[-6px] after:border-y-[6px] after:border-y-transparent after:border-l-[6px] after:border-l-[#0A85C2]"
+                            }`}
                           onClick={(e) => e.stopPropagation()}
                         >
                           Svojci cvetje in sveče hvaležno odklanjajo.
@@ -1931,14 +1914,14 @@ const handleSubmit = async () => {
                                   : ""}
                               </div>
 
-                          <div className="mobile:ml-6 text-[18px] font-normal text-[#1E2125] mobile:text-[16px] ml-3">
-                            {event.eventHour !== null &&
-                              event.eventHour !== undefined
-                              ? `${event.eventHour
-                                .toString()
-                                .padStart(2, "0")}:${(event.eventMinute !== null && event.eventMinute !== undefined) ? event.eventMinute.toString().padStart(2, "0") : "00"}`
-                              : ""}
-                          </div>
+                              <div className="mobile:ml-6 text-[18px] font-normal text-[#1E2125] mobile:text-[16px] ml-3">
+                                {event.eventHour !== null &&
+                                  event.eventHour !== undefined
+                                  ? `${event.eventHour
+                                    .toString()
+                                    .padStart(2, "0")}:${(event.eventMinute !== null && event.eventMinute !== undefined) ? event.eventMinute.toString().padStart(2, "0") : "00"}`
+                                  : ""}
+                              </div>
                             </div>
 
                             <div className="text-[18px] font-normal text-[#1E2125] mobile:text-[16px] mobile:mt-1">
