@@ -194,11 +194,11 @@ const SlideThree = () => {
                         </Link>
                     </div>
 
-                    <div className="inner-div mt-[65px] pb-[69px] w-[313px] mobile:w-full">
+                    <div className="inner-div mt-[65px] pb-[79px] w-[313px] mobile:w-full">
                         <div className="text-[#22281C] text-[24px] font-medium mt-[16px] mobile:text-left">
                             QR koda odpre svet spominov
                         </div>
-                        <p className="mt-[16px] mobile:text-left">
+                        <p className="mt-[18px] mobile:text-left">
                             Tišina nagrobnika se spremeni v pripoved življenja. QR koda odpre vrata spominom, ki živijo naprej in vsak obisk postane osebno srečanje. Ne predstavlja več konec poti, ampak postane prostor povezanosti, poln topline in živih vezi – s QR kodo obiskovalec vstopi v zgodbo.  {" "}{" "}
                         </p>
                     </div>

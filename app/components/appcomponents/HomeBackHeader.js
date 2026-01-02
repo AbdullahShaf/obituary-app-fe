@@ -65,7 +65,8 @@ const HomeBackHeader = () => {
           head={"VSE ZA POGREBE"}
           index={"03"}
           id={4}
-          endPoint={"/cvetlicarne"}
+          endPoint={"https://www.osmrtnica.com/lokalni"}
+          // endPoint={"/cvetlicarne"}
         />
       </div>
       <nav className="justify-center absolute bottom-[44px] -mr-9 desktop:flex hidden">
@@ -99,7 +100,7 @@ const HomeBackHeader = () => {
               head={"VSE ZA POGREBE"}
               index={"03."}
               id={4}
-              endPoint={"/cvetlicarne"}
+              endPoint={"https://www.osmrtnica.com/lokalni"}
             />
           </li>
         </ul>
@@ -135,7 +136,7 @@ const HomeBackHeader = () => {
               head={"VSE ZA POGREBE"}
               index={"03."}
               id={4}
-              endPoint={"/cvetlicarne"}
+              endPoint={"https://www.osmrtnica.com/lokalni"}
             />
           </li>
         </ul>
