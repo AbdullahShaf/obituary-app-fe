@@ -274,7 +274,7 @@ export default function Footer() {
                           </div>
                         </Link>
                       </li>
-                      <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
+                      {/* <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
                         <Link href="/cvetlicarne">
                           <div className="text-[#414141] font-normal  hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px]">
                             Cvetličarne
@@ -287,7 +287,8 @@ export default function Footer() {
                             Pogrebna podjetja
                           </div>
                         </Link>
-                      </li>
+                      </li> */}
+
                       {/* <li className="flex tablet:hidden desktop:hidden mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
                         <a
                           href="/kontakt"
@@ -334,7 +335,7 @@ export default function Footer() {
                           Cenik
                         </a>
                       </li>
-                      <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
+                      {/* <li className="flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
                         <a
                           href="/qr-kode"
                           className="text-[#414141] font-normal  hover:text-blue-500 transition duration-200 mobile:text-[14px] tablet:text-[16px] desktop:text-[16px]"
@@ -349,7 +350,7 @@ export default function Footer() {
                         >
                           Kontakt
                         </a>
-                      </li>
+                      </li> */}
                       {/* <li className="tablet:flex desktop:flex mobile:h-[16px] tablet:h-[24px] desktop:h-[24px] items-center mt-4">
                         <a
                           href="/kontakt"
@@ -526,7 +527,7 @@ export default function Footer() {
                 </div>
               </div>
             </div>
-            <div className="hidden desktop:flex desktop:mt-[92px] w-[680px] desktop:w-[1137px] pr-[1px] ">
+            <div className="hidden desktop:flex desktop:mt-[82px] w-[680px] desktop:w-[1137px] pr-[1px] ">
               <div className="desktop:w-[427px] h-6 mt-[48px] flex  items-center ">
                 <div className="hidden desktop:flex font-variation-customOpt12 text-[12px] text-[#414141] ">
                   © osmrtnica.com, 2025. Vse pravice pridržane.

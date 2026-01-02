@@ -1,6 +1,7 @@
 "use client";
 import SlideOne from "../../components/slidercomponents/SlideOne";
 import SlideTwo from "../../components/slidercomponents/SlideTwo";
+import SlideThree from "../../components/slidercomponents/SlideThree";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { useEffect, useState } from "react";
@@ -31,6 +32,9 @@ const IpadSlider = ({ data }) => {
     <section className="w-auto mobile:max-h-[940px] h-auto  overflow-hidden border-y border-solid" style={{ borderColor: '#36556C33' }}>
       <div className="relative w-screen">
         <div ref={sliderRef} className="keen-slider w-full">
+          <div className="keen-slider__slide w-full">
+            <SlideThree currentIndex={currentIndex} />
+          </div>
           <div className="keen-slider__slide w-full">
             <SlideTwo currentIndex={currentIndex} />
           </div>
